@@ -1,0 +1,871 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="F1DBSiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar(max)" />
+          <Property Name="Morada" Type="nvarchar(max)" />
+          <Property Name="DataNascimento" Type="datetime" Nullable="false" />
+          <Property Name="Foto" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Calendario">
+          <Key>
+            <PropertyRef Name="Id_evento" />
+          </Key>
+          <Property Name="Id_evento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pista" Type="int" Nullable="false" />
+          <Property Name="nome_evento" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="data_inicio" Type="datetime" Nullable="false" />
+          <Property Name="data_fim" Type="datetime" Nullable="false" />
+          <Property Name="duracao" Type="int" StoreGeneratedPattern="Computed" />
+          <Property Name="descricao" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Componente">
+          <Key>
+            <PropertyRef Name="id_componente" />
+          </Key>
+          <Property Name="id_componente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="descricao" Type="nvarchar" MaxLength="255" />
+          <Property Name="equipa_id" Type="int" Nullable="false" />
+          <Property Name="preco" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="quantidade" Type="int" />
+          <Property Name="foto" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Equipa">
+          <Key>
+            <PropertyRef Name="id_equipa" />
+          </Key>
+          <Property Name="id_equipa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="descricao" Type="nvarchar" MaxLength="255" />
+          <Property Name="dono" Type="nvarchar" MaxLength="100" />
+          <Property Name="imagem" Type="nvarchar" MaxLength="255" />
+          <Property Name="titulos" Type="int" />
+        </EntityType>
+        <EntityType Name="Mecanico">
+          <Key>
+            <PropertyRef Name="id_mecanico" />
+          </Key>
+          <Property Name="id_mecanico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="descricao" Type="nvarchar" MaxLength="255" />
+          <Property Name="cargo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="equipa_id" Type="int" Nullable="false" />
+          <Property Name="salario" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="em_funcoes" Type="bit" />
+        </EntityType>
+        <EntityType Name="Membro">
+          <Key>
+            <PropertyRef Name="id_membro" />
+          </Key>
+          <Property Name="id_membro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="equipa_id" Type="int" Nullable="false" />
+          <Property Name="mecanico_associado_id" Type="int" />
+          <Property Name="salario" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="em_funcoes" Type="bit" />
+          <Property Name="funcao" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="descricao" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="paginas">
+          <Key>
+            <PropertyRef Name="id_pag" />
+          </Key>
+          <Property Name="id_pag" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="caminho" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Piloto">
+          <Key>
+            <PropertyRef Name="Id_piloto" />
+          </Key>
+          <Property Name="Id_piloto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="data_nascimento" Type="date" />
+          <Property Name="nacionalidade" Type="nvarchar" MaxLength="100" />
+          <Property Name="titulos" Type="int" />
+          <Property Name="equipa_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Pista">
+          <Key>
+            <PropertyRef Name="Id_pista" />
+          </Key>
+          <Property Name="Id_pista" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="localização" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="pais" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="comprimento_km" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="unidade_comprimento" Type="nvarchar" MaxLength="10" />
+          <Property Name="imagem" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="descricao" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Calendario_Pista">
+          <End Role="Pista" Type="Self.Pista" Multiplicity="1" />
+          <End Role="Calendario" Type="Self.Calendario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pista">
+              <PropertyRef Name="Id_pista" />
+            </Principal>
+            <Dependent Role="Calendario">
+              <PropertyRef Name="pista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Componente_Equipa">
+          <End Role="Equipa" Type="Self.Equipa" Multiplicity="1" />
+          <End Role="Componente" Type="Self.Componente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipa">
+              <PropertyRef Name="id_equipa" />
+            </Principal>
+            <Dependent Role="Componente">
+              <PropertyRef Name="equipa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mecanico_Equipa">
+          <End Role="Equipa" Type="Self.Equipa" Multiplicity="1" />
+          <End Role="Mecanico" Type="Self.Mecanico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipa">
+              <PropertyRef Name="id_equipa" />
+            </Principal>
+            <Dependent Role="Mecanico">
+              <PropertyRef Name="equipa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Membro_Equipa">
+          <End Role="Equipa" Type="Self.Equipa" Multiplicity="1" />
+          <End Role="Membro" Type="Self.Membro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipa">
+              <PropertyRef Name="id_equipa" />
+            </Principal>
+            <Dependent Role="Membro">
+              <PropertyRef Name="equipa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Membro_Mecanico">
+          <End Role="Mecanico" Type="Self.Mecanico" Multiplicity="0..1" />
+          <End Role="Membro" Type="Self.Membro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mecanico">
+              <PropertyRef Name="id_mecanico" />
+            </Principal>
+            <Dependent Role="Membro">
+              <PropertyRef Name="mecanico_associado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Piloto_Equipa">
+          <End Role="Equipa" Type="Self.Equipa" Multiplicity="0..1" />
+          <End Role="Piloto" Type="Self.Piloto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipa">
+              <PropertyRef Name="id_equipa" />
+            </Principal>
+            <Dependent Role="Piloto">
+              <PropertyRef Name="equipa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="F1DBSiteModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Calendario" EntityType="Self.Calendario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Componente" EntityType="Self.Componente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipa" EntityType="Self.Equipa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mecanico" EntityType="Self.Mecanico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Membro" EntityType="Self.Membro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="paginas" EntityType="Self.paginas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Piloto" EntityType="Self.Piloto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pista" EntityType="Self.Pista" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Calendario_Pista" Association="Self.FK_Calendario_Pista">
+            <End Role="Pista" EntitySet="Pista" />
+            <End Role="Calendario" EntitySet="Calendario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Componente_Equipa" Association="Self.FK_Componente_Equipa">
+            <End Role="Equipa" EntitySet="Equipa" />
+            <End Role="Componente" EntitySet="Componente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mecanico_Equipa" Association="Self.FK_Mecanico_Equipa">
+            <End Role="Equipa" EntitySet="Equipa" />
+            <End Role="Mecanico" EntitySet="Mecanico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Membro_Equipa" Association="Self.FK_Membro_Equipa">
+            <End Role="Equipa" EntitySet="Equipa" />
+            <End Role="Membro" EntitySet="Membro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Membro_Mecanico" Association="Self.FK_Membro_Mecanico">
+            <End Role="Mecanico" EntitySet="Mecanico" />
+            <End Role="Membro" EntitySet="Membro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Piloto_Equipa" Association="Self.FK_Piloto_Equipa">
+            <End Role="Equipa" EntitySet="Equipa" />
+            <End Role="Piloto" EntitySet="Piloto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="F1DBSiteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Morada" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DataNascimento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Calendario">
+          <Key>
+            <PropertyRef Name="Id_evento" />
+          </Key>
+          <Property Name="Id_evento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pista" Type="Int32" Nullable="false" />
+          <Property Name="nome_evento" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="data_inicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="data_fim" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="duracao" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Pista1" Relationship="Self.FK_Calendario_Pista" FromRole="Calendario" ToRole="Pista" />
+        </EntityType>
+        <EntityType Name="Componente">
+          <Key>
+            <PropertyRef Name="id_componente" />
+          </Key>
+          <Property Name="id_componente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="equipa_id" Type="Int32" Nullable="false" />
+          <Property Name="preco" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="quantidade" Type="Int32" />
+          <Property Name="foto" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Equipa" Relationship="Self.FK_Componente_Equipa" FromRole="Componente" ToRole="Equipa" />
+        </EntityType>
+        <EntityType Name="Equipa">
+          <Key>
+            <PropertyRef Name="id_equipa" />
+          </Key>
+          <Property Name="id_equipa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="dono" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="imagem" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="titulos" Type="Int32" />
+          <NavigationProperty Name="Componente" Relationship="Self.FK_Componente_Equipa" FromRole="Equipa" ToRole="Componente" />
+          <NavigationProperty Name="Mecanico" Relationship="Self.FK_Mecanico_Equipa" FromRole="Equipa" ToRole="Mecanico" />
+          <NavigationProperty Name="Membro" Relationship="Self.FK_Membro_Equipa" FromRole="Equipa" ToRole="Membro" />
+          <NavigationProperty Name="Piloto" Relationship="Self.FK_Piloto_Equipa" FromRole="Equipa" ToRole="Piloto" />
+        </EntityType>
+        <EntityType Name="Mecanico">
+          <Key>
+            <PropertyRef Name="id_mecanico" />
+          </Key>
+          <Property Name="id_mecanico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="equipa_id" Type="Int32" Nullable="false" />
+          <Property Name="salario" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="em_funcoes" Type="Boolean" />
+          <NavigationProperty Name="Equipa" Relationship="Self.FK_Mecanico_Equipa" FromRole="Mecanico" ToRole="Equipa" />
+          <NavigationProperty Name="Membro" Relationship="Self.FK_Membro_Mecanico" FromRole="Mecanico" ToRole="Membro" />
+        </EntityType>
+        <EntityType Name="Membro">
+          <Key>
+            <PropertyRef Name="id_membro" />
+          </Key>
+          <Property Name="id_membro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="equipa_id" Type="Int32" Nullable="false" />
+          <Property Name="mecanico_associado_id" Type="Int32" />
+          <Property Name="salario" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="em_funcoes" Type="Boolean" />
+          <Property Name="funcao" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Equipa" Relationship="Self.FK_Membro_Equipa" FromRole="Membro" ToRole="Equipa" />
+          <NavigationProperty Name="Mecanico" Relationship="Self.FK_Membro_Mecanico" FromRole="Membro" ToRole="Mecanico" />
+        </EntityType>
+        <EntityType Name="paginas">
+          <Key>
+            <PropertyRef Name="id_pag" />
+          </Key>
+          <Property Name="id_pag" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="caminho" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Piloto">
+          <Key>
+            <PropertyRef Name="Id_piloto" />
+          </Key>
+          <Property Name="Id_piloto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="data_nascimento" Type="DateTime" Precision="0" />
+          <Property Name="nacionalidade" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="titulos" Type="Int32" />
+          <Property Name="equipa_id" Type="Int32" />
+          <NavigationProperty Name="Equipa" Relationship="Self.FK_Piloto_Equipa" FromRole="Piloto" ToRole="Equipa" />
+        </EntityType>
+        <EntityType Name="Pista">
+          <Key>
+            <PropertyRef Name="Id_pista" />
+          </Key>
+          <Property Name="Id_pista" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="localização" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pais" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="comprimento_km" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="unidade_comprimento" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="imagem" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Calendario" Relationship="Self.FK_Calendario_Pista" FromRole="Pista" ToRole="Calendario" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calendario_Pista">
+          <End Role="Pista" Type="Self.Pista" Multiplicity="1" />
+          <End Role="Calendario" Type="Self.Calendario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pista">
+              <PropertyRef Name="Id_pista" />
+            </Principal>
+            <Dependent Role="Calendario">
+              <PropertyRef Name="pista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Componente_Equipa">
+          <End Role="Equipa" Type="Self.Equipa" Multiplicity="1" />
+          <End Role="Componente" Type="Self.Componente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipa">
+              <PropertyRef Name="id_equipa" />
+            </Principal>
+            <Dependent Role="Componente">
+              <PropertyRef Name="equipa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mecanico_Equipa">
+          <End Role="Equipa" Type="Self.Equipa" Multiplicity="1" />
+          <End Role="Mecanico" Type="Self.Mecanico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipa">
+              <PropertyRef Name="id_equipa" />
+            </Principal>
+            <Dependent Role="Mecanico">
+              <PropertyRef Name="equipa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Membro_Equipa">
+          <End Role="Equipa" Type="Self.Equipa" Multiplicity="1" />
+          <End Role="Membro" Type="Self.Membro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipa">
+              <PropertyRef Name="id_equipa" />
+            </Principal>
+            <Dependent Role="Membro">
+              <PropertyRef Name="equipa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Piloto_Equipa">
+          <End Role="Equipa" Type="Self.Equipa" Multiplicity="0..1" />
+          <End Role="Piloto" Type="Self.Piloto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipa">
+              <PropertyRef Name="id_equipa" />
+            </Principal>
+            <Dependent Role="Piloto">
+              <PropertyRef Name="equipa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Membro_Mecanico">
+          <End Role="Mecanico" Type="Self.Mecanico" Multiplicity="0..1" />
+          <End Role="Membro" Type="Self.Membro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mecanico">
+              <PropertyRef Name="id_mecanico" />
+            </Principal>
+            <Dependent Role="Membro">
+              <PropertyRef Name="mecanico_associado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="F1DBSiteEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="Calendario" EntityType="Self.Calendario" />
+          <EntitySet Name="Componente" EntityType="Self.Componente" />
+          <EntitySet Name="Equipa" EntityType="Self.Equipa" />
+          <EntitySet Name="Mecanico" EntityType="Self.Mecanico" />
+          <EntitySet Name="Membro" EntityType="Self.Membro" />
+          <EntitySet Name="paginas" EntityType="Self.paginas" />
+          <EntitySet Name="Piloto" EntityType="Self.Piloto" />
+          <EntitySet Name="Pista" EntityType="Self.Pista" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calendario_Pista" Association="Self.FK_Calendario_Pista">
+            <End Role="Pista" EntitySet="Pista" />
+            <End Role="Calendario" EntitySet="Calendario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Componente_Equipa" Association="Self.FK_Componente_Equipa">
+            <End Role="Equipa" EntitySet="Equipa" />
+            <End Role="Componente" EntitySet="Componente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mecanico_Equipa" Association="Self.FK_Mecanico_Equipa">
+            <End Role="Equipa" EntitySet="Equipa" />
+            <End Role="Mecanico" EntitySet="Mecanico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Membro_Equipa" Association="Self.FK_Membro_Equipa">
+            <End Role="Equipa" EntitySet="Equipa" />
+            <End Role="Membro" EntitySet="Membro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Piloto_Equipa" Association="Self.FK_Piloto_Equipa">
+            <End Role="Equipa" EntitySet="Equipa" />
+            <End Role="Piloto" EntitySet="Piloto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Membro_Mecanico" Association="Self.FK_Membro_Mecanico">
+            <End Role="Mecanico" EntitySet="Mecanico" />
+            <End Role="Membro" EntitySet="Membro" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="F1DBSiteModelStoreContainer" CdmEntityContainer="F1DBSiteEntities1">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="F1DBSiteModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="F1DBSiteModel.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="F1DBSiteModel.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="F1DBSiteModel.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="F1DBSiteModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Morada" ColumnName="Morada" />
+                <ScalarProperty Name="DataNascimento" ColumnName="DataNascimento" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Calendario">
+            <EntityTypeMapping TypeName="F1DBSiteModel.Calendario">
+              <MappingFragment StoreEntitySet="Calendario">
+                <ScalarProperty Name="Id_evento" ColumnName="Id_evento" />
+                <ScalarProperty Name="pista" ColumnName="pista" />
+                <ScalarProperty Name="nome_evento" ColumnName="nome_evento" />
+                <ScalarProperty Name="data_inicio" ColumnName="data_inicio" />
+                <ScalarProperty Name="data_fim" ColumnName="data_fim" />
+                <ScalarProperty Name="duracao" ColumnName="duracao" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Componente">
+            <EntityTypeMapping TypeName="F1DBSiteModel.Componente">
+              <MappingFragment StoreEntitySet="Componente">
+                <ScalarProperty Name="id_componente" ColumnName="id_componente" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="equipa_id" ColumnName="equipa_id" />
+                <ScalarProperty Name="preco" ColumnName="preco" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipa">
+            <EntityTypeMapping TypeName="F1DBSiteModel.Equipa">
+              <MappingFragment StoreEntitySet="Equipa">
+                <ScalarProperty Name="id_equipa" ColumnName="id_equipa" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="dono" ColumnName="dono" />
+                <ScalarProperty Name="imagem" ColumnName="imagem" />
+                <ScalarProperty Name="titulos" ColumnName="titulos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mecanico">
+            <EntityTypeMapping TypeName="F1DBSiteModel.Mecanico">
+              <MappingFragment StoreEntitySet="Mecanico">
+                <ScalarProperty Name="id_mecanico" ColumnName="id_mecanico" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="cargo" ColumnName="cargo" />
+                <ScalarProperty Name="equipa_id" ColumnName="equipa_id" />
+                <ScalarProperty Name="salario" ColumnName="salario" />
+                <ScalarProperty Name="em_funcoes" ColumnName="em_funcoes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Membro">
+            <EntityTypeMapping TypeName="F1DBSiteModel.Membro">
+              <MappingFragment StoreEntitySet="Membro">
+                <ScalarProperty Name="id_membro" ColumnName="id_membro" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="equipa_id" ColumnName="equipa_id" />
+                <ScalarProperty Name="mecanico_associado_id" ColumnName="mecanico_associado_id" />
+                <ScalarProperty Name="salario" ColumnName="salario" />
+                <ScalarProperty Name="em_funcoes" ColumnName="em_funcoes" />
+                <ScalarProperty Name="funcao" ColumnName="funcao" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="paginas">
+            <EntityTypeMapping TypeName="F1DBSiteModel.paginas">
+              <MappingFragment StoreEntitySet="paginas">
+                <ScalarProperty Name="id_pag" ColumnName="id_pag" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="caminho" ColumnName="caminho" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Piloto">
+            <EntityTypeMapping TypeName="F1DBSiteModel.Piloto">
+              <MappingFragment StoreEntitySet="Piloto">
+                <ScalarProperty Name="Id_piloto" ColumnName="Id_piloto" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="data_nascimento" ColumnName="data_nascimento" />
+                <ScalarProperty Name="nacionalidade" ColumnName="nacionalidade" />
+                <ScalarProperty Name="titulos" ColumnName="titulos" />
+                <ScalarProperty Name="equipa_id" ColumnName="equipa_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pista">
+            <EntityTypeMapping TypeName="F1DBSiteModel.Pista">
+              <MappingFragment StoreEntitySet="Pista">
+                <ScalarProperty Name="Id_pista" ColumnName="Id_pista" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="localização" ColumnName="localização" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="comprimento_km" ColumnName="comprimento_km" />
+                <ScalarProperty Name="unidade_comprimento" ColumnName="unidade_comprimento" />
+                <ScalarProperty Name="imagem" ColumnName="imagem" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="F1DBSiteModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

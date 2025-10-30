@@ -1,0 +1,116 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+
+<!-- CSS necessário -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet" href="~/estilos/link_equipas.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+@*<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet" />*@
+
+<div class="equipas-page1">
+    <h2  class="equipas-title">Pilotos</h2>
+    <h3  class="equipas-subtitle text-danger">@ViewBag.message</h3>
+
+    <p>
+        <a href="#" class="btn-f1-create" data-toggle="modal" data-target="#createModal">
+            <i class="fas fa-plus icon-f1"></i> Novo Piloto
+        </a>
+    </p>
+
+    <table class="equipas-table" id="pilotosTable">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Pilotos.First().id_piloto)</th>
+                <th>@Html.DisplayNameFor(model => model.Pilotos.First().nm_equipa)</th>
+                <th>@Html.DisplayNameFor(model => model.Pilotos.First().nome)</th>
+                <th>@Html.DisplayNameFor(model => model.Pilotos.First().descricao)</th>
+                <th>@Html.DisplayNameFor(model => model.Pilotos.First().titulos)</th>
+                <th>@Html.DisplayNameFor(model => model.Pilotos.First().nacionalidade)</th>
+                <th>@Html.DisplayNameFor(model => model.Pilotos.First().pontos)</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Pilotos)
+            {
+                <tr>
+                    <td>@item.id_piloto</td>
+                    <td>@item.nm_equipa</td>
+                    <td>@item.nome</td>
+                    <td>@item.descricao</td>
+                    <td>@item.titulos</td>
+                    <td>@item.nacionalidade</td>
+                    <td>@item.pontos</td>
+                    <td>
+                        <div class="equipas-btn-group">
+                            <a href="@Url.Action("DetailPiloto", new { id_piloto = item.id_piloto })" class="equipas-btn equipas-btn-info equipas-btn-icon" title="Detalhes">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="#" class="equipas-btn equipas-btn-warning equipas-btn-icon" data-toggle="modal" data-target="#editModal_@item.id_piloto" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            @using (Html.BeginForm("DeletePiloto", "Home", FormMethod.Post, new { id = "deleteForm_" + item.id_piloto }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id_piloto", item.id_piloto)
+                                <button type="submit" class="equipas-btn equipas-btn-danger equipas-btn-icon" title="Eliminar">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @foreach (var item in Model.Pilotos)
+    {
+        <div class="modal fade bootstrap-modal" id="editModal_@item.id_piloto" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_@item.id_piloto" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel_@item.id_piloto">Editar Piloto: @item.nome</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @Html.Partial("EditPiloto", item)
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="modal fade bootstrap-modal" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel">Criar Novo Piloto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("CreatePiloto", new F1_website.Models.Pilotos())
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS necessário -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#pilotosTable').DataTable({
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-PT.json"
+            },
+            pageLength: 5
+        });
+    });
+</script>

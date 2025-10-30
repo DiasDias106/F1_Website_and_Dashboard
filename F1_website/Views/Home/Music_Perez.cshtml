@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Music_Perez";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section music_styles{
+    <link rel="stylesheet" href="~/estilos/musicas.css" />
+}
+
+<div class="contentor_musica">
+    <header class="music_header">
+        <div class="m_logo">Music Player</div>
+        <div class="linha_music">Musica a toda a Velocidade</div>
+        <div class="checkered-flag"></div>
+    </header>
+
+    <div class="music_image">
+        <img class="music_main_image" src="~/imagens/Musicas/checo_music.jpg" alt="Perez" />
+    </div>
+    <iframe id="f1music6"
+            width="0"
+            height="0"
+            src="https://www.youtube.com/embed/d8y3QCiI4_0?enablejsapi=1&autoplay=1&controls=0&loop=1&playlist=d8y3QCiI4_0&mute=0"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            style="opacity: 0; pointer-events: none; position: absolute;">
+    </iframe>
+    <div class="alinha_musicb">
+        <button class="musicbutton" onclick="playVideo6()">▶️ Play</button>
+        <button class="musicbutton" onclick="pauseVideo6()">⏸️ Pausar</button>
+    </div>
+
+    <div class="racing-stripe"></div>
+
+    <div class="music-info">
+        <h2>PLAYLIST OFICIAL F1</h2>
+        <ul class="music-list">
+            <li class="music-item">
+                <a href="@Url.Action("Music_smooth", "Home")" class="play-icon">
+                    ▶
+                </a>
+                <div class="music-details">
+                    <div class="song-title">Smooth Operator</div>
+                    <div class="song-info">
+                        <span>Sade</span>
+                        <span>Sains Theme Music • 4:15</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <a href="@Url.Action("Music_Fernando", "Home")" class="play-icon">
+                    ▶
+                </a>
+                <div class="music-details">
+                    <div class="song-title">Fernando Alonso</div>
+                    <div class="song-info">
+                        <span>Carte Blanq & Maxx Power</span>
+                        <span>Alonso Theme Music • 3:16</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <a href="@Url.Action("Music_lewis", "Home")" class="play-icon">
+                    ▶
+                </a>
+                <div class="music-details">
+                    <div class="song-title">Lewis Hamilton</div>
+                    <div class="song-info">
+                        <span>Carte Blanq & Maxx Power</span>
+                        <span>Hamilton Theme music • 2:23</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <a href="@Url.Action("Music_Lando", "Home")" class="play-icon">
+                    ▶
+                </a>
+                <div class="music-details">
+                    <div class="song-title">Lando Norris</div>
+                    <div class="song-info">
+                        <span>Carte Blanq & Maxx Power</span>
+                        <span>Norris Theme Music • 2:41</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <a href="@Url.Action("Music_leclerc", "Home")" class="play-icon">
+                    ▶
+                </a>
+                <div class="music-details">
+                    <div class="song-title">Charles Leclerc</div>
+                    <div class="song-info">
+                        <span>Carte Blanq & Maxx Power</span>
+                        <span>Perez Theme Music • 2:33</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <a href="@Url.Action("Music_Max", "Home")" class="play-icon">
+                    ▶
+                </a>
+                <div class="music-details">
+                    <div class="song-title">33 Max Verstappen</div>
+                    <div class="song-info">
+                        <span>Carte Blanq & Maxx Power</span>
+                        <span>Max Theme Music • 2:51 </span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+@section music_scripts{
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player6;
+
+        function onYouTubeIframeAPIReady() {
+            player6 = new YT.Player('f1music6');
+        }
+
+        function playVideo6() {
+            if (player6 && typeof player6.playVideo === 'function') {
+                player6.playVideo();
+            }
+        }
+
+        function pauseVideo6() {
+            if (player6 && typeof player6.pauseVideo === 'function') {
+                player6.pauseVideo();
+            }
+        }
+    </script>
+}

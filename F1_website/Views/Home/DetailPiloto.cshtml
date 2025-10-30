@@ -1,0 +1,80 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+
+@{
+    ViewBag.Title = "Detalhes do Piloto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var piloto = Model.Pilotos.FirstOrDefault();
+}
+
+@section estilos_detail_piloto{
+    <link rel="stylesheet" href="~/estilos/detail_pilotos.css" />
+}
+
+@*<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet" />*@
+
+<div style="padding-top:120px" class="container mt-4">
+    <h2 class="f1-header mb-4">Detalhes do Piloto</h2>
+
+    @if (piloto != null)
+    {
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="row g-0">
+                    <div class="col-md-5 bg-primary">
+                        @if (!string.IsNullOrEmpty(piloto.imagem))
+                        {
+                            <img src="@Url.Content(piloto.imagem.Replace("~/", "/"))" alt="Imagem do Piloto" class="img-fluid" />
+                        }
+                        else
+                        {
+                            <div class="bg-secondary text-white text-center p-5 h-100 d-flex align-items-center justify-content-center">
+                                <span>Sem imagem disponível</span>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-md-7 bg-primary text-white p-4">
+                        <h1 class="display-4 fw-bold mb-0">@piloto.id_piloto</h1>
+                        <h2 class="display-5 fw-bold text-uppercase">@piloto.nome</h2>
+                    </div>
+                </div>
+
+                <div class="p-4">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th style="width: 40%">Team</th>
+                                <td class="fw-bold">@piloto.nm_equipa</td>
+                            </tr>
+                            <tr>
+                                <th>Country</th>
+                                <td class="fw-bold">@piloto.nacionalidade</td>
+                            </tr>
+                            <tr>
+                                <th>Podiums</th>
+                                <td class="fw-bold">@piloto.titulos</td>
+                            </tr>
+                            <tr>
+                                <th>Points</th>
+                                <td class="fw-bold">@piloto.pontos</td>
+                            </tr>
+                            <tr>
+                                <th>Descrição</th>
+                                <td>@piloto.descricao</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="mt-4">
+                        @Html.ActionLink("Editar", "EditPiloto", new { id = piloto.id_piloto }, new { @class = "btn btn-danger me-2" })
+                        @Html.ActionLink("Voltar à Lista", "Equipas",null, new { @class = "btn btn-secondary" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">Piloto não encontrado.</div>
+    }
+</div>

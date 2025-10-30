@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "falador";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section falador_styles{
+    <link rel="stylesheet" href="~/estilos/jogos/falador.css"/>
+}
+
+<section class="falador-container">
+    <h1 class="falador-titulo">Escreva uma palavra e clique no botão para ouvi-la:</h1>
+
+    <div class="falador-input-wrapper">
+        <input type="text" id="texto" placeholder="Escreva a palavra" class="falador-input" />
+
+        <button class="som falador-botao" onclick="lerTexto()">
+            <img src="~/imagens/falador/chess_flag_2.png" alt="Falar"/>
+        </button>
+    </div>
+    <canvas id="visualizador"></canvas>
+</section>
+@section falador_jogo{
+    <script src="~/javascript/falador.js"></script>
+}

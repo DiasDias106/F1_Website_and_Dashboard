@@ -1,0 +1,97 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+@{
+    ViewBag.Title = "Detalhes da Equipa";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+@section Styles
+{
+    <link rel="stylesheet" href="~/estilos/dashboard_detail_style.css"/>
+}
+<div class="team-details-container">
+    <!-- Header da Página -->
+    <div class="team-details-header">
+        <h2>Detalhes da Equipa</h2>
+    </div>
+
+    <!-- Card Principal dos Detalhes -->
+    <div class="team-details-card">
+        <div class="team-details-card-header">
+            <h4>Informações da Equipa</h4>
+        </div>
+        <div class="team-details-body">
+            <dl class="team-details-list row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Equipa.nome)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Equipa.nome)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Equipa.descricao)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Equipa.descricao)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Equipa.dono)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Equipa.dono)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Equipa.imagem)</dt>
+                <dd class="col-sm-9">
+                    <div class="team-image-container">
+                        @if (!string.IsNullOrEmpty(Model.Equipa?.imagem))
+                        {
+                            <img src="@(Url.Content("~/imagens/ImagensEquipas/" + Model.Equipa.imagem))"
+                                 alt="@Model.Equipa.nome"
+                                 class="team-image" />
+                        }
+                        else
+                        {
+                            <span class="no-image-text">Sem imagem disponível</span>
+                        }
+                    </div>
+                </dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Equipa.titulos)</dt>
+                <dd class="col-sm-9">
+                    <span class="badge badge-warning badge-lg">@Html.DisplayFor(model => model.Equipa.titulos) Títulos</span>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- Separador F1 -->
+    <hr class="f1-separator" />
+
+    <!-- Seção de Componentes -->
+    <div class="components-section">
+        <div class="components-header">
+            <h4>Componentes da Equipa</h4>
+        </div>
+        <div class="components-body">
+            @if (Model.ComponentesEF != null && Model.EquipasEF != null)
+            {
+                @Html.Partial("ListaComponentes", Model)
+            }
+            else
+            {
+                <div class="error-message">
+                    <strong>Erro:</strong> Componentes ou Equipas não carregados corretamente.
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Botão de Voltar -->
+    <div class="text-center">
+        @Html.ActionLink("« Voltar à Lista de Equipas", "ListaEquipas", "Dashboard", null, new { @class = "back-button" })
+    </div>
+</div>
+
+<style>
+    /* Estilos adicionais específicos para badges */
+    .badge-lg {
+        font-size: 1.2rem;
+        padding: 8px 15px;
+        border-radius: 20px;
+    }
+
+    .badge-warning {
+        background: linear-gradient(45deg, #ffc107, #ffca2c);
+        color: #212529;
+        font-weight: 600;
+    }
+</style>

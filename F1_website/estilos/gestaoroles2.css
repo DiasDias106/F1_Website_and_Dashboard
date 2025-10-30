@@ -1,0 +1,842 @@
+﻿/* Gestão de Cargos - F1 Racing Theme */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #ffffff !important;
+    min-height: 100vh;
+    color: #1f2937;
+}
+
+/* Container principal */
+.container-fluid {
+    background: #ffffff;
+    padding: 32px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Título principal com tema F1 */
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+}
+
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff1801, #e60000, #ff1801);
+    }
+
+.page-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.page-subtitle {
+    color: #6b7280;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Linha F1 decorativa */
+.f1-accent-line {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff1801, #e60000, #ff1801);
+    margin: 16px auto;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(255, 24, 1, 0.3);
+}
+
+/* Navegação por tabs com tema F1 */
+.nav-tabs-container {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-tabs {
+    display: flex;
+    background: white;
+    border-radius: 12px;
+    padding: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+    position: relative;
+}
+
+    .nav-tabs::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #ff1801, #e60000, #ff1801);
+    }
+
+.nav-tab {
+    flex: 1;
+    padding: 16px 32px;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 160px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .nav-tab:hover {
+        border-color: #ff1801;
+        color: #374151;
+        background: #f9fafb;
+        transform: translateY(-1px);
+    }
+
+    .nav-tab.active {
+        background: linear-gradient(135deg, #ff1801, #e60000);
+        border-color: #ff1801;
+        color: white;
+        box-shadow: 0 4px 16px rgba(255, 24, 1, 0.4);
+        transform: translateY(-2px);
+    }
+
+        .nav-tab.active::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.7), rgba(255,255,255,0.3));
+        }
+
+    .nav-tab i {
+        font-size: 16px;
+    }
+
+/* Conteúdo das tabs */
+.tab-content {
+    min-height: 400px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+    .tab-pane.active {
+        display: block;
+        animation: fadeInUp 0.4s ease-out;
+    }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cards/Panels com tema F1 */
+.card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+    .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #ff1801, #e60000, #ff1801);
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+    }
+
+.card-header {
+    padding: 24px;
+    border-bottom: 1px solid #e5e7eb;
+    background: linear-gradient(135deg, #f9fafb, #ffffff);
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+    .card-title i {
+        color: #ff1801;
+        font-size: 20px;
+    }
+
+.card-body {
+    padding: 24px;
+}
+
+/* Tabelas com tema F1 */
+.table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    background: white;
+}
+
+    .table th {
+        background: linear-gradient(135deg, #f9fafb, #ffffff);
+        padding: 18px 16px;
+        text-align: left;
+        font-weight: 700;
+        font-size: 14px;
+        color: #374151;
+        border-bottom: 2px solid #ff1801;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        position: relative;
+    }
+
+        .table th::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ff1801, transparent);
+        }
+
+    .table td {
+        padding: 16px;
+        border-bottom: 1px solid #f3f4f6;
+        color: #1f2937;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        transition: all 0.2s ease;
+    }
+
+        .table tbody tr:hover {
+            background: linear-gradient(135deg, #fef2f2, #fff5f5);
+            transform: scale(1.01);
+        }
+
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+/* Labels de status com tema F1 */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .status-badge::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .status-badge:hover::before {
+        left: 100%;
+    }
+
+    .status-badge.success {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+    }
+
+    .status-badge.default {
+        background: linear-gradient(135deg, #6b7280, #4b5563);
+        color: white;
+        box-shadow: 0 4px 16px rgba(107, 114, 128, 0.3);
+    }
+
+/* Formulários com tema F1 */
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-label {
+    display: block;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-input,
+.form-select {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #1f2937;
+    background: white;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+    .form-input:focus,
+    .form-select:focus {
+        outline: none;
+        border-color: #ff1801;
+        box-shadow: 0 0 0 4px rgba(255, 24, 1, 0.1);
+        transform: translateY(-1px);
+    }
+
+    .form-input::placeholder {
+        color: #9ca3af;
+        font-style: italic;
+    }
+
+/* Botões com tema F1 Racing - CORRIGIDO */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    /* IMPORTANTE: Garantir que botão não seja bloqueado */
+    z-index: 10;
+    pointer-events: auto;
+    user-select: none;
+}
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.6s ease;
+        /* Garantir que o pseudo-elemento não interfira com cliques */
+        pointer-events: none;
+    }
+
+    .btn:hover::before {
+        left: 100%;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px) scale(1.05);
+    }
+
+    .btn:active {
+        transform: translateY(0) scale(1);
+    }
+
+/* Tamanhos específicos dos botões */
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-right: 5px;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+.btn-xs {
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+/* Cores específicas dos botões */
+.btn-primary {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        box-shadow: 0 8px 20px rgba(59, 130, 246, 0.5);
+    }
+
+.btn-success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+    .btn-success:hover {
+        background: linear-gradient(135deg, #059669, #047857);
+        box-shadow: 0 8px 20px rgba(16, 185, 129, 0.5);
+    }
+
+.btn-warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+    .btn-warning:hover {
+        background: linear-gradient(135deg, #d97706, #b45309);
+        box-shadow: 0 8px 20px rgba(245, 158, 11, 0.5);
+    }
+
+.btn-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+    .btn-danger:hover {
+        background: linear-gradient(135deg, #dc2626, #b91c1c);
+        box-shadow: 0 8px 20px rgba(239, 68, 68, 0.5);
+    }
+
+.btn-default {
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    color: #6b7280;
+    border: 2px solid #d1d5db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+    .btn-default:hover {
+        background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        border-color: #9ca3af;
+        color: #374151;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+/* Modal com tema F1 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+    .modal.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+.modal-dialog {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+    border: none;
+    overflow: hidden;
+    transform: scale(0.8) translateY(50px);
+    transition: transform 0.4s ease;
+    position: relative;
+}
+
+    .modal-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff1801, #e60000, #ff1801);
+    }
+
+.modal.show .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.modal-header {
+    padding: 24px;
+    border-bottom: 1px solid #e5e7eb;
+    background: linear-gradient(135deg, #f9fafb, #ffffff);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+    flex: 1;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+    .modal-close:hover {
+        background: #f3f4f6;
+        color: #374151;
+        transform: rotate(90deg);
+    }
+
+.modal-body {
+    padding: 24px;
+}
+
+.modal-footer {
+    padding: 24px;
+    border-top: 1px solid #e5e7eb;
+    background: linear-gradient(135deg, #f9fafb, #ffffff);
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+/* Layout em duas colunas */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -12px;
+}
+
+.col-md-6 {
+    flex: 0 0 50%;
+    padding: 12px;
+}
+
+.col-md-12 {
+    flex: 0 0 100%;
+    padding: 12px;
+}
+
+/* Loading state melhorado */
+.loading {
+    position: relative;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+    .loading::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #f3f4f6;
+        border-top: 2px solid #ff1801;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+    }
+
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Elementos decorativos F1 */
+.f1-racing-line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ff1801, transparent);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.3;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 24px 16px;
+    }
+
+    .page-title {
+        font-size: 28px;
+    }
+
+    .page-header {
+        padding: 24px;
+    }
+
+    .nav-tabs {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-tab {
+        min-width: auto;
+        width: 100%;
+        padding: 14px 24px;
+    }
+
+    .col-md-6 {
+        flex: 0 0 100%;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .table th,
+    .table td {
+        padding: 12px 8px;
+        font-size: 14px;
+    }
+
+    .modal-dialog {
+        margin: 16px;
+    }
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 20px;
+    }
+
+    .btn {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    .btn-sm {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 24px;
+    }
+
+    .page-header {
+        padding: 20px;
+    }
+
+    .card-header,
+    .card-body {
+        padding: 16px;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px 6px;
+        font-size: 13px;
+    }
+
+    .btn {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .nav-tab {
+        padding: 12px 16px;
+        font-size: 12px;
+    }
+}
+
+/* Animações extras para tema F1 */
+@keyframes racing-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.f1-pulse {
+    animation: racing-pulse 2s ease-in-out infinite;
+}
+
+/* Efeitos de hover melhorados */
+.card:hover .card-title i {
+    color: #e60000;
+    transform: scale(1.1);
+}
+
+/* Melhorias na acessibilidade */
+.btn:focus,
+.form-input:focus,
+.form-select:focus,
+.nav-tab:focus {
+    outline: 2px solid #ff1801;
+    outline-offset: 2px;
+}
+
+/* Estilo para botões desabilitados */
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+    .btn:disabled:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+/* CORREÇÕES ESPECÍFICAS PARA EVITAR SOBREPOSIÇÕES */
+
+/* Garantir que botões tenham prioridade de clique */
+.btn, .btn-sm, .btn-xs {
+    position: relative;
+    z-index: 20;
+    pointer-events: auto;
+}
+
+    /* Remover qualquer interferência de pseudo-elementos */
+    .btn::before, .btn::after {
+        pointer-events: none;
+    }
+
+/* Garantir que tabelas não interfiram com botões */
+.table {
+    position: relative;
+    z-index: 1;
+}
+
+    .table td {
+        position: relative;
+        z-index: 2;
+    }
+
+        /* Garantir que botões dentro de células tenham prioridade máxima */
+        .table td .btn {
+            position: relative;
+            z-index: 30;
+        }
+
+/* Remover qualquer overflow que possa esconder cliques */
+.table-container,
+.card,
+.card-body {
+    overflow: visible;
+}
+
+/* Apenas a tabela deve ter overflow-x para scroll horizontal */
+.table-container {
+    overflow-x: auto;
+    overflow-y: visible;
+}

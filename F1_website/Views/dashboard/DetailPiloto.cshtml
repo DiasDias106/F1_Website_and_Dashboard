@@ -1,0 +1,61 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+@{
+    ViewBag.Title = "Detalhes do Piloto";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+@section Styles
+{
+    <link rel="stylesheet" href="~/estilos/dashboard_detail_style.css" />
+}
+
+<div class="team-details-container">
+    <!-- Header da Página -->
+    <div class="team-details-header">
+        <h2>Detalhes do Piloto</h2>
+    </div>
+
+    <!-- Card Principal dos Detalhes -->
+    <div class="team-details-card">
+        <div class="team-details-card-header">
+            <h4>Informações do Piloto</h4>
+        </div>
+        <div class="team-details-body">
+            <dl class="team-details-list">
+                <dt>@Html.DisplayNameFor(model => model.Piloto.nome)</dt>
+                <dd>@Html.DisplayFor(model => model.Piloto.nome)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Piloto.data_nascimento)</dt>
+                <dd>
+                    <i class="fas fa-calendar-alt"></i>
+                    @Html.DisplayFor(model => model.Piloto.data_nascimento)
+                </dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Piloto.nacionalidade)</dt>
+                <dd>
+                    <i class="fas fa-flag"></i>
+                    @Html.DisplayFor(model => model.Piloto.nacionalidade)
+                </dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Piloto.titulos)</dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Piloto.titulos) Títulos Mundiais
+                </dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Equipa.nome)</dt>
+                <dd>
+                    <i class="fas fa-users"></i>
+                    @Html.DisplayFor(model => model.Equipa.nome)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- Separador F1 -->
+    <hr class="f1-separator" />
+
+    <!-- Botões de Ação -->
+    <div style="text-align: center; margin-top: 20px;">
+        @Html.ActionLink("Editar Piloto", "EditarPiloto", new { id = Model.Piloto.Id_piloto }, new { @class = "back-button", @style = "background: linear-gradient(45deg, #28a745, #20c997); margin-right: 10px;" })
+        @Html.ActionLink("« Voltar à Lista", "ListaPilotos", null, new { @class = "back-button" })
+    </div>
+</div>

@@ -1,0 +1,393 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+@{
+    ViewBag.Title = "Gestão de Cargos";
+}
+@section Scripts{
+    <link rel="stylesheet" href="~/estilos/gestao_roles.css" />
+    <style>
+     
+    </style>
+}
+
+<!-- Container de Notificações -->
+<div class="notification-container" id="notificationContainer"></div>
+
+<!-- Elementos de animação de fundo -->
+<div class="racing-line"></div>
+<div class="racing-line-2"></div>
+<div class="speed-indicator">MAX SPEED: 320 KM/H</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Gestão de Cargos dos Utilizadores</h2>
+
+            <!-- Tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#usuarios" aria-controls="usuarios" role="tab" data-toggle="tab">
+                        <i class="fa fa-users"></i> Utilizadores
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#cargos" aria-controls="cargos" role="tab" data-toggle="tab">
+                        <i class="fa fa-briefcase"></i> Gestão de Cargos
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Tab content -->
+            <div class="tab-content">
+
+                <!-- Tab Utilizadores -->
+                <div role="tabpanel" class="tab-pane active" id="usuarios">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Lista de Utilizadores</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Email</th>
+                                            <th>Username</th>
+                                            <th>Cargo Atual</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.UsersWithRoles != null)
+                                        {
+                                            foreach (var user in Model.UsersWithRoles)
+                                            {
+                                                <tr>
+                                                    <td>@(user.Nome ?? "N/A")</td>
+                                                    <td>@user.Email</td>
+                                                    <td>@user.UserName</td>
+                                                    <td>
+                                                        <span class="label @(user.HasRole ? "label-success" : "label-default")">
+                                                            @user.RoleName
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary btn-sm"
+                                                                onclick="abrirModalPromover('@user.UserId', '@user.UserName', '@user.RoleId')">
+                                                            <i class="fa fa-edit"></i> Promover
+                                                        </button>
+                                                        @if (user.HasRole)
+                                                        {
+                                                            <button type="button" class="btn btn-warning btn-sm"
+                                                                    onclick="removerRole('@user.UserId', '@user.UserName')">
+                                                                <i class="fa fa-remove"></i> Remover Cargo
+                                                            </button>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Cargos -->
+                <div role="tabpanel" class="tab-pane" id="cargos">
+                    <div class="row">
+                        <!-- Criar Novo Cargo -->
+                        <div class="col-md-6">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Criar Novo Cargo</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label for="nomeCargo">Nome do Cargo:</label>
+                                        <input type="text" id="nomeCargo" class="form-control" placeholder="Ex: Administrador, Moderador...">
+                                    </div>
+                                    <button type="button" class="btn btn-success" onclick="criarCargo()">
+                                        <i class="fa fa-plus"></i> Criar Cargo
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lista de Cargos Existentes -->
+                        <div class="col-md-6">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Cargos Existentes</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome do Cargo</th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="listaRoles">
+                                                @if (Model.RolesEF != null)
+                                                {
+                                                    foreach (var role in Model.RolesEF)
+                                                    {
+                                                        <tr id="role-@role.Id">
+                                                            <td>@role.Name</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-danger btn-xs"
+                                                                        onclick="eliminarRole('@role.Id', '@role.Name')">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Promover Utilizador -->
+<div class="modal fade" id="modalPromover" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Promover Utilizador</h4>
+            </div>
+            <div class="modal-body">
+                <p>Selecione o cargo para o utilizador: <strong id="nomeUtilizador"></strong></p>
+
+                <div class="form-group">
+                    <label for="selectRole">Cargo:</label>
+                    <select id="selectRole" class="form-control">
+                        <option value="">Selecione um cargo...</option>
+                        @if (Model.RolesList != null)
+                        {
+                            foreach (var role in Model.RolesList)
+                            {
+                                <option value="@role.Value">@role.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <input type="hidden" id="selectedUserId">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="confirmarPromocao()">
+                    <i class="fa fa-check"></i> Confirmar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Confirmação -->
+<div class="modal fade" id="modalConfirmacao" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Confirmar Ação</h4>
+            </div>
+            <div class="modal-body">
+                <p id="mensagemConfirmacao"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="btnConfirmar">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Sistema de Notificações
+function mostrarNotificacao(mensagem, tipo = 'success') {
+    var container = document.getElementById('notificationContainer');
+    var notification = document.createElement('div');
+    notification.className = 'notification ' + tipo;
+
+    notification.innerHTML = `
+        <button class="close-btn" onclick="fecharNotificacao(this)">&times;</button>
+        <strong>${tipo === 'success' ? 'Sucesso!' : tipo === 'error' ? 'Erro!' : 'Aviso!'}</strong>
+        <p style="margin: 5px 0 0 0;">${mensagem}</p>
+    `;
+
+    container.appendChild(notification);
+
+    // Mostrar notificação
+    $(notification).fadeIn(300);
+
+    // Auto-fechar após 5 segundos
+    setTimeout(function() {
+        fecharNotificacao(notification.querySelector('.close-btn'));
+    }, 5000);
+}
+
+function fecharNotificacao(btn) {
+    var notification = btn.parentElement;
+    notification.classList.add('fade-out');
+
+    setTimeout(function() {
+        notification.remove();
+    }, 300);
+}
+
+function abrirModalPromover(userId, userName, currentRoleId) {
+    $('#selectedUserId').val(userId);
+    $('#nomeUtilizador').text(userName);
+    $('#selectRole').val(currentRoleId || '');
+    $('#modalPromover').modal('show');
+}
+
+function confirmarPromocao() {
+    var userId = $('#selectedUserId').val();
+    var roleId = $('#selectRole').val();
+
+    if (!roleId) {
+        mostrarNotificacao('Por favor, selecione um cargo.', 'warning');
+        return;
+    }
+
+    $.ajax({
+        url: '@Url.Action("AtribuirRole", "Account")',
+        type: 'POST',
+        data: {
+            userId: userId,
+            roleId: roleId,
+            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+        },
+        success: function(response) {
+            $('#modalPromover').modal('hide');
+            if (response.success) {
+                mostrarNotificacao(response.message, 'success');
+                setTimeout(function() {
+                    location.reload();
+                }, 1500);
+            } else {
+                mostrarNotificacao(response.message, 'error');
+            }
+        },
+        error: function() {
+            $('#modalPromover').modal('hide');
+            mostrarNotificacao('Erro ao processar pedido. Tente novamente.', 'error');
+        }
+    });
+}
+
+function removerRole(userId, userName) {
+    $('#mensagemConfirmacao').text('Tem certeza que deseja remover o cargo de ' + userName + '?');
+    $('#btnConfirmar').off('click').on('click', function() {
+        $('#modalConfirmacao').modal('hide');
+
+        $.ajax({
+            url: '@Url.Action("RemoverRole", "Account")',
+            type: 'POST',
+            data: {
+                userId: userId,
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+            },
+            success: function(response) {
+                if (response.success) {
+                    mostrarNotificacao(response.message, 'success');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    mostrarNotificacao(response.message, 'error');
+                }
+            },
+            error: function() {
+                mostrarNotificacao('Erro ao processar pedido. Tente novamente.', 'error');
+            }
+        });
+    });
+
+    $('#modalConfirmacao').modal('show');
+}
+
+function criarCargo() {
+    var nomeCargo = $('#nomeCargo').val().trim();
+
+    if (!nomeCargo) {
+        mostrarNotificacao('Por favor, digite o nome do cargo.', 'warning');
+        $('#nomeCargo').focus();
+        return;
+    }
+
+    $.ajax({
+        url: '@Url.Action("CriarRole", "Account")',
+        type: 'POST',
+        data: {
+            nomeCargo: nomeCargo,
+            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+        },
+        success: function(response) {
+            if (response.success) {
+                mostrarNotificacao(response.message, 'success');
+                $('#nomeCargo').val(''); // Limpar campo
+                setTimeout(function() {
+                    location.reload();
+                }, 1500);
+            } else {
+                mostrarNotificacao(response.message, 'error');
+            }
+        },
+        error: function() {
+            mostrarNotificacao('Erro ao processar pedido. Tente novamente.', 'error');
+        }
+    });
+}
+
+function eliminarRole(roleId, roleName) {
+    $('#mensagemConfirmacao').text('Tem certeza que deseja eliminar o cargo "' + roleName + '"?');
+    $('#btnConfirmar').off('click').on('click', function() {
+        $('#modalConfirmacao').modal('hide');
+
+        $.ajax({
+            url: '@Url.Action("EliminarRole", "Account")',
+            type: 'POST',
+            data: {
+                roleId: roleId,
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+            },
+            success: function(response) {
+                if (response.success) {
+                    mostrarNotificacao(response.message, 'success');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    mostrarNotificacao(response.message, 'error');
+                }
+            },
+            error: function() {
+                mostrarNotificacao('Erro ao processar pedido. Tente novamente.', 'error');
+            }
+        });
+    });
+
+    $('#modalConfirmacao').modal('show');
+}
+</script>
+
+@Html.AntiForgeryToken()

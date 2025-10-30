@@ -1,0 +1,231 @@
+﻿.contentor_video {
+    background-color: RGB(17, 17, 27);
+    width: 100%;
+    height: 900px;
+}
+.c_vid {
+    display: flex;
+    gap: 2%;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    background-color: RGB(17, 17, 27);
+    width: 100%;
+    height: 600px;
+}
+
+.item:nth-child(1) {
+    width: 50%;
+    height: 70%;
+    border: 4px solid red;
+    margin-left:1%;
+
+}
+
+.item:nth-child(2),
+.item:nth-child(3),
+.item:nth-child(4),
+.item:nth-child(5) {
+    width: 20%;
+    height: 34%;
+    border: 4px solid red
+}
+
+.cont_cartao {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cartao_vid {
+    width: 30%;
+    margin-bottom: 30px;
+    background-color: #13151f;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+    .cartao_vid:hover {
+        background-color: #e10600;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(225, 6, 0, 0.3);
+    }
+
+.video-contentor {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+}
+
+    .video-contentor iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+    .video-contentor img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+.cartao-content {
+    padding: 16px;
+}
+
+.cartao-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #ffffff;
+    text-align:center;
+}
+
+.cartao-description {
+    font-size: 14px;
+    color: #cccccc;
+    line-height: 1.4;
+}
+.cartao-description1 {
+    font-size: 14px;
+    color: #cccccc;
+    line-height: 1.4;
+    text-align: center; 
+}
+
+.cartao:hover .cartao-title,
+.cartao:hover .cartao-description {
+    color: white;
+}
+
+@media (max-width: 900px) {
+    .card {
+        width: 45%;
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        width: 100%;
+    }
+}
+
+.contentor_noticias {
+    width: 100%;
+    height: 100%;
+    min-height: 1200px;
+}
+
+
+.cont_cartao1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cartao_vid1 {
+    width: 30%;
+    margin-bottom: 30px;
+    background-color: #13151f;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+    .cartao_vid1:hover {
+        background-color: #e10600;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(225, 6, 0, 0.3);
+    }
+
+.video-contentor1 {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+}
+
+    .video-contentor1 iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    .video-contentor1 img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+.cartao-content1 {
+    padding: 16px;
+}
+
+.cartao-title1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.cartao-description1 {
+    font-size: 14px;
+    color: #cccccc;
+    line-height: 1.4;
+}
+1
+.cartao1:hover .cartao-title1,
+.cartao1:hover .cartao-description1 {
+    color: white;
+}
+
+@media (max-width: 900px) {
+    .card1 {
+        width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .card1 {
+        width: 100%;
+    }
+    .cont_cartao1{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin: 0 auto;
+        align-items: center;
+    }
+    .cartao_vid1 {
+        width: 90%;
+        margin-bottom: 20px;
+        background-color: #13151f;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+}
+.imagem_capa {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}

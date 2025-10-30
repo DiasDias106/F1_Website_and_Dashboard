@@ -1,0 +1,523 @@
+﻿@using PagedList.Mvc
+@model F1_website.Models.paginacomunicaçãoviewmodel
+
+@{
+    ViewBag.Title = "Lista de Pistas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link href="~/estilos/calendario_styles.css" rel="stylesheet" />
+}
+
+<div class="f1-page-header">
+    <div class="container">
+        <h2 class="text-center">Pistas do Campeonato F1</h2>
+    </div>
+</div>
+
+<div class="container">
+    @if (!string.IsNullOrEmpty(ViewBag.Msg as string))
+    {
+        <div class="f1-error-msg">
+            @ViewBag.Msg
+        </div>
+    }
+
+    <!-- Estatísticas -->
+    @if (Model.PistasPaginadas != null && Model.PistasPaginadas.Any())
+    {
+        <div class="f1-stats">
+            <h5><i class="fas fa-chart-bar"></i> Estatísticas das Pistas</h5>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="stat-number">@Model.TotalPistas</span>
+                    <span class="stat-label">Total de Pistas</span>
+                </div>
+                <div class="col-md-3">
+                    <span class="stat-number">@Model.PistasMaisCurtas</span>
+                    <span class="stat-label">Pistas Curtas (&lt;4km)</span>
+                </div>
+                <div class="col-md-3">
+                    <span class="stat-number">@Model.PistasMedias</span>
+                    <span class="stat-label">Pistas Médias (4-5km)</span>
+                </div>
+                <div class="col-md-3">
+                    <span class="stat-number">@Model.PistasMaisLongas</span>
+                    <span class="stat-label">Pistas Longas (&gt;5km)</span>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Filtros Avançados -->
+    <div class="f1-filters">
+        <h5><i class="fas fa-filter"></i> Filtros e Pesquisa</h5>
+        @using (Html.BeginForm("ListaPistas", "F1", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="seek">Pesquisa Geral</label>
+                    <input type="text" placeholder="Nome, país, localização..." class="form-control" name="seek" id="seek" value="@Model.Seek" />
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="filtropais">Filtrar por País</label>
+                    @Html.DropDownList("filtropais",
+                        new SelectList(Model.PaisesDisponiveis?.Select(p => new SelectListItem { Value = p, Text = p }) ?? new List<SelectListItem>(), "Value", "Text", Model.FiltroPais),
+                        "Todos os países",
+                        new { @class = "form-control", id = "filtropais" })
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="filtrocomprimento">Filtrar por Comprimento</label>
+                    @Html.DropDownList("filtrocomprimento",
+                        new List<SelectListItem>
+                        {
+                            new SelectListItem { Value = "", Text = "Todos os comprimentos" },
+                            new SelectListItem { Value = "curta", Text = "Curta (< 4km)" },
+                            new SelectListItem { Value = "media", Text = "Média (4-5km)" },
+                            new SelectListItem { Value = "longa", Text = "Longa (> 5km)" }
+                        },
+                        new { @class = "form-control", id = "filtrocomprimento" })
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label>&nbsp;</label>
+                    <div>
+                        <button type="submit" class="f1-btn f1-btn-export" style="width: 100%; margin-bottom: 5px;">
+                            <i class="fas fa-search"></i> Filtrar
+                        </button>
+                        <a href="@Url.Action("LimparFiltros", "F1")" class="f1-btn" style="background: #6c757d; color: white; width: 100%; text-align: center; display: block; text-decoration: none;">
+                            <i class="fas fa-times"></i> Limpar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campos ocultos para manter ordenação e página -->
+            <input type="hidden" name="ordem" value="@Model.Ordem" />
+        }
+    </div>
+
+    <div class="row f1-action-buttons">
+        <div class="col-md-6">
+            <button class="f1-btn f1-btn-create" data-bs-toggle="modal" data-bs-target="#modalAddPista">
+                <i class="fas fa-plus"></i> Criar Pista
+            </button>
+        </div>
+        <div class="col-md-6 text-end">
+            <div class="btn-group" role="group" aria-label="Opções de Exportação">
+                <a href="@Url.Action("ExportarPistasExcel", "F1")" class="f1-btn f1-btn-export excel">
+                    <i class="fas fa-file-excel"></i> Exportar Excel
+                </a>
+                <a href="@Url.Action("ExportarPistasPDF", "F1")" class="f1-btn f1-btn-export">
+                    <i class="fas fa-file-pdf"></i> Exportar PDF
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: criar pista -->
+    <div class="modal fade f1-modal" id="modalAddPista" tabindex="-1" aria-labelledby="modalAddPistaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modalAddPistaLabel" class="modal-title">
+                        <i class="fas fa-road"></i> Criar Pista
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formCreatePista" action="@Url.Action("AddPista", "F1")" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <div class="mb-3">
+                            <label for="PistaNome">Nome</label>
+                            <input type="text" name="Pista.nome" id="PistaNome" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="PistaLocalizacao">Localização</label>
+                            <input type="text" name="Pista.localização" id="PistaLocalizacao" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="PistaPais">País</label>
+                            <input type="text" name="Pista.pais" id="PistaPais" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="PistaComprimento">Comprimento (km)</label>
+                            <input type="number" step="0.01" name="Pista.comprimento_km" id="PistaComprimento" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="PistaUnidade">Unidade Comprimento</label>
+                            <input type="text" name="Pista.unidade_comprimento" id="PistaUnidade" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="PistaDescricao">Descrição</label>
+                            <textarea name="Pista.descricao" id="PistaDescricao" rows="3" class="form-control" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="PistaImagem">Imagem</label>
+                            <input type="file" name="fich" id="PistaImagem" class="form-control" accept="image/*" />
+                        </div>
+                        <button type="submit" class="f1-btn f1-btn-create" id="btnCreatePista">
+                            <i class="fas fa-save"></i> Criar Pista
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: editar pista -->
+    <div class="modal fade f1-modal" id="modalEditPista" tabindex="-1" aria-labelledby="modalEditPistaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modalEditPistaLabel" class="modal-title">
+                        <i class="fas fa-edit"></i> Editar Pista
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditPista" action="@Url.Action("EditPista", "F1")" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="Id_pista" id="editId_pista" />
+                        <div class="mb-3">
+                            <label for="editNome">Nome</label>
+                            <input type="text" name="nome" id="editNome" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editLocalizacao">Localização</label>
+                            <input type="text" name="localização" id="editLocalizacao" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPais">País</label>
+                            <input type="text" name="pais" id="editPais" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editComprimento">Comprimento (km)</label>
+                            <input type="number" step="0.01" name="comprimento_km" id="editComprimento" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editUnidade">Unidade Comprimento</label>
+                            <input type="text" name="unidade_comprimento" id="editUnidade" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDescricao">Descrição</label>
+                            <textarea name="descricao" id="editDescricao" rows="3" class="form-control" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editImagem">Imagem (substituir se carregar arquivo)</label>
+                            <input type="file" name="fich" id="editImagem" class="form-control" accept="image/*" />
+                        </div>
+                        <button type="submit" class="f1-btn f1-btn-export excel" id="btnEditPista">
+                            <i class="fas fa-save"></i> Guardar Alterações
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: apagar pista -->
+    <div class="modal fade f1-modal" id="modalDeletePista" tabindex="-1" aria-labelledby="modalDeletePistaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modalDeletePistaLabel" class="modal-title">
+                        <i class="fas fa-trash"></i> Apagar Pista
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem a certeza que pretende eliminar esta pista?</p>
+                    <p><strong id="deleteNomePista"></strong></p>
+                    <form id="formDeletePista" action="@Url.Action("DeletePista", "F1")" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="Id_pista" id="deleteId_pista" />
+                        <button type="submit" class="f1-btn f1-btn-export" id="btnDeletePista">
+                            <i class="fas fa-trash"></i> Apagar
+                        </button>
+                        <button type="button" class="f1-btn" style="background: #6c757d; color: white;" data-bs-dismiss="modal">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informações da Paginação -->
+    @if (Model.PistasPaginadas != null && Model.PistasPaginadas.Any())
+    {
+        <div class="f1-pagination-info">
+            Mostrando @Model.PistasPaginadas.FirstItemOnPage a @Model.PistasPaginadas.LastItemOnPage
+            de @Model.PistasPaginadas.TotalItemCount pistas
+            (@Model.PistasPaginadas.PageCount página(s))
+        </div>
+    }
+
+    <!-- Tabela de pistas -->
+    <div class="f1-table-container">
+        @if (Model.PistasPaginadas != null && Model.PistasPaginadas.Any())
+        {
+            <table class="f1-table">
+                <thead class="f1-table-header">
+                    <tr>
+                        <th>
+                            @Html.ActionLink("ID", "ListaPistas", new
+                            {
+                                ordem = ViewBag.ordemIdPista,
+                                seek = Model.Seek,
+                                filtropais = Model.FiltroPais,
+                                filtrocomprimento = Model.FiltroComprimento
+                            })
+                            <i class="fas fa-hashtag"></i>
+                        </th>
+                        <th>
+                            @Html.ActionLink("Nome", "ListaPistas", new
+                            {
+                                ordem = ViewBag.ordemNome,
+                                seek = Model.Seek,
+                                filtropais = Model.FiltroPais,
+                                filtrocomprimento = Model.FiltroComprimento
+                            })
+                            <i class="fas fa-road"></i>
+                        </th>
+                        <th><i class="fas fa-map-marker-alt"></i> Localização</th>
+                        <th>
+                            @Html.ActionLink("País", "ListaPistas", new
+                            {
+                                ordem = ViewBag.ordemPais,
+                                seek = Model.Seek,
+                                filtropais = Model.FiltroPais,
+                                filtrocomprimento = Model.FiltroComprimento
+                            })
+                            <i class="fas fa-flag"></i>
+                        </th>
+                        <th>
+                            @Html.ActionLink("Comprimento", "ListaPistas", new
+                            {
+                                ordem = ViewBag.ordemComprimento,
+                                seek = Model.Seek,
+                                filtropais = Model.FiltroPais,
+                                filtrocomprimento = Model.FiltroComprimento
+                            })
+                            <i class="fas fa-ruler"></i>
+                        </th>
+                        <th><i class="fas fa-weight-hanging"></i> Unidade</th>
+                        <th><i class="fas fa-info-circle"></i> Descrição</th>
+                        <th><i class="fas fa-image"></i> Imagem</th>
+                        <th><i class="fas fa-cogs"></i> Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PistasPaginadas)
+                    {
+                        <tr>
+                            <td>@item.Id_pista</td>
+                            <td><strong>@item.nome</strong></td>
+                            <td><i class="fas fa-map-marker-alt"></i> @item.localização</td>
+                            <td>@item.pais</td>
+                            <td>@item.comprimento_km km</td>
+                            <td>@item.unidade_comprimento</td>
+                            <td>@(item.descricao?.Length > 50 ? item.descricao.Substring(0, 50) + "..." : item.descricao)</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.imagem))
+                                {
+                                    <img src="@Url.Content("~/imagens/ImagensPistas/" + item.imagem)" alt="@item.nome" style="width: 60px; height: auto; border-radius: 4px;" />
+                                }
+                                else
+                                {
+                                    <span style="color: #666;">Sem imagem</span>
+                                }
+                            </td>
+                            <td>
+                                <a href="@Url.Action("DetailPista", "F1", new { id = item.Id_pista })" class="f1-table-btn details">
+                                    <i class="fas fa-eye"></i> Detalhes
+                                </a>
+                                <button class="f1-table-btn edit btn-edit-pista" data-bs-toggle="modal" data-bs-target="#modalEditPista"
+                                        data-id="@item.Id_pista"
+                                        data-nome="@Html.AttributeEncode(item.nome)"
+                                        data-localizacao="@Html.AttributeEncode(item.localização)"
+                                        data-pais="@Html.AttributeEncode(item.pais)"
+                                        data-comprimento="@item.comprimento_km"
+                                        data-unidade="@Html.AttributeEncode(item.unidade_comprimento)"
+                                        data-descricao="@Html.AttributeEncode(item.descricao)">
+                                    <i class="fas fa-edit"></i> Editar
+                                </button>
+                                <button class="f1-table-btn delete btn-delete-pista" data-bs-toggle="modal" data-bs-target="#modalDeletePista"
+                                        data-id="@item.Id_pista"
+                                        data-nome="@Html.AttributeEncode(item.nome)">
+                                    <i class="fas fa-trash"></i> Apagar
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div style="text-align: center; padding: 40px; color: #666;">
+                <i class="fas fa-search" style="font-size: 48px; margin-bottom: 20px;"></i>
+                <h4>Nenhuma pista encontrada</h4>
+                <p>Tente ajustar os filtros de pesquisa ou criar uma nova pista.</p>
+            </div>
+        }
+    </div>
+
+    <!-- Paginação -->
+    @if (Model.PistasPaginadas != null && Model.PistasPaginadas.PageCount > 1)
+    {
+        <div class="f1-pagination">
+            @Html.PagedListPager(Model.PistasPaginadas, page => Url.Action("ListaPistas", new
+            {
+                page,
+                seek = Model.Seek,
+                ordem = Model.Ordem,
+                filtropais = Model.FiltroPais,
+                filtrocomprimento = Model.FiltroComprimento
+            }), new PagedListRenderOptions
+            {
+                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                MaximumPageNumbersToDisplay = 7,
+                UlElementClasses = new[] { "pagination" },
+                LiElementClasses = new[] { "page-item" },
+                LinkToFirstPageFormat = "Primeira",
+                LinkToPreviousPageFormat = "Anterior",
+                LinkToNextPageFormat = "Próxima",
+                LinkToLastPageFormat = "Última"
+            })
+        </div>
+    }
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Definir valor selecionado para o dropdown de comprimento
+        const filtroComprimento = '@Model.FiltroComprimento';
+        if (filtroComprimento) {
+            document.getElementById('filtrocomprimento').value = filtroComprimento;
+        }
+
+        // Adicionar efeito de hover nas linhas da tabela
+        const tableRows = document.querySelectorAll('.f1-table tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseenter', function () {
+                this.style.transform = 'scale(1.01)';
+            });
+            row.addEventListener('mouseleave', function () {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Funcionalidade dos modais - Editar
+        document.querySelectorAll('.btn-edit-pista').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('editId_pista').value = btn.getAttribute('data-id');
+                document.getElementById('editNome').value = btn.getAttribute('data-nome');
+                document.getElementById('editLocalizacao').value = btn.getAttribute('data-localizacao');
+                document.getElementById('editPais').value = btn.getAttribute('data-pais');
+                document.getElementById('editComprimento').value = btn.getAttribute('data-comprimento');
+                document.getElementById('editUnidade').value = btn.getAttribute('data-unidade');
+                document.getElementById('editDescricao').value = btn.getAttribute('data-descricao');
+            });
+        });
+
+        // Funcionalidade dos modais - Apagar
+        document.querySelectorAll('.btn-delete-pista').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('deleteId_pista').value = btn.getAttribute('data-id');
+                document.getElementById('deleteNomePista').textContent = btn.getAttribute('data-nome');
+            });
+        });
+
+        // Manipular submissão dos formulários
+        const formCreatePista = document.getElementById('formCreatePista');
+        const formEditPista = document.getElementById('formEditPista');
+        const formDeletePista = document.getElementById('formDeletePista');
+
+        // Formulário de criação
+        if (formCreatePista) {
+            formCreatePista.addEventListener('submit', function(e) {
+                const submitBtn = document.getElementById('btnCreatePista');
+                const originalHTML = submitBtn.innerHTML;
+
+                // Validar campos antes de submeter
+                const nome = document.getElementById('PistaNome').value.trim();
+                const localizacao = document.getElementById('PistaLocalizacao').value.trim();
+                const pais = document.getElementById('PistaPais').value.trim();
+                const comprimento = document.getElementById('PistaComprimento').value;
+                const unidade = document.getElementById('PistaUnidade').value.trim();
+                const descricao = document.getElementById('PistaDescricao').value.trim();
+
+                if (!nome || !localizacao || !pais || !comprimento || !unidade || !descricao) {
+                    e.preventDefault();
+                    alert('Por favor, preencha todos os campos obrigatórios.');
+                    return false;
+                }
+                // Mostrar loading apenas se validação passou
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> A Criar...';
+                submitBtn.disabled = true;
+
+                // Restaurar botão após um tempo limite (fallback)
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.disabled = false;
+                }, 10000);
+            });
+        }
+
+        // Formulário de edição
+        if (formEditPista) {
+            formEditPista.addEventListener('submit', function(e) {
+                const submitBtn = document.getElementById('btnEditPista');
+                const originalHTML = submitBtn.innerHTML;
+
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> A Guardar...';
+                submitBtn.disabled = true;
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.disabled = false;
+                }, 10000);
+            });
+        }
+
+        // Formulário de exclusão
+        if (formDeletePista) {
+            formDeletePista.addEventListener('submit', function(e) {
+                const submitBtn = document.getElementById('btnDeletePista');
+                const originalHTML = submitBtn.innerHTML;
+
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> A Apagar...';
+                submitBtn.disabled = true;
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.disabled = false;
+                }, 10000);
+            });
+        }
+
+        // Limpar formulário quando modal de criação é fechado
+        const modalAddPista = document.getElementById('modalAddPista');
+        if (modalAddPista) {
+            modalAddPista.addEventListener('hidden.bs.modal', function () {
+                // Resetar formulário
+                if (formCreatePista) {
+                    formCreatePista.reset();
+                }
+
+                // Restaurar botão
+                const submitBtn = document.getElementById('btnCreatePista');
+                if (submitBtn) {
+                    submitBtn.innerHTML = '<i class="fas fa-save"></i> Criar Pista';
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+    });
+</script>
+}

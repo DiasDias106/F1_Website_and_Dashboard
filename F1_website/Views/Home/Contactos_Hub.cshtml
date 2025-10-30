@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Contactos_Hub";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section jogos_style{
+    <link rel="stylesheet" href="~/estilos/origens.css" />
+    <link rel="stylesheet" href="~/estilos/teams.css" />
+    <link rel="stylesheet" href="~/estilos/videos.css" />
+}
+<div style="margin-top:100px" class="alinha">
+    <section class="riscas">
+    </section>
+</div>
+<div class="header-wrapper">
+    <div class="stripe"></div>
+    <div class="stripe"></div>
+    <h1 class="title">Hub de Contactos</h1>
+</div>
+<div class="cont_cartao1">
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("email_page", "Home")">
+                <img src="~/imagens/Contactos/email_card.png" />
+            </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Email</h3>
+        </div>
+    </div>
+
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("Contact", "Home")">
+                <img src="~/imagens/Contactos/localizacao_card.png" />
+            </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Localização</h3>
+        </div>
+    </div>
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("Noticias", "Home")">
+                <img src="~/imagens/Contactos/noticias_card.png" />
+            </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Noticias</h3>
+        </div>
+    </div>
+</div>
+<div class="cont_cartao1">
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("Creditos", "Home")">
+                <img src="~/imagens/Contactos/criador_card.png" />
+            </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Criador</h3>
+        </div>
+    </div>
+
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("Treeview1", "Home")">
+                <img src="~/imagens/Contactos/treeview_card.png" />
+            </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Treeview</h3>
+        </div>
+    </div>
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("dashboard_loading", "Home")">
+                <img src="~/imagens/Contactos/dashboard_card.png" />
+            </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">F1 Manager</h3>
+        </div>
+    </div>
+</div>
+
+
+

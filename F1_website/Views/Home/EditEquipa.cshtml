@@ -1,0 +1,50 @@
+﻿@model F1_website.Models.Equipas
+
+@using (Html.BeginForm("EditEquipa", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.nome)
+        @Html.TextBoxFor(model => model.nome, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.nome, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Imagem atual:")
+        @if (!string.IsNullOrEmpty(Model.imagem))
+        {
+            <div>
+                <img src="@Url.Content(Model.imagem)" width="100" />
+            </div>
+        }
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Nova imagem")
+        <input type="file" name="novaImagem" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.descricao)
+        @Html.TextBoxFor(model => model.descricao, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.descricao, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.titulos)
+        @Html.TextBoxFor(model => model.titulos, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.titulos, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.fundador)
+        @Html.TextBoxFor(model => model.fundador, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.fundador, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group text-right">
+        <input type="submit" value="Guardar Alterações" class="btn btn-primary" />
+    </div>
+}

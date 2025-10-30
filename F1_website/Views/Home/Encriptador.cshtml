@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Encriptador";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section encriptador_style{
+    <link rel="stylesheet" href="~/estilos/jogos/encriptador.css" />
+}
+
+<div class="encriptador_bg">
+    <div class="encriptador_content">
+        <div class="contentor_encriptador">
+            <h2>Encriptador de Texto</h2>
+
+            <label for="textInput" class="legendas">Texto:</label><br>
+            <input type="text" id="textInput" class="text-imput" placeholder="Digite o texto aqui"><br><br>
+
+            <label for="methodSelect" class="legendas">Método de encriptação:</label><br>
+            <select id="methodSelect" class="text-imput">
+                <option value="aes">AES</option>
+                <option value="sha256">SHA-256 (hash)</option>
+            </select><br><br>
+
+            <div class="grupo_botoes">
+                <button onclick="encrypt()" class="carbutton">Encriptar</button>
+                <button onclick="decrypt()" class="carbutton">Desencriptar</button>
+            </div>
+
+            <h3>Resultado:</h3>
+            <pre id="output" class="caption"></pre>
+        </div>
+    </div>
+</div>
+
+@section encriptador_jogo{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="~/javascript/encriptador.js"></script>
+}

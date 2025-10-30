@@ -1,0 +1,277 @@
+﻿@{
+    ViewBag.Title = "Página Principal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section loading_style{
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/estilos/pagina_principal2.css" />
+}
+
+<div class="f1-home-container">
+    <section class="f1-hero-section">
+        <div class="f1-hero-content">
+            <h1 class="f1-hero-title">F1 World</h1>
+            <p class="f1-hero-subtitle">A velocidade da paixão encontra a precisão da tecnologia</p>
+            <a href="@Url.Action("f1Teams","Home")" class="f1-cta-button">
+                <i class="fas fa-flag-checkered"></i> Explorar Equipas
+            </a>
+        </div>
+    </section>
+
+    <section class="f1-teams-section" id="f1-teams">
+        <h2 class="f1-section-title f1-fade-in">Equipas de F1</h2>
+        <div class="f1-carousel-container f1-fade-in">
+            <div class="f1-teams-carousel" id="f1TeamsCarousel">
+                <a href="@Url.Action("redBull_racing", "Home")">
+                    <div class="f1-team-card" data-team="red-bull">
+                        <div class="f1-team-logo">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3 class="f1-team-name">Red Bull Racing</h3>
+                        <p class="f1-team-info">Atual campeã mundial, conhecida pela sua velocidade e estratégia agressiva.</p>
+                    </div>
+                </a>
+                <a href="@Url.Action("Mercedes", "Home")">
+                    <div class="f1-team-card" data-team="mercedes">
+                        <div class="f1-team-logo">
+                            <i class="fas fa-circle-notch"></i>
+                        </div>
+                        <h3 class="f1-team-name">Mercedes AMG</h3>
+                        <p class="f1-team-info">Dominadora da era híbrida, sinónimo de excelência e inovação tecnológica.</p>
+                    </div>
+                </a>
+                <a href="@Url.Action("Ferrari", "Home")">
+                    <div class="f1-team-card" data-team="ferrari">
+                        <div class="f1-team-logo">
+                            <i class="fas fa-horse-head"></i>
+                        </div>
+                        <h3 class="f1-team-name">Scuderia Ferrari</h3>
+                        <p class="f1-team-info">A mais icónica equipa da F1, representando paixão e tradição italiana.</p>
+                    </div>
+                </a>
+                <a href="@Url.Action("Mclaren", "Home")">
+                    <div class="f1-team-card" data-team="mclaren">
+                        <div class="f1-team-logo">
+                            <i class="fas fa-rocket"></i> 
+                        </div>
+                        <h3 class="f1-team-name">McLaren F1</h3>
+                        <p class="f1-team-info">Equipa histórica em ascensão, focada na inovação e performance.</p>
+                    </div>
+                </a>
+                <a href="@Url.Action("Alpine", "Home")">
+                    <div class="f1-team-card" data-team="alpine">
+                        <div class="f1-team-logo">
+                            <i class="fas fa-mountain"></i>
+                        </div>
+                        <h3 class="f1-team-name">Alpine F1</h3>
+                        <p class="f1-team-info">Espírito francês na F1, combinando elegância com competitividade.</p>
+                    </div>
+                </a>
+                <a href="@Url.Action("Aston_Martin", "Home")">
+                    <div class="f1-team-card" data-team="aston-martin">
+                        <div class="f1-team-logo">
+                            <i class="fas fa-feather-alt"></i>
+                        </div>
+                        <h3 class="f1-team-name">Aston Martin</h3>
+                        <p class="f1-team-info">Luxo britânico ao mais alto nível, com ambições de título mundial.</p>
+                    </div>
+                </a>
+                <a href="@Url.Action("Alpha_Taurie", "Home")">
+                    <div class="f1-team-card" data-team="Alpha_Taurie">
+                        <div class="f1-team-logo">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3 class="f1-team-name">Alpha Taurie</h3>
+                        <p class="f1-team-info">Design arrojado e talento jovem ao serviço da Red Bull.</p>
+                    </div>
+                </a>
+
+                <a href="@Url.Action("Haas", "Home")">
+                    <div class="f1-team-card" data-team="Haas">
+                        <div class="f1-team-logo">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <h3 class="f1-team-name">Haas</h3>
+                        <p class="f1-team-info">Força americana e engenharia pragmática em cada curva.</p>
+                    </div>
+                </a>
+
+                <a href="@Url.Action("kick_sauber", "Home")">
+                    <div class="f1-team-card" data-team="Kick_Sauber">
+                        <div class="f1-team-logo">
+                            <i class="fa-brands fa-kickstarter-k"></i>
+                        </div>
+                        <h3 class="f1-team-name">Kick Sauber</h3>
+                        <p class="f1-team-info">Tradição suíça e inovação de mãos dadas rumo ao topo.</p>
+                    </div>
+                </a>
+
+                <a href="@Url.Action("William", "Home")">
+                    <div class="f1-team-card" data-team="Williams">
+                        <div class="f1-team-logo">
+                            <i class="fa-brands fa-weebly"></i>
+                        </div>
+                        <h3 class="f1-team-name">Williams</h3>
+                        <p class="f1-team-info">História lendária com foco no regresso à glória.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="f1-navigation-section">
+        <h2 class="f1-section-title f1-fade-in">Explore o Mundo da F1</h2>
+        <div class="f1-nav-grid">
+            <div class="f1-nav-card f1-fade-in" onclick="f1NavigateTo('pilotos')">
+                <i class="fas fa-user-tie f1-nav-icon"></i>
+                <h3 class="f1-nav-card-title">Pilotos</h3>
+                <p class="f1-nav-card-desc">Conheça os heróis da velocidade,as suas conquistas e estatísticas detalhadas.</p>
+            </div>
+
+            <div class="f1-nav-card f1-fade-in" onclick="f1NavigateTo('calendario')">
+                <i class="fas fa-calendar-alt f1-nav-icon"></i>
+                <h3 class="f1-nav-card-title">Calendário</h3>
+                <p class="f1-nav-card-desc">Acompanhe todas as corridas da temporada e não perca nenhum grande prémio.</p>
+            </div>
+
+            <div class="f1-nav-card f1-fade-in" onclick="f1NavigateTo('noticias')">
+                <i class="fas fa-newspaper f1-nav-icon"></i>
+                <h3 class="f1-nav-card-title">Notícias</h3>
+                <p class="f1-nav-card-desc">Últimas novidades, transferências e desenvolvimentos do mundo da F1.</p>
+            </div>
+
+            <div class="f1-nav-card f1-fade-in" onclick="f1NavigateTo('componentes')">
+                <i class="fas fa-chart-line f1-nav-icon"></i>
+                <h3 class="f1-nav-card-title">Componentes</h3>
+                <p class="f1-nav-card-desc">Dados completos, análises e comparações entre equipas e pilotos.</p>
+            </div>
+
+            <div class="f1-nav-card f1-fade-in" onclick="f1NavigateTo('circuitos')">
+                <i class="fas fa-road f1-nav-icon"></i>
+                <h3 class="f1-nav-card-title">Circuitos</h3>
+                <p class="f1-nav-card-desc">Explore as pistas mais desafiantes e icónicas do campeonato mundial.</p>
+            </div>
+
+            <div class="f1-nav-card f1-fade-in" onclick="f1NavigateTo('historia')">
+                <i class="fas fa-trophy f1-nav-icon"></i>
+                <h3 class="f1-nav-card-title">História</h3>
+                <p class="f1-nav-card-desc">Reviva os momentos épicos e lendários da história da Fórmula 1.</p>
+            </div>
+            <div class="f1-nav-card f1-fade-in" onclick="f1NavigateTo('dashboard')">
+                <i class="fas fa-dashboard f1-nav-icon"></i>
+                <h3 class="f1-nav-card-title">Dashboard</h3>
+                <p class="f1-nav-card-desc">Torne a sua gestão mais eficiente através da nossa dashboard ja pronta para si</p>
+            </div>
+
+            <div class="f1-nav-card f1-fade-in" onclick="f1NavigateTo('jogos')">
+                <i class="fas fa-gamepad f1-nav-icon"></i>
+                <h3 class="f1-nav-card-title">Jogos</h3>
+                <p class="f1-nav-card-desc">Aprenda mais sobre o universo da F1 através dos nossos jogos didaticos</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section principal_js {
+    <script>
+        $(document).ready(function() {
+            $('a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                const target = $(this.getAttribute('href'));
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                }
+            });
+
+            const f1ObserverOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const f1Observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('f1-visible');
+                    }
+                });
+            }, f1ObserverOptions);
+
+            $('.f1-fade-in').each(function() {
+                f1Observer.observe(this);
+            });
+
+
+            $('.f1-team-card').on('click', function() {
+                const team = $(this).data('team');
+                console.log(`Navegando para equipa: ${team}`);
+                // window.location.href = '@Url.Action("DetailEquipa", "Home")' + '?team=' + team;
+            });
+
+            let f1IsScrolling = false;
+            const f1Carousel = document.getElementById('f1TeamsCarousel');
+
+            function f1AutoScroll() {
+                if (!f1IsScrolling && f1Carousel) {
+                    f1Carousel.scrollLeft += 320;
+                    if (f1Carousel.scrollLeft >= f1Carousel.scrollWidth - f1Carousel.clientWidth) {
+                        f1Carousel.scrollLeft = 0;
+                    }
+                }
+            }
+
+
+            setInterval(f1AutoScroll, 4000);
+
+
+            $(f1Carousel).on('mouseenter touchstart', function() {
+                f1IsScrolling = true;
+            });
+
+            $(f1Carousel).on('mouseleave', function() {
+                f1IsScrolling = false;
+            });
+
+            $(f1Carousel).on('touchend', function() {
+                setTimeout(() => f1IsScrolling = false, 2000);
+            });
+        });
+
+
+        function f1NavigateTo(section) {
+            console.log(`Navegando para: ${section}`);
+
+            switch(section) {
+                case 'pilotos':
+                    window.location.href = '@Url.Action("Pilotos2", "Home")';
+                    break;
+                case 'calendario':
+                    window.location.href = '@Url.Action("ListaCalendario", "F1")';
+                    break;
+                case 'noticias':
+                    window.location.href = '@Url.Action("Noticias", "Home")';
+                    break;
+                case 'componentes':
+                    window.location.href = '@Url.Action("Constituintes", "Home")';
+                    break;
+                case 'circuitos':
+                    window.location.href = '@Url.Action("ListaPistas", "F1")';
+                    break;
+                case 'historia':
+                    window.location.href = '@Url.Action("About", "Home")';
+                    break;
+                 case 'dashboard':
+                    window.location.href = '@Url.Action("dashboard_loading", "Home")';
+                    break;
+                 case 'jogos':
+                    window.location.href = '@Url.Action("jogos_hub", "Home")';
+                     break;
+                default:
+                    console.log('Secção não encontrada');
+            }
+        }
+    </script>
+}

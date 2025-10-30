@@ -1,0 +1,188 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+
+@{
+    ViewBag.Title = "Painel do Utilizador";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/estilos/painel_style.css" />
+    <link rel="stylesheet" href="~/Content/estilos/painel_style.css" />
+    <link rel="stylesheet" href="/estilos/painel_style.css" />
+}
+<section class="painel_height">
+    <div class="site-wrapper">
+        <!-- Background patterns and animations -->
+        <div class="bg-overlay"></div>
+        <div class="anim-line"></div>
+        <div class="anim-line-alt"></div>
+
+        <!-- Speed indicator -->
+        <div class="speed-label">ONLINE</div>
+
+        <!-- Main content wrapper -->
+        <div class="auth-wrapper">
+            <!-- Header/Branding -->
+            <div class="branding">
+                <div class="brand-logo">F</div>
+                <h1 class="auth-title">Paddock Club</h1>
+            </div>
+
+            <div class="auth-body">
+                <!-- Main section -->
+                <div class="auth-main">
+                    <div class="section-label">Bem-vindo, @Model.Painel.Nome!</div>
+
+                    <!-- User information -->
+                    <div class="form-item">
+                        <label class="label-text">Email</label>
+                        <div class="input-holder">
+                            <input type="text" class="input-field" value="@Model.Painel.Email" readonly />
+                        </div>
+                    </div>
+
+                    <div class="form-item">
+                        <label class="label-text">Morada</label>
+                        <div class="input-holder">
+                            <input type="text" class="input-field" value="@Model.Painel.Morada" readonly />
+                        </div>
+                    </div>
+
+                    <div class="form-item">
+                        <label class="label-text">Data de Nascimento</label>
+                        <div class="input-holder">
+                            <input type="text" class="input-field" value="@Model.Painel.DataNascimento.ToString("dd/MM/yyyy")" readonly />
+                        </div>
+                    </div>
+
+                    <!-- Action buttons -->
+                    <div class="btn-row">
+                        <a href="@Url.Action("EditarDados", "Account")" class="btn-submit">
+                            Editar Dados
+                        </a>
+                    </div>
+
+                    <!-- Admin only section -->
+                    @if (User.IsInRole("Administrador") || User.IsInRole("Admin"))
+                    {
+                        <div class="div-line">
+                            <div class="line-deco"></div>
+                            <span class="line-text">Painel de Administração</span>
+                        </div>
+
+                        <div class="btn-row">
+                            <a href="@Url.Action("GestaoRoles", "Account")" class="btn-submit" style="background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);">
+                                <i class="fa fa-cogs" style="margin-right: 8px;"></i>
+                                Gestão de Cargos
+                            </a>
+                        </div>
+                    }
+                </div>
+
+                <!-- Additional actions section -->
+                <div class="auth-extra">
+                    <div class="section-label">Controlos de Conta</div>
+
+                    <div class="btn-row">
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "form-item" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn-submit" style="background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);">
+                                Terminar Sessão
+                            </button>
+                        }
+                    </div>
+
+                    <div class="div-line">
+                        <div class="line-deco"></div>
+                        <span class="line-text">Zona de Perigo</span>
+                    </div>
+
+                    <div class="btn-row">
+                        @using (Html.BeginForm("EliminarConta", "Account", FormMethod.Post, new { @class = "form-item", onsubmit = "return confirm('Tem a certeza que quer eliminar a sua conta? Esta ação é irreversível!');" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn-submit" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);">
+                                Eliminar Conta
+                            </button>
+                        }
+                    </div>
+
+                    <!-- Status information -->
+                    <div class="alt-link">
+                        <span style="color: rgba(255, 255, 255, 0.6);">Status: </span>
+                        <span class="anim-pulse" style="color: #ff1801;">Ativo</span>
+                        @if (User.IsInRole("Administrador") || User.IsInRole("Admin"))
+                        {
+                            <span style="color: rgba(255, 255, 255, 0.4); margin-left: 10px;">|</span>
+                            <span style="color: #ff6b35; margin-left: 10px;">Admin</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        console.log("🔧 DEBUG: Scripts section carregada");
+
+        $(document).ready(function () {
+            console.log("🔧 DEBUG: jQuery ready executado");
+
+            // Verificar se CSS externo foi carregado
+            var cssLoaded = false;
+            var stylesheets = document.styleSheets;
+            for (var i = 0; i < stylesheets.length; i++) {
+                try {
+                    var href = stylesheets[i].href;
+                    if (href && href.indexOf('painel_style.css') !== -1) {
+                        cssLoaded = true;
+                        console.log("✅ CSS externo encontrado:", href);
+                        break;
+                    }
+                } catch (e) {
+                    console.log("❌ Erro ao verificar stylesheet:", e);
+                }
+            }
+
+            if (!cssLoaded) {
+                console.log("❌ CSS externo NÃO foi carregado!");
+                console.log("📋 Stylesheets carregadas:");
+                for (var i = 0; i < stylesheets.length; i++) {
+                    console.log("-", stylesheets[i].href || "inline");
+                }
+            }
+
+            // Adicionar efeitos de hover personalizados para os botões
+            $('.btn-submit').hover(
+                function () {
+                    $(this).css('transform', 'translateY(-2px)');
+                },
+                function () {
+                    $(this).css('transform', 'translateY(0)');
+                }
+            );
+
+            // Efeito de pulsação no status
+            $('.anim-pulse').addClass('anim-pulse');
+
+            // Efeito especial para o botão de admin
+            $('a[href*="GestaoCargos"]').hover(
+                function () {
+                    $(this).css({
+                        'transform': 'translateY(-2px) scale(1.02)',
+                        'box-shadow': '0 6px 20px rgba(255, 107, 53, 0.6)'
+                    });
+                },
+                function () {
+                    $(this).css({
+                        'transform': 'translateY(0) scale(1)',
+                        'box-shadow': '0 4px 15px rgba(255, 107, 53, 0.4)'
+                    });
+                }
+            );
+        });
+    </script>
+}

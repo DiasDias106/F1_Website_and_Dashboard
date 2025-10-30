@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "f1Teams";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section f1team_styles{
+    <link rel="stylesheet" href="~/estilos/f1team.css" />
+    <link rel="stylesheet" href="~/estilos/Pesquisas.css"/>
+}
+
+
+<div style="margin-top:100px" class="alinha">
+    <section class="riscas">
+    </section>
+</div>
+
+<div class="header-wrapper">
+    <div class="stripe"></div>
+    <div class="stripe"></div>
+    <h1 class="title">F1 TEAMS 2025</h1>
+</div>
+<section>
+    <h6 style="margin-left:3%;margin-bottom:20px" class="subtitle">Descobre tudo o que precisas de saber sobre as equipas deste ano:</h6>
+</section>
+
+<div class="search-container">
+    <input type="text" id="pesquisa" placeholder="Pesquisar página..." />
+    <div id="ss" class="sugestoes"></div>
+</div>
+
+<section style="margin-bottom: 2rem;" class="alinha">
+    <div class="teamc-container">
+        <div class="teamc one">
+            <a style="cursor:pointer" href="@Url.Action("redBull_racing", "Home")">
+                <img style="background: linear-gradient(135deg, #1E1F2B 0%, #0C1C4A 50%, #FF0000 100%);" src="~/imagens/carros/red-bull-racing_car-background.png" alt="red_bull_car">
+            </a>
+            <div class="teamc-content">
+                <h3>Conhece mais sobre a equipa</h3>
+                <p>Aprende Mais sobre a Redbull Aqui:</p>
+            </div>
+        </div>
+
+        <div class="teamc two">
+            <a style="cursor:pointer" href="@Url.Action("Ferrari", "Home")">
+            <img style="background: linear-gradient(135deg, #ff2800 0%, #000000 100%);" src="~/imagens/carros/ferrari_car-background.png" alt="Pessoa observando a paisagem"></a>
+            <div class="teamc-content">
+                <h3>Conhece mais sobre a equipa</h3>
+                <p>Aprende Mais sobre a Ferrari Aqui:</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section style="margin-bottom: 2rem;" class="alinha">
+    <div class="teamc-container">
+        <div class="teamc one">
+            <a style="cursor:pointer" href="@Url.Action("Mercedes", "Home")">
+            <img style="background: linear-gradient(135deg, #000000 0%, #c0c0c0 50%, #00d2be 100%);" src="~/imagens/carros/mercedes_car-background.png" alt="Montanhas"></a>
+            <div class="teamc-content">
+                <h3>Conhece mais sobre a equipa</h3>
+                <p>Aprende Mais sobre a Mercedes Aqui:</p>
+            </div>
+
+        </div>
+
+        <div class="teamc two">
+            <a style="cursor:pointer" href="@Url.Action("Mclaren", "Home")">
+            <img style="background: linear-gradient(135deg, #ff8700 0%, #1c1c1c 50%, #00c2e0 100%); " src="~/imagens/carros/mclaren_car-background.png" alt="Pessoa observando a paisagem"></a>
+            <div class="teamc-content">
+                <h3>Conhece mais sobre a equipa</h3>
+                <p>Aprende Mais sobre a Mclaren Aqui:</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section style="margin-bottom: 2rem;" class="alinha">
+    <div class="teamc-container">
+        <div class="teamc one">
+            <a style="cursor:pointer" href="@Url.Action("Aston_Martin", "Home")">
+                <img style="background: linear-gradient(135deg, #006f62 0%, #000000 50%, #d1ff00 100%); " src="~/imagens/carros/aston-martin-background.png" alt="Montanhas"></a>
+            <div class="teamc-content">
+                <h3>Conhece mais sobre a equipa</h3>
+                <p>Aprende Mais sobre a Aston Martin Aqui:</p>
+            </div>
+        </div>
+
+        <div class="teamc two">
+            <a style="cursor:pointer" href="@Url.Action("Alpine", "Home")">
+            <img style="background: linear-gradient(135deg, #0090ff 0%, #ffffff 50%, #ff66cc 100%); " src="~/imagens/carros/alpine_car-background.png" alt="Pessoa observando a paisagem"></a>
+            <div class="teamc-content">
+                <h3>Conhece mais sobre a equipa</h3>
+                <p>Aprende Mais sobre a Alpine Aqui:</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section style="margin-bottom: 2rem;" class="alinha">
+    <div class="teamc-container">
+        <div class="teamc one">
+            <a style="cursor:pointer" href="@Url.Action("Haas", "Home")">
+                <img style="background: linear-gradient(135deg, #ffffff 0%, #000000 50%, #ff0000 100%); " src="~/imagens/carros/haas_car-background.png" alt="Montanhas"></a>
+                <div class="teamc-content">
+
+                    <h3>Conhece mais sobre a equipa</h3>
+                    <p>Aprende Mais sobre a Haas Aqui:</p>
+                </div>
+
+        </div>
+
+        <div class="teamc two">
+            <a style="cursor:pointer" href="@Url.Action("William", "Home")">
+                <img style="background: linear-gradient(135deg, #041e42 0%, #ffffff 50%, #ff0000 100%); " src="~/imagens/carros/williams_car-background.png" alt="Pessoa observando a paisagem"></a>
+            <div class="teamc-content">
+
+                <h3>Conhece mais sobre a equipa</h3>
+                <p>Aprende Mais sobre a Williams Aqui:</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section style="margin-bottom: 2rem;" class="alinha">
+    <div class="teamc-container">
+        <div class="teamc one">
+            <a style="cursor:pointer" href="@Url.Action("kick_sauber", "Home")">
+                <img style="background: linear-gradient(135deg, #00ff83 0%, #000000 100%); " src="~/imagens/carros/kick-sauber_car-background.png" alt="Montanhas"></a>
+            <div class="teamc-content">
+
+                <h3>Conhece mais sobre a equipa</h3>
+                <p>Aprende Mais sobre a Kick Sauber Aqui:</p>
+            </div>
+
+        </div>
+
+        <div class="teamc two">
+            <a style="cursor:pointer" href="@Url.Action("Alpha_Taurie", "Home")">
+                <img style="background: linear-gradient(135deg, #ffffff 0%, #ff0000 50%, #ffcc00 100%);" src="~/imagens/carros/racing-bulls_car-background.png" alt="Pessoa observando a paisagem"></a>
+            <div class="teamc-content">
+
+                <h3>Conhece mais sobre a equipa</h3>
+                <p>Aprende Mais sobre a Alpha Tauri Aqui:</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/javascript/pesquisa_pagina.js"></script>
+}
+
+

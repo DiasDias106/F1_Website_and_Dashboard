@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "Music_leclerc";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section music_styles{
+    <link rel="stylesheet" href="~/estilos/musicas.css" />
+}
+
+<div class="contentor_musica">
+    <header class="music_header">
+        <div class="m_logo">Music Player</div>
+        <div class="linha_music">Musica a toda a Velocidade</div>
+        <div class="checkered-flag"></div>
+    </header>
+
+    <div class="music_image">
+        <img class="music_main_image" src="~/imagens/Musicas/charles_leclerc_music.jpg" alt="Leclerc" />
+    </div>
+    <iframe id="f1music4"
+            width="0"
+            height="0"
+            src="https://www.youtube.com/embed/hSRW0xHalwo?enablejsapi=1&autoplay=1&controls=0&loop=1&playlist=hSRW0xHalwo&mute=0" 
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            style="opacity: 0; pointer-events: none; position: absolute;">
+    </iframe>
+    <div class="alinha_musicb">
+        <button class="musicbutton" onclick="playVideo4()">▶️ Play</button>
+        <button class="musicbutton" onclick="pauseVideo4()">⏸️ Pausar</button>
+    </div>
+
+    <div class="racing-stripe"></div>
+
+    <div class="music-info">
+        <h2>PLAYLIST OFICIAL F1</h2>
+        <ul class="music-list">
+            <li class="music-item">
+                <div class="play-icon">▶</div>
+                <div class="music-details">
+                    <div class="song-title">The Chain</div>
+                    <div class="song-info">
+                        <span>Fleetwood Mac</span>
+                        <span>Tema Clássico da F1 • 4:28</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <div class="play-icon">▶</div>
+                <div class="music-details">
+                    <div class="song-title">Formula 1 Theme</div>
+                    <div class="song-info">
+                        <span>Brian Tyler</span>
+                        <span>Tema Oficial • 3:12</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <div class="play-icon">▶</div>
+                <div class="music-details">
+                    <div class="song-title">Faster</div>
+                    <div class="song-info">
+                        <span>David Cosculluela</span>
+                        <span>Hino de Corrida • 3:45</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <div class="play-icon">▶</div>
+                <div class="music-details">
+                    <div class="song-title">Fuel</div>
+                    <div class="song-info">
+                        <span>Metallica</span>
+                        <span>Adrenalina Pura • 4:30</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <div class="play-icon">▶</div>
+                <div class="music-details">
+                    <div class="song-title">Lights Out</div>
+                    <div class="song-info">
+                        <span>F1 Orchestra</span>
+                        <span>Momento de Largada • 2:56</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <div class="play-icon">▶</div>
+                <div class="music-details">
+                    <div class="song-title">Champions</div>
+                    <div class="song-info">
+                        <span>Racing Heroes</span>
+                        <span>Pódio • 3:18</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+@section music_scripts{
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player4;
+
+        function onYouTubeIframeAPIReady() {
+            player4 = new YT.Player('f1music4');
+        }
+
+        function playVideo4() {
+            if (player4 && typeof player4.playVideo === 'function') {
+                player4.playVideo();
+            }
+        }
+
+        function pauseVideo4() {
+            if (player4 && typeof player4.pauseVideo === 'function') {
+                player4.pauseVideo();
+            }
+        }
+    </script>
+}
+
+
+

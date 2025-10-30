@@ -1,0 +1,227 @@
+﻿.d_body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.contentor_d_main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.cabecalho_main {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+.logo_main{
+    position:relative;
+    width:80%;
+    height:100%;
+}
+
+.hero-section {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.hero-image {
+    width: 100%;
+    height: 200px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+    transition: transform 0.3s ease;
+}
+
+    .hero-image:hover {
+        transform: translateY(-5px);
+    }
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #dc2626, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.cta-button {
+    background: linear-gradient(45deg, #dc2626, #b91c1c);
+    border: 5px solid black;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
+}
+
+    .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(220, 38, 38, 0.4);
+    }
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #dc2626, #7c3aed);
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 1rem;
+}
+
+.charts-section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.chart-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    min-width: 0;
+}
+
+    .chart-container > div {
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+.chart-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.activities-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: background 0.3s ease;
+}
+
+    .activity-item:hover {
+        background: rgba(220, 38, 38, 0.05);
+    }
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, #dc2626, #7c3aed);
+    border-radius: 50%;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.activity-content h4 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.activity-time {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .contentor_d_main {
+        padding: 10px;
+    }
+
+    .chart-container {
+        padding: 15px;
+    }
+}

@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "dashboard_funcoes";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+@section dashboard_funcoes_style{
+    <link rel="stylesheet" href="~/estilos/dashboard_funcoes.css" />
+}
+<div class="dashboard-titulo">Funções</div>
+<div class="grelha_cartoes">
+    <div class="cartao_func" onclick="selectFunction('email')">
+        <div class="f1-accent"></div>
+        <div class="cartao_func-icon">📧</div>
+        <h3 class="cartao_func-title">Email Management</h3>
+        <p class="cartao_func-description">Gerir e enviar emails automáticos, notificações da equipa e relatórios de performance diretamente da dashboard.</p>
+        <span class="cartao_func-status active">Ativo</span>
+        <div class="racing-line"></div>
+    </div>
+
+    <div class="cartao_func" onclick="selectFunction('analytics')">
+        <div class="f1-accent"></div>
+        <div class="cartao_func-icon">📊</div>
+        <h3 class="cartao_func-title">Analises Avançadas</h3>
+        <p class="cartao_func-description">Análise detalhada de dados de performance, telemetria em tempo real e métricas de competição.</p>
+        <span class="cartao_func-status active">Ativo</span>
+        <div class="racing-line"></div>
+    </div>
+
+    <div class="cartao_func" onclick="selectFunction('telemetry')">
+        <div class="f1-accent"></div>
+        <div class="cartao_func-icon">📡</div>
+        <h3 class="cartao_func-title">Telemetria Live</h3>
+        <p class="cartao_func-description">Monitorização em tempo real dos dados do carro, sensores e performance durante treinos e corridas.</p>
+        <span class="cartao_func-status">Em Desenvolvimento</span>
+        <div class="racing-line"></div>
+    </div>
+
+    <div class="cartao_func" onclick="selectFunction('reports')">
+        <div class="f1-accent"></div>
+        <div class="cartao_func-icon">📋</div>
+        <h3 class="cartao_func-title">Relatórios</h3>
+        <p class="cartao_func-description">Geração automática de relatórios de sessões, análise de volta e comparação de performance entre pilotos.</p>
+        <span class="cartao_func-status">Em Desenvolvimento</span>
+        <div class="racing-line"></div>
+    </div>
+
+    <div class="cartao_func" onclick="selectFunction('weather')">
+        <div class="f1-accent"></div>
+        <div class="cartao_func-icon">🌤️</div>
+        <h3 class="cartao_func-title">Weather Station</h3>
+        <p class="cartao_func-description">Previsões meteorológicas precisas, condições da pista e alertas climáticos para estratégia de corrida.</p>
+        <span class="cartao_func-status">Em Desenvolvimento</span>
+        <div class="racing-line"></div>
+    </div>
+
+    <div class="cartao_func" onclick="selectFunction('strategy')">
+        <div class="f1-accent"></div>
+        <div class="cartao_func-icon">🎯</div>
+        <h3 class="cartao_func-title">Estratégia</h3>
+        <p class="cartao_func-description">Simulação de estratégias de corrida, análise de pit stops e otimização de combustível e pneus.</p>
+        <span class="cartao_func-status">Em Desenvolvimento</span>
+        <div class="racing-line"></div>
+    </div>
+</div>
+
+@section dashboard_funcoes_js{
+    <script>
+        function selectFunction(functionName) {
+            // Remover seleção anterior
+            document.querySelectorAll('.cartao_func').forEach(card => {
+                card.style.borderColor = 'transparent';
+                card.style.boxShadow = 'none';
+            });
+
+            event.currentTarget.style.borderColor = '#dc143c';
+            event.currentTarget.style.boxShadow = '0 15px 35px rgba(220, 20, 60, 0.4)';
+
+            // Feedback visual
+            const card = event.currentTarget;
+            card.style.transform = 'translateY(-10px) scale(1.02)';
+
+            setTimeout(() => {
+                card.style.transform = 'translateY(-8px) scale(1)';
+            }, 150);
+
+            console.log(`Função selecionada: ${functionName}`);
+
+            // Navegação para as páginas específicas
+            setTimeout(() => {
+                switch(functionName) {
+                    case 'email':
+                        window.location.href = '@Url.Action("dashboard_Email", "Home")';
+                        break;
+                    case 'analytics':
+                        window.location.href = '@Url.Action("dashboard_analises", "Home")';
+                        break;
+                    case 'telemetry':
+                       alert('Funcionalidade em desenvolvimento');
+                        break;
+                    case 'reports':
+                        alert('Funcionalidade em desenvolvimento');
+                        break;
+                    case 'weather':
+                       alert('Funcionalidade em desenvolvimento');
+                        break;
+                    case 'strategy':
+                        alert('Funcionalidade em desenvolvimento');
+                        break;
+                    default:
+                        console.log('Função não reconhecida');
+                }
+            }, 200); // Pequeno delay para mostrar o efeito visual
+        }
+
+        // Adicionar efeito de hover suave
+        document.querySelectorAll('.cartao_func').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-8px)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                if (this.style.borderColor !== 'rgb(220, 20, 60)') {
+                    this.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+}

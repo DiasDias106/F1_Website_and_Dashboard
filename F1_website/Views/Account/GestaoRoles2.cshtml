@@ -1,0 +1,628 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+
+@{
+    ViewBag.Title = "GestaoRoles2";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+@section Scripts{
+    <link rel="stylesheet" href="~/estilos/gestaoroles2.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Header da página -->
+            <div class="page-header">
+                <h2 class="page-title">Gestão de Cargos dos Utilizadores</h2>
+                <div class="f1-accent-line"></div>
+                <p class="page-subtitle">Gerir utilizadores e respetivos cargos no sistema</p>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="nav-tabs-container">
+                <div class="nav-tabs" role="tablist">
+                    <button class="nav-tab active" id="tab-usuarios" data-tab="usuarios">
+                        <i class="fa fa-users"></i> Utilizadores
+                    </button>
+                    <button class="nav-tab" id="tab-cargos" data-tab="cargos">
+                        <i class="fa fa-briefcase"></i> Gestão de Cargos
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab content -->
+            <div class="tab-content">
+
+                <!-- Tab Utilizadores -->
+                <div role="tabpanel" class="tab-pane active" id="usuarios">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fa fa-users"></i>
+                                Lista de Utilizadores
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Email</th>
+                                            <th>Username</th>
+                                            <th>Cargo Atual</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.UsersWithRoles != null)
+                                        {
+                                            foreach (var user in Model.UsersWithRoles)
+                                            {
+                                                <tr>
+                                                    <td>@(user.Nome ?? "N/A")</td>
+                                                    <td>@user.Email</td>
+                                                    <td>@user.UserName</td>
+                                                    <td>
+                                                        <span class="status-badge @(user.HasRole ? "success" : "default")">
+                                                            @user.RoleName
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary btn-sm btn-promover"
+                                                                data-user-id="@user.UserId"
+                                                                data-user-name="@user.UserName"
+                                                                data-role-id="@user.RoleId">
+                                                            <i class="fa fa-edit"></i> Promover
+                                                        </button>
+                                                        @if (user.HasRole)
+                                                        {
+                                                            <button type="button" class="btn btn-warning btn-sm btn-remover"
+                                                                    data-user-id="@user.UserId"
+                                                                    data-user-name="@user.UserName">
+                                                                <i class="fa fa-remove"></i> Remover
+                                                            </button>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Cargos -->
+                <div role="tabpanel" class="tab-pane" id="cargos">
+                    <div class="row">
+                        <!-- Criar Novo Cargo -->
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fa fa-plus-circle"></i>
+                                        Criar Novo Cargo
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="nomeCargo" class="form-label">Nome do Cargo:</label>
+                                        <input type="text" id="nomeCargo" class="form-input" placeholder="Ex: Administrador, Moderador...">
+                                    </div>
+                                    <button type="button" class="btn btn-success" id="btnCriarCargo">
+                                        <i class="fa fa-plus"></i> Criar Cargo
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lista de Cargos Existentes -->
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fa fa-list"></i>
+                                        Cargos Existentes
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-container">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome do Cargo</th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="listaRoles">
+                                                @if (Model.RolesEF != null)
+                                                {
+                                                    foreach (var role in Model.RolesEF)
+                                                    {
+                                                        <tr id="role-@role.Id">
+                                                            <td>@role.Name</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-danger btn-xs btn-eliminar"
+                                                                        data-role-id="@role.Id"
+                                                                        data-role-name="@role.Name">
+                                                                    <i class="fa fa-trash"></i> Eliminar
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Promover Utilizador -->
+<div class="modal" id="modalPromover" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Promover Utilizador</h4>
+                <button type="button" class="modal-close" id="btnFecharModal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Selecione o cargo para o utilizador: <strong id="nomeUtilizador"></strong></p>
+
+                <div class="form-group">
+                    <label for="selectRole" class="form-label">Cargo:</label>
+                    <select id="selectRole" class="form-select">
+                        <option value="">Selecione um cargo...</option>
+                        @if (Model.RolesList != null)
+                        {
+                            foreach (var role in Model.RolesList)
+                            {
+                                <option value="@role.Value">@role.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <input type="hidden" id="selectedUserId">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnCancelar">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnConfirmarPromocao">
+                    <i class="fa fa-check"></i> Confirmar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.AntiForgeryToken()
+
+<script>
+// Aguardar o carregamento completo da página
+console.log('Script iniciado');
+
+// Função para verificar jQuery
+function verificarJQuery() {
+    if (typeof $ !== 'undefined') {
+        console.log('jQuery encontrado, versão:', $.fn.jquery);
+        return true;
+    } else if (typeof jQuery !== 'undefined') {
+        console.log('jQuery encontrado como jQuery, versão:', jQuery.fn.jquery);
+        window.$ = jQuery; // Criar alias
+        return true;
+    }
+    return false;
+}
+
+// Função principal de inicialização
+function inicializar() {
+    console.log('Função inicializar chamada');
+
+    if (!verificarJQuery()) {
+        console.error('jQuery não está disponível!');
+        // Tentar novamente em 500ms
+        setTimeout(inicializar, 500);
+        return;
+    }
+
+    console.log('Iniciando configuração...');
+
+    // Aguardar o jQuery estar pronto
+    $(document).ready(function() {
+        console.log('jQuery document ready');
+
+        // Verificar se os elementos existem
+        verificarElementos();
+
+        // Inicializar a página
+        inicializarPagina();
+
+        // Configurar event handlers
+        configurarEventHandlers();
+    });
+}
+
+function verificarElementos() {
+    console.log('Verificando elementos...');
+
+    // Verificar botões
+    var btnPromover = $('.btn-promover');
+    var btnRemover = $('.btn-remover');
+    var btnCriarCargo = $('#btnCriarCargo');
+    var btnEliminar = $('.btn-eliminar');
+
+    console.log('Botões encontrados:');
+    console.log('- Promover:', btnPromover.length);
+    console.log('- Remover:', btnRemover.length);
+    console.log('- Criar Cargo:', btnCriarCargo.length);
+    console.log('- Eliminar:', btnEliminar.length);
+
+    // Verificar modal
+    var modal = $('#modalPromover');
+    console.log('- Modal:', modal.length);
+
+    // Verificar tabs
+    var tabs = $('.nav-tab');
+    console.log('- Tabs:', tabs.length);
+}
+
+// Tentar múltiplas formas de inicialização
+document.addEventListener('DOMContentLoaded', inicializar);
+
+// Backup usando window.onload
+window.addEventListener('load', function() {
+    console.log('Window load event');
+    inicializar();
+});
+
+// Backup usando jQuery se já estiver disponível
+if (typeof $ !== 'undefined') {
+    $(document).ready(inicializar);
+}
+
+function inicializarPagina() {
+    console.log('Inicializando página...');
+
+    // Certificar que a primeira tab está ativa
+    $('.nav-tab').removeClass('active');
+    $('.tab-pane').removeClass('active');
+
+    $('#tab-usuarios').addClass('active');
+    $('#usuarios').addClass('active');
+
+    console.log('Página inicializada');
+}
+
+function configurarEventHandlers() {
+    console.log('=== CONFIGURANDO EVENT HANDLERS ===');
+
+    // Método 1: Event delegation no document
+    $(document).off('click.gestaoRoles').on('click.gestaoRoles', '.btn-promover', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('🔥 BOTÃO PROMOVER CLICADO! (delegation)');
+
+        var userId = $(this).attr('data-user-id');
+        var userName = $(this).attr('data-user-name');
+        var roleId = $(this).attr('data-role-id');
+
+        console.log('Dados:', { userId, userName, roleId });
+        abrirModalPromover(userId, userName, roleId);
+    });
+
+    $(document).off('click.gestaoRoles2').on('click.gestaoRoles2', '.btn-remover', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('🔥 BOTÃO REMOVER CLICADO! (delegation)');
+
+        var userId = $(this).attr('data-user-id');
+        var userName = $(this).attr('data-user-name');
+
+        console.log('Dados:', { userId, userName });
+        removerRole(userId, userName);
+    });
+
+    $(document).off('click.gestaoRoles3').on('click.gestaoRoles3', '#btnCriarCargo', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('🔥 BOTÃO CRIAR CARGO CLICADO! (delegation)');
+        criarCargo();
+    });
+
+    $(document).off('click.gestaoRoles4').on('click.gestaoRoles4', '.btn-eliminar', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('🔥 BOTÃO ELIMINAR CLICADO! (delegation)');
+
+        var roleId = $(this).attr('data-role-id');
+        var roleName = $(this).attr('data-role-name');
+
+        console.log('Dados:', { roleId, roleName });
+        eliminarRole(roleId, roleName);
+    });
+
+    // Método 2: Event handlers diretos (backup)
+    $('.btn-promover').each(function(index) {
+        console.log('Configurando botão promover', index);
+        $(this).off('click').on('click', function(e) {
+            e.preventDefault();
+            console.log('🚀 BOTÃO PROMOVER CLICADO! (direto)');
+
+            var userId = $(this).attr('data-user-id');
+            var userName = $(this).attr('data-user-name');
+            var roleId = $(this).attr('data-role-id');
+
+            abrirModalPromover(userId, userName, roleId);
+        });
+    });
+
+    $('.btn-remover').each(function(index) {
+        console.log('Configurando botão remover', index);
+        $(this).off('click').on('click', function(e) {
+            e.preventDefault();
+            console.log('🚀 BOTÃO REMOVER CLICADO! (direto)');
+
+            var userId = $(this).attr('data-user-id');
+            var userName = $(this).attr('data-user-name');
+
+            removerRole(userId, userName);
+        });
+    });
+
+    $('#btnCriarCargo').off('click').on('click', function(e) {
+        e.preventDefault();
+        console.log('🚀 BOTÃO CRIAR CARGO CLICADO! (direto)');
+        criarCargo();
+    });
+
+    $('.btn-eliminar').each(function(index) {
+        console.log('Configurando botão eliminar', index);
+        $(this).off('click').on('click', function(e) {
+            e.preventDefault();
+            console.log('🚀 BOTÃO ELIMINAR CLICADO! (direto)');
+
+            var roleId = $(this).attr('data-role-id');
+            var roleName = $(this).attr('data-role-name');
+
+            eliminarRole(roleId, roleName);
+        });
+    });
+
+    // Método 3: Event handlers nativos JavaScript (último recurso)
+    document.querySelectorAll('.btn-promover').forEach(function(btn, index) {
+        console.log('Configurando botão promover nativo', index);
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('⚡ BOTÃO PROMOVER CLICADO! (nativo)');
+
+            var userId = this.getAttribute('data-user-id');
+            var userName = this.getAttribute('data-user-name');
+            var roleId = this.getAttribute('data-role-id');
+
+            abrirModalPromover(userId, userName, roleId);
+        });
+    });
+
+    // Funcionalidade das tabs
+    $(document).off('click.tabs').on('click.tabs', '.nav-tab', function(e) {
+        e.preventDefault();
+        console.log('🔵 TAB CLICADA:', $(this).attr('data-tab'));
+
+        $('.nav-tab').removeClass('active');
+        $('.tab-pane').removeClass('active');
+
+        $(this).addClass('active');
+        var targetTab = $(this).attr('data-tab');
+        $('#' + targetTab).addClass('active');
+    });
+
+    // Event handlers do modal
+    $(document).off('click.modal').on('click.modal', '#btnFecharModal, #btnCancelar', function(e) {
+        e.preventDefault();
+        console.log('🔴 FECHANDO MODAL');
+        fecharModal();
+    });
+
+    $(document).off('click.modal2').on('click.modal2', '#btnConfirmarPromocao', function(e) {
+        e.preventDefault();
+        console.log('✅ CONFIRMANDO PROMOÇÃO');
+        confirmarPromocao();
+    });
+
+    // Fechar modal clicando fora
+    $(document).off('click.modalBg').on('click.modalBg', '.modal', function(e) {
+        if (e.target === this) {
+            fecharModal();
+        }
+    });
+
+    // Fechar modal com ESC
+    $(document).off('keydown.modal').on('keydown.modal', function(e) {
+        if (e.keyCode === 27) {
+            fecharModal();
+        }
+    });
+
+    console.log('=== EVENT HANDLERS CONFIGURADOS ===');
+
+    // Teste imediato
+    setTimeout(function() {
+        console.log('=== TESTE DOS BOTÕES ===');
+        $('.btn-promover').each(function(i) {
+            console.log('Botão promover', i, ':', this);
+        });
+    }, 1000);
+}
+
+function abrirModalPromover(userId, userName, currentRoleId) {
+    console.log('Abrindo modal para promover:', { userId, userName, currentRoleId });
+
+    $('#selectedUserId').val(userId);
+    $('#nomeUtilizador').text(userName);
+    $('#selectRole').val(currentRoleId || '');
+    $('#modalPromover').addClass('show');
+}
+
+function fecharModal() {
+    console.log('Fechando modal');
+    $('#modalPromover').removeClass('show');
+}
+
+function confirmarPromocao() {
+    console.log('Confirmando promoção...');
+
+    var userId = $('#selectedUserId').val();
+    var roleId = $('#selectRole').val();
+
+    console.log('Dados da promoção:', { userId, roleId });
+
+    if (!roleId) {
+        alert('Por favor, selecione um cargo.');
+        return;
+    }
+
+    // Adicionar loading
+    $('#modalPromover .modal-content').addClass('loading');
+
+    var token = $('input[name="__RequestVerificationToken"]').val();
+    console.log('Token CSRF:', token);
+
+    $.ajax({
+        url: '@Url.Action("AtribuirRole2", "Account")',
+        type: 'POST',
+        data: {
+            userId: userId,
+            roleId: roleId,
+            __RequestVerificationToken: token
+        },
+        success: function(response) {
+            console.log('Resposta do servidor:', response);
+            $('#modalPromover .modal-content').removeClass('loading');
+
+            if (response.success) {
+                alert(response.message);
+                fecharModal();
+                location.reload();
+            } else {
+                alert('Erro: ' + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Erro AJAX:', { xhr, status, error });
+            $('#modalPromover .modal-content').removeClass('loading');
+            alert('Erro ao processar pedido: ' + error);
+        }
+    });
+}
+
+function removerRole(userId, userName) {
+    console.log('Removendo role:', { userId, userName });
+
+    if (confirm('Tem certeza que deseja remover o cargo de ' + userName + '?')) {
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+            url: '@Url.Action("RemoverRole2", "Account")',
+            type: 'POST',
+            data: {
+                userId: userId,
+                __RequestVerificationToken: token
+            },
+            success: function(response) {
+                console.log('Resposta remover role:', response);
+
+                if (response.success) {
+                    alert(response.message);
+                    location.reload();
+                } else {
+                    alert('Erro: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro AJAX remover role:', { xhr, status, error });
+                alert('Erro ao processar pedido: ' + error);
+            }
+        });
+    }
+}
+
+function criarCargo() {
+    console.log('Criando cargo...');
+
+    var nomeCargo = $('#nomeCargo').val().trim();
+    console.log('Nome do cargo:', nomeCargo);
+
+    if (!nomeCargo) {
+        alert('Por favor, digite o nome do cargo.');
+        return;
+    }
+
+    var token = $('input[name="__RequestVerificationToken"]').val();
+
+    $.ajax({
+        url: '@Url.Action("CriarRole2", "Account")',
+        type: 'POST',
+        data: {
+            nomeCargo: nomeCargo,
+            __RequestVerificationToken: token
+        },
+        success: function(response) {
+            console.log('Resposta criar cargo:', response);
+
+            if (response.success) {
+                alert(response.message);
+                $('#nomeCargo').val('');
+                location.reload();
+            } else {
+                alert('Erro: ' + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Erro AJAX criar cargo:', { xhr, status, error });
+            alert('Erro ao processar pedido: ' + error);
+        }
+    });
+}
+
+function eliminarRole(roleId, roleName) {
+    console.log('Eliminando role:', { roleId, roleName });
+
+    if (confirm('Tem certeza que deseja eliminar o cargo "' + roleName + '"?')) {
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+            url: '@Url.Action("EliminarRole2", "Account")',
+            type: 'POST',
+            data: {
+                roleId: roleId,
+                __RequestVerificationToken: token
+            },
+            success: function(response) {
+                console.log('Resposta eliminar role:', response);
+
+                if (response.success) {
+                    alert(response.message);
+                    location.reload();
+                } else {
+                    alert('Erro: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro AJAX eliminar role:', { xhr, status, error });
+                alert('Erro ao processar pedido: ' + error);
+            }
+        });
+    }
+}
+</script>

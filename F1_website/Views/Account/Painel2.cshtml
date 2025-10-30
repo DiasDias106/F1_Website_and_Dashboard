@@ -1,0 +1,162 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+
+@{
+    ViewBag.Title = "Painel2";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/estilos/painel2.css" />
+}
+
+<section class="dashboard_height">
+    <div class="dashboard-container">
+        <div class="f1-accent-panel"></div>
+
+        <div class="dashboard-header">
+            <div class="f1-logo-panel">
+                <div class="f1-logo-text-panel">F1</div>
+            </div>
+            <h1 class="dashboard-title">Paddock Club</h1>
+            <p class="dashboard-subtitle">Bem-vindo, @Model.Painel.Nome!</p>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- Informações do Usuário -->
+            <div class="user-info-section">
+                <h2 class="section-title">Informações da Conta</h2>
+
+                <div class="info-group">
+                    <label class="info-label">Email</label>
+                    <div class="info-display">@Model.Painel.Email</div>
+                </div>
+
+                <div class="info-group">
+                    <label class="info-label">Morada</label>
+                    <div class="info-display">@Model.Painel.Morada</div>
+                </div>
+
+                <div class="info-group">
+                    <label class="info-label">Data de Nascimento</label>
+                    <div class="info-display">@Model.Painel.DataNascimento.ToString("dd/MM/yyyy")</div>
+                </div>
+
+                <div class="action-group">
+                    <a href="@Url.Action("EditarDados2", "Account")" class="dashboard-button primary">
+                        Editar Dados
+                    </a>
+                </div>
+            </div>
+
+            <!-- Seção de Administração -->
+            @if (User.IsInRole("Administrador") || User.IsInRole("Admin"))
+            {
+                <div class="admin-section">
+                    <div class="section-divider">
+                        <div class="divider-line-panel"></div>
+                        <span class="divider-text-panel">Painel de Administração</span>
+                        <div class="divider-line-panel"></div>
+                    </div>
+
+                    <div class="action-group">
+                        <a href="@Url.Action("GestaoRoles2", "Account")" class="dashboard-button admin">
+                            <i class="fa fa-cogs button-icon"></i>
+                            Gestão de Cargos
+                        </a>
+                    </div>
+                </div>
+            }
+
+            <!-- Controles de Conta -->
+            <div class="account-controls">
+                <h2 class="section-title">Controlos de Conta</h2>
+
+                <div class="action-group">
+                    @using (Html.BeginForm("LogOff2", "Account", FormMethod.Post, new { @class = "dashboard-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="dashboard-button secondary">
+                            Terminar Sessão
+                        </button>
+                    }
+                </div>
+
+                <div class="danger-section">
+                    <div class="section-divider">
+                        <div class="divider-line-panel danger"></div>
+                        <span class="divider-text-panel danger">Zona de Perigo</span>
+                        <div class="divider-line-panel danger"></div>
+                    </div>
+
+                    <div class="action-group">
+                        @using (Html.BeginForm("EliminarConta", "Account", FormMethod.Post, new { @class = "dashboard-form", onsubmit = "return confirm('Tem a certeza que quer eliminar a sua conta? Esta ação é irreversível!');" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="dashboard-button danger">
+                                Eliminar Conta
+                            </button>
+                        }
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="status-info">
+                    <span class="status-label">Status: </span>
+                    <span class="status-active">Ativo</span>
+                    @if (User.IsInRole("Administrador") || User.IsInRole("Admin"))
+                    {
+                        <span class="status-separator">|</span>
+                        <span class="status-admin">Admin</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Efeitos hover nos botões
+            $('.dashboard-button').hover(
+                function () {
+                    $(this).css('transform', 'translateY(-2px)');
+                },
+                function () {
+                    $(this).css('transform', 'translateY(0)');
+                }
+            );
+
+            // Efeito especial para o botão de admin
+            $('.dashboard-button.admin').hover(
+                function () {
+                    $(this).css({
+                        'transform': 'translateY(-2px) scale(1.02)',
+                        'box-shadow': '0 6px 20px rgba(255, 107, 53, 0.6)'
+                    });
+                },
+                function () {
+                    $(this).css({
+                        'transform': 'translateY(0) scale(1)',
+                        'box-shadow': '0 4px 15px rgba(255, 107, 53, 0.4)'
+                    });
+                }
+            );
+
+            // Animação de pulsação no status
+            setInterval(function () {
+                $('.status-active').fadeOut(300).fadeIn(300);
+            }, 2000);
+
+            // Efeito de hover nas seções de informação
+            $('.info-display').hover(
+                function () {
+                    $(this).css('background-color', '#f9fafb');
+                },
+                function () {
+                    $(this).css('background-color', '#ffffff');
+                }
+            );
+        });
+    </script>
+}

@@ -1,0 +1,560 @@
+﻿@using PagedList.Mvc
+@model F1_website.Models.paginacomunicaçãoviewmodel
+
+@{
+    ViewBag.Title = "Lista de Eventos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link href="~/estilos/calendario_styles.css" rel="stylesheet" />
+}
+
+<div class="f1-page-header">
+    <div class="container">
+        <h2 class="text-center">Eventos do Calendário F1</h2>
+    </div>
+</div>
+
+<div class="container">
+    @if (!string.IsNullOrEmpty(ViewBag.Msg as string))
+    {
+        <div class="f1-error-msg">
+            @ViewBag.Msg
+        </div>
+    }
+
+    <!-- Estatísticas -->
+    @if (Model.CalendariosPaginados != null && Model.CalendariosPaginados.Any())
+    {
+        <div class="f1-stats">
+            <h5><i class="fas fa-chart-bar"></i> Estatísticas dos Eventos</h5>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="stat-number">@Model.TotalEventos</span>
+                    <span class="stat-label">Total de Eventos</span>
+                </div>
+                <div class="col-md-3">
+                    <span class="stat-number">@Model.EventosProximos</span>
+                    <span class="stat-label">Próximos Eventos</span>
+                </div>
+                <div class="col-md-3">
+                    <span class="stat-number">@Model.EventosConcluidos</span>
+                    <span class="stat-label">Eventos Concluídos</span>
+                </div>
+                <div class="col-md-3">
+                    <span class="stat-number">@Model.EventosAndamento</span>
+                    <span class="stat-label">Em Andamento</span>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Filtros Avançados -->
+    <div class="f1-filters">
+        <h5><i class="fas fa-filter"></i> Filtros e Pesquisa</h5>
+        @using (Html.BeginForm("ListaCalendario", "F1", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="seek">Pesquisa Geral</label>
+                    <input type="text" placeholder="Nome do evento, descrição..." class="form-control" name="seek" id="seek" value="@Model.Seek" />
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="filtropista">Filtrar por Pista</label>
+                    @Html.DropDownList("filtropista",
+                        new SelectList(Model.PistasDisponiveis?.Select(p => new SelectListItem { Value = p.Id_pista.ToString(), Text = p.nome }) ?? new List<SelectListItem>(), "Value", "Text", Model.FiltroPista),
+                        "Todas as pistas",
+                        new { @class = "form-control", id = "filtropista" })
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="filtroperiodo">Filtrar por Período</label>
+                    @Html.DropDownList("filtroperiodo",
+                        new List<SelectListItem>
+                        {
+                            new SelectListItem { Value = "", Text = "Todos os períodos" },
+                            new SelectListItem { Value = "passados", Text = "Eventos Passados" },
+                            new SelectListItem { Value = "futuros", Text = "Eventos Futuros" },
+                            new SelectListItem { Value = "andamento", Text = "Em Andamento" }
+                        },
+                        new { @class = "form-control", id = "filtroperiodo" })
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label>&nbsp;</label>
+                    <div>
+                        <button type="submit" class="f1-btn f1-btn-export" style="width: 100%; margin-bottom: 5px;">
+                            <i class="fas fa-search"></i> Filtrar
+                        </button>
+                        <a href="@Url.Action("LimparFiltrosCalendario", "F1")" class="f1-btn" style="background: #6c757d; color: white; width: 100%; text-align: center; display: block; text-decoration: none;">
+                            <i class="fas fa-times"></i> Limpar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campos ocultos para manter ordenação e página -->
+            <input type="hidden" name="ordem" value="@Model.Ordem" />
+        }
+    </div>
+
+    <div class="row f1-action-buttons">
+        <div class="col-md-6">
+            <button class="f1-btn f1-btn-create" data-bs-toggle="modal" data-bs-target="#modalAddCalendario">
+                <i class="fas fa-plus"></i> Criar Evento
+            </button>
+        </div>
+        <div class="col-md-6 text-end">
+            <div class="btn-group" role="group" aria-label="Opções de Exportação">
+                <a href="@Url.Action("ExportarCalendarioExcel", "F1")" class="f1-btn f1-btn-export excel">
+                    <i class="fas fa-file-excel"></i> Exportar Excel
+                </a>
+                <a href="@Url.Action("ExportarCalendarioPDF", "F1")" class="f1-btn f1-btn-export">
+                    <i class="fas fa-file-pdf"></i> Exportar PDF
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: criar evento -->
+    <div class="modal fade f1-modal" id="modalAddCalendario" tabindex="-1" aria-labelledby="modalAddCalendarioLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modalAddCalendarioLabel" class="modal-title">
+                        <i class="fas fa-flag-checkered"></i> Criar Evento
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formCreateCalendario" action="@Url.Action("AddCalendario", "F1")" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="mb-3">
+                            <label for="CalendarioNome">Nome do Evento</label>
+                            <input name="Calendario.nome_evento" id="CalendarioNome" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="CalendarioDataInicio">Data de Início</label>
+                            <input type="date" name="Calendario.data_inicio" id="CalendarioDataInicio" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="CalendarioDataFim">Data de Fim</label>
+                            <input type="date" name="Calendario.data_fim" id="CalendarioDataFim" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="CalendarioDuracao">Duração (dias)</label>
+                            <input type="number" name="Calendario.duracao" id="CalendarioDuracao" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="CalendarioDescricao">Descrição</label>
+                            <textarea name="Calendario.descricao" id="CalendarioDescricao" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="CalendarioPista">Pista</label>
+                            @Html.DropDownList("Calendario.pista", new SelectList(Model.Pistas, "Id_pista", "nome"), "-- selecionar --", new { @class = "form-control", @id = "CalendarioPista", required = "required" })
+                        </div>
+                        <button type="submit" class="f1-btn f1-btn-create" id="btnCreateCalendario">
+                            <i class="fas fa-save"></i> Criar Evento
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: editar evento -->
+    <div class="modal fade f1-modal" id="modalEditCalendario" tabindex="-1" aria-labelledby="modalEditCalendarioLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modalEditCalendarioLabel" class="modal-title">
+                        <i class="fas fa-edit"></i> Editar Evento
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditCalendario" action="@Url.Action("EditCalendario", "F1")" method="post">
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("Id_evento", "", new { id = "editId_evento" })
+                        <div class="mb-3">
+                            <label for="editNome_evento">Nome do Evento</label>
+                            <input type="text" name="nome_evento" id="editNome_evento" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editData_inicio">Data de Início</label>
+                            <input type="date" name="data_inicio" id="editData_inicio" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editData_fim">Data de Fim</label>
+                            <input type="date" name="data_fim" id="editData_fim" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDuracao">Duração</label>
+                            <input type="number" name="duracao" id="editDuracao" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDescricao">Descrição</label>
+                            <textarea name="descricao" id="editDescricao" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPista">Pista</label>
+                            @Html.DropDownList("pista", new SelectList(Model.Pistas, "Id_pista", "nome"), null, new { @id = "editPista", @class = "form-control" })
+                        </div>
+                        <button type="submit" class="f1-btn f1-btn-export excel" id="btnEditCalendario">
+                            <i class="fas fa-save"></i> Guardar Alterações
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: apagar evento -->
+    <div class="modal fade f1-modal" id="modalDeleteCalendario" tabindex="-1" aria-labelledby="modalDeleteCalendarioLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modalDeleteCalendarioLabel" class="modal-title">
+                        <i class="fas fa-trash"></i> Apagar Evento
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem a certeza que pretende eliminar este evento?</p>
+                    <p><strong id="deleteNomeEvento"></strong></p>
+                    <form id="formDeleteCalendario" action="@Url.Action("DeleteCalendario", "F1")" method="post">
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("Id_evento", "", new { id = "deleteId_evento" })
+                        <button type="submit" class="f1-btn f1-btn-export" id="btnDeleteCalendario">
+                            <i class="fas fa-trash"></i> Apagar
+                        </button>
+                        <button type="button" class="f1-btn" style="background: #6c757d; color: white;" data-bs-dismiss="modal">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informações da Paginação -->
+    @if (Model.CalendariosPaginados != null && Model.CalendariosPaginados.Any())
+    {
+        <div class="f1-pagination-info">
+            Mostrando @Model.CalendariosPaginados.FirstItemOnPage a @Model.CalendariosPaginados.LastItemOnPage
+            de @Model.CalendariosPaginados.TotalItemCount eventos
+            (@Model.CalendariosPaginados.PageCount página(s))
+        </div>
+    }
+
+    <div style="margin-bottom:20px" class="f1-table-container">
+        @if (Model.CalendariosPaginados != null && Model.CalendariosPaginados.Any())
+        {
+            <table class="f1-table">
+                <thead class="f1-table-header">
+                    <tr>
+                        <th>
+                            @Html.ActionLink("ID", "ListaCalendario", new
+                            {
+                                ordem = ViewBag.ordemIdEvento,
+                                seek = Model.Seek,
+                                filtropista = Model.FiltroPista,
+                                filtroperiodo = Model.FiltroPeriodo
+                            })
+                            <i class="fas fa-hashtag"></i>
+                        </th>
+                        <th>
+                            @Html.ActionLink("Evento", "ListaCalendario", new
+                            {
+                                ordem = ViewBag.ordemNomeEvento,
+                                seek = Model.Seek,
+                                filtropista = Model.FiltroPista,
+                                filtroperiodo = Model.FiltroPeriodo
+                            })
+                            <i class="fas fa-flag-checkered"></i>
+                        </th>
+                        <th>
+                            @Html.ActionLink("Início", "ListaCalendario", new
+                            {
+                                ordem = ViewBag.ordemDataInicio,
+                                seek = Model.Seek,
+                                filtropista = Model.FiltroPista,
+                                filtroperiodo = Model.FiltroPeriodo
+                            })
+                            <i class="fas fa-calendar-alt"></i>
+                        </th>
+                        <th>
+                            @Html.ActionLink("Fim", "ListaCalendario", new
+                            {
+                                ordem = ViewBag.ordemDataFim,
+                                seek = Model.Seek,
+                                filtropista = Model.FiltroPista,
+                                filtroperiodo = Model.FiltroPeriodo
+                            })
+                            <i class="fas fa-calendar-check"></i>
+                        </th>
+                        <th><i class="fas fa-clock"></i> Duração</th>
+                        <th><i class="fas fa-info-circle"></i> Descrição</th>
+                        <th>
+                            @Html.ActionLink("Pista", "ListaCalendario", new
+                            {
+                                ordem = ViewBag.ordemPista,
+                                seek = Model.Seek,
+                                filtropista = Model.FiltroPista,
+                                filtroperiodo = Model.FiltroPeriodo
+                            })
+                            <i class="fas fa-road"></i>
+                        </th>
+                        <th><i class="fas fa-cogs"></i> Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CalendariosPaginados)
+                    {
+                        <tr>
+                            <td>@item.Id_evento</td>
+                            <td><strong>@item.nome_evento</strong></td>
+                            <td>@item.data_inicio.ToString("dd/MM/yyyy")</td>
+                            <td>@item.data_fim.ToString("dd/MM/yyyy")</td>
+                            <td>@(item.duracao) dias</td>
+                            <td>@(item.descricao?.Length > 50 ? item.descricao.Substring(0, 50) + "..." : item.descricao)</td>
+                            <td><i class="fas fa-map-marker-alt"></i> @item.Pista1.nome</td>
+                            <td>
+                                <a href="@Url.Action("DetailCalendario", "F1", new { id = item.Id_evento })" class="f1-table-btn details">
+                                    <i class="fas fa-eye"></i> Detalhes
+                                </a>
+                                <button class="f1-table-btn edit btn-edit-cal" data-bs-toggle="modal" data-bs-target="#modalEditCalendario"
+                                        data-id="@item.Id_evento" data-nome="@Html.AttributeEncode(item.nome_evento)"
+                                        data-inicio="@item.data_inicio.ToString("yyyy-MM-dd")"
+                                        data-fim="@item.data_fim.ToString("yyyy-MM-dd")"
+                                        data-duracao="@item.duracao"
+                                        data-descricao="@Html.AttributeEncode(item.descricao)"
+                                        data-idpista="@item.pista">
+                                    <i class="fas fa-edit"></i> Editar
+                                </button>
+                                <button class="f1-table-btn delete btn-delete-cal" data-bs-toggle="modal" data-bs-target="#modalDeleteCalendario"
+                                        data-id="@item.Id_evento" data-nome="@Html.AttributeEncode(item.nome_evento)">
+                                    <i class="fas fa-trash"></i> Apagar
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div style="text-align: center; padding: 40px; color: #666;">
+                <i class="fas fa-search" style="font-size: 48px; margin-bottom: 20px;"></i>
+                <h4>Nenhum evento encontrado</h4>
+                <p>Tente ajustar os filtros de pesquisa ou criar um novo evento.</p>
+            </div>
+        }
+    </div>
+
+    
+    @if (Model.CalendariosPaginados != null && Model.CalendariosPaginados.PageCount > 1)
+    {
+        <div class="f1-pagination">
+            @Html.PagedListPager(Model.CalendariosPaginados, page => Url.Action("ListaCalendario", new
+            {
+                page,
+                seek = Model.Seek,
+                ordem = Model.Ordem,
+                filtropista = Model.FiltroPista,
+                filtroperiodo = Model.FiltroPeriodo
+            }), new PagedListRenderOptions
+            {
+                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                MaximumPageNumbersToDisplay = 7,
+                UlElementClasses = new[] { "pagination" },
+                LiElementClasses = new[] { "page-item" },
+                LinkToFirstPageFormat = "Primeira",
+                LinkToPreviousPageFormat = "Anterior",
+                LinkToNextPageFormat = "Próxima",
+                LinkToLastPageFormat = "Última"
+            })
+        </div>
+    }
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Definir valor selecionado para os dropdowns de filtros
+        const filtroPista = '@Model.FiltroPista';
+        const filtroPeriodo = '@Model.FiltroPeriodo';
+
+        if (filtroPista) {
+            document.getElementById('filtropista').value = filtroPista;
+        }
+        if (filtroPeriodo) {
+            document.getElementById('filtroperiodo').value = filtroPeriodo;
+        }
+
+        // Adicionar efeito de hover nas linhas da tabela
+        const tableRows = document.querySelectorAll('.f1-table tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseenter', function () {
+                this.style.transform = 'scale(1.01)';
+            });
+            row.addEventListener('mouseleave', function () {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Funcionalidade dos modais - Editar
+        document.querySelectorAll('.btn-edit-cal').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('editId_evento').value = btn.dataset.id;
+                document.getElementById('editNome_evento').value = btn.dataset.nome;
+                document.getElementById('editData_inicio').value = btn.dataset.inicio;
+                document.getElementById('editData_fim').value = btn.dataset.fim;
+                document.getElementById('editDuracao').value = btn.dataset.duracao;
+                document.getElementById('editDescricao').value = btn.dataset.descricao;
+                document.getElementById('editPista').value = btn.dataset.idpista;
+            });
+        });
+
+        // Funcionalidade dos modais - Apagar
+        document.querySelectorAll('.btn-delete-cal').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('deleteId_evento').value = btn.dataset.id;
+                document.getElementById('deleteNomeEvento').textContent = btn.dataset.nome;
+            });
+        });
+
+        // Manipular submissão dos formulários
+        const formCreateCalendario = document.getElementById('formCreateCalendario');
+        const formEditCalendario = document.getElementById('formEditCalendario');
+        const formDeleteCalendario = document.getElementById('formDeleteCalendario');
+
+        // Formulário de criação
+        if (formCreateCalendario) {
+            formCreateCalendario.addEventListener('submit', function(e) {
+                const submitBtn = document.getElementById('btnCreateCalendario');
+                const originalHTML = submitBtn.innerHTML;
+
+                // Validar campos antes de submeter
+                const nome = document.getElementById('CalendarioNome').value.trim();
+                const dataInicio = document.getElementById('CalendarioDataInicio').value;
+                const dataFim = document.getElementById('CalendarioDataFim').value;
+                const pista = document.getElementById('CalendarioPista').value;
+
+                if (!nome || !dataInicio || !dataFim || !pista) {
+                    e.preventDefault();
+                    alert('Por favor, preencha todos os campos obrigatórios.');
+                    return false;
+                }
+
+                // Validar se data de fim é posterior à data de início
+                if (new Date(dataFim) <= new Date(dataInicio)) {
+                    e.preventDefault();
+                    alert('A data de fim deve ser posterior à data de início.');
+                    return false;
+                }
+
+                // Mostrar loading apenas se validação passou
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> A Criar...';
+                submitBtn.disabled = true;
+
+                // Restaurar botão após um tempo limite (fallback)
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.disabled = false;
+                }, 10000);
+            });
+        }
+
+        // Formulário de edição
+        if (formEditCalendario) {
+            formEditCalendario.addEventListener('submit', function(e) {
+                const submitBtn = document.getElementById('btnEditCalendario');
+                const originalHTML = submitBtn.innerHTML;
+
+                // Validar datas
+                const dataInicio = document.getElementById('editData_inicio').value;
+                const dataFim = document.getElementById('editData_fim').value;
+
+                if (dataInicio && dataFim && new Date(dataFim) <= new Date(dataInicio)) {
+                    e.preventDefault();
+                    alert('A data de fim deve ser posterior à data de início.');
+                    return false;
+                }
+
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> A Guardar...';
+                submitBtn.disabled = true;
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.disabled = false;
+                }, 10000);
+            });
+        }
+
+        // Formulário de exclusão
+        if (formDeleteCalendario) {
+            formDeleteCalendario.addEventListener('submit', function(e) {
+                const submitBtn = document.getElementById('btnDeleteCalendario');
+                const originalHTML = submitBtn.innerHTML;
+
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> A Apagar...';
+                submitBtn.disabled = true;
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.disabled = false;
+                }, 10000);
+            });
+        }
+
+        // Limpar formulário quando modal de criação é fechado
+        const modalAddCalendario = document.getElementById('modalAddCalendario');
+        if (modalAddCalendario) {
+            modalAddCalendario.addEventListener('hidden.bs.modal', function () {
+                // Resetar formulário
+                if (formCreateCalendario) {
+                    formCreateCalendario.reset();
+                }
+
+                // Restaurar botão
+                const submitBtn = document.getElementById('btnCreateCalendario');
+                if (submitBtn) {
+                    submitBtn.innerHTML = '<i class="fas fa-save"></i> Criar Evento';
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+
+        // Calcular automaticamente a duração quando as datas mudam
+        function calcularDuracao(inputInicio, inputFim, inputDuracao) {
+            const dataInicio = new Date(inputInicio.value);
+            const dataFim = new Date(inputFim.value);
+
+            if (dataInicio && dataFim && dataFim > dataInicio) {
+                const diferenca = Math.ceil((dataFim - dataInicio) / (1000 * 60 * 60 * 24)) + 1;
+                inputDuracao.value = diferenca;
+            }
+        }
+
+        // Aplicar cálculo automático nos formulários
+        const inicioCreate = document.getElementById('CalendarioDataInicio');
+        const fimCreate = document.getElementById('CalendarioDataFim');
+        const duracaoCreate = document.getElementById('CalendarioDuracao');
+
+        if (inicioCreate && fimCreate && duracaoCreate) {
+            inicioCreate.addEventListener('change', () => calcularDuracao(inicioCreate, fimCreate, duracaoCreate));
+            fimCreate.addEventListener('change', () => calcularDuracao(inicioCreate, fimCreate, duracaoCreate));
+        }
+
+        const inicioEdit = document.getElementById('editData_inicio');
+        const fimEdit = document.getElementById('editData_fim');
+        const duracaoEdit = document.getElementById('editDuracao');
+
+        if (inicioEdit && fimEdit && duracaoEdit) {
+            inicioEdit.addEventListener('change', () => calcularDuracao(inicioEdit, fimEdit, duracaoEdit));
+            fimEdit.addEventListener('change', () => calcularDuracao(inicioEdit, fimEdit, duracaoEdit));
+        }
+    });
+</script>

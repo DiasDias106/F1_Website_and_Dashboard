@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "Music_Max";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section music_styles{
+    <link rel="stylesheet" href="~/estilos/musicas.css" />
+}
+
+<div class="contentor_musica">
+    <header class="music_header">
+        <div class="m_logo">Music Player</div>
+        <div class="linha_music">Musica a toda a Velocidade</div>
+        <div class="checkered-flag"></div>
+    </header>
+
+    <div class="music_image">
+        <img class="music_main_image" src="~/imagens/Musicas/33_max_img.jpg" alt="33 Max Verstappen" />
+    </div>
+    <iframe id="f1music"
+            width="0"
+            height="0"
+            src="https://www.youtube.com/embed/jG2AciJ3zHY?enablejsapi=1&autoplay=1&controls=0&loop=1&playlist=jG2AciJ3zHY&mute=0"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            style="opacity: 0; pointer-events: none; position: absolute;">
+    </iframe>
+    <div class="alinha_musicb">
+        <button class="musicbutton" onclick="playVideo()">▶️ Play</button>
+        <button class="musicbutton" onclick="pauseVideo()">⏸️ Pausar</button>
+    </div>
+
+    <div class="racing-stripe"></div>
+
+    <div class="music-info">
+        <h2>PLAYLIST OFICIAL F1</h2>
+        <ul class="music-list">
+            <li class="music-item">
+                <a href="@Url.Action("Music_smooth", "Home")" class="play-icon">
+                    ▶
+                </a>
+                <div class="music-details">
+                    <div class="song-title">Smooth Operator</div>
+                    <div class="song-info">
+                        <span>Sade</span>
+                        <span>Sains Theme Music • 4:15</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <a href="@Url.Action("Music_Fernando", "Home")" class="play-icon">
+                    ▶
+                </a>
+                <div class="music-details">
+                    <div class="song-title">Fernando Alonso</div>
+                    <div class="song-info">
+                        <span>Carte Blanq & Maxx Power</span>
+                        <span>Alonso Theme Music • 3:16</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <a href="@Url.Action("Music_lewis", "Home")" class="play-icon">
+                    ▶
+                </a>
+                <div class="music-details">
+                    <div class="song-title">Lewis Hamilton</div>
+                    <div class="song-info">
+                        <span>Carte Blanq & Maxx Power</span>
+                        <span>Hamilton Theme music • 2:23</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <a href="@Url.Action("Music_Lando", "Home")" class="play-icon">
+                    ▶
+                </a>
+                <div class="music-details">
+                    <div class="song-title">Lando Norris</div>
+                    <div class="song-info">
+                        <span>Carte Blanq & Maxx Power</span>
+                        <span>Norris Theme Music • 2:41</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <a href="@Url.Action("Music_Perez", "Home")" class="play-icon">
+                    ▶
+                </a>
+                <div class="music-details">
+                    <div class="song-title">Checo</div>
+                    <div class="song-info">
+                        <span>Carte Blanq & Maxx Power</span>
+                        <span>Perez Theme Music • 3:00</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="music-item">
+                <a href="@Url.Action("Music_f1theme", "Home")" class="play-icon">
+                    ▶
+                </a>
+                <div class="music-details">
+                    <div class="song-title">Racing Day</div>
+                    <div class="song-info">
+                        <span>Brian Tyler</span>
+                        <span>F1 Official • 6:37</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+@section music_scripts{
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('f1music');
+        }
+
+        function playVideo() {
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+            }
+        }
+
+        function pauseVideo() {
+            if (player && typeof player.pauseVideo === 'function') {
+                player.pauseVideo();
+            }
+        }
+    </script>
+}
+

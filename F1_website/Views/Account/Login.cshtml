@@ -1,0 +1,118 @@
+﻿@using F1_website.Models
+@model F1_website.Models.paginacomunicaçãoviewmodel
+
+@{
+    ViewBag.Title = "Log in";
+}
+@section login_style{
+    <link rel="stylesheet" href="~/estilos/login_style.css" />
+}
+<section class="login_height"> 
+    <div class="page-container">
+        <div class="background-pattern"></div>
+        <div class="racing-line"></div>
+        <div class="racing-line-2"></div>
+
+        <div class="speed-indicator">
+            >>> 320 KM/H
+        </div>
+
+        <div class="login-container">
+            <div class="f1-logo">
+                <div class="logo-text">F</div>
+                <h2 class="login-title">Formula 1 Access Portal</h2>
+            </div>
+
+            <div class="login-content">
+                <div class="login-section">
+                    <section id="loginForm">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <h4 class="section-title">Acesso Local</h4>
+
+                            @Html.ValidationSummary(true, "", new { @class = "validation-summary" })
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Login.UserName, new { @class = "form-label" })
+                                <div class="input-wrapper">
+                                    @Html.TextBoxFor(m => m.Login.UserName, new { @class = "form-input", placeholder = "Digite o seu username" })
+                                    @Html.ValidationMessageFor(m => m.Login.UserName, "", new { @class = "validation-message" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Login.Password, new { @class = "form-label" })
+                                <div class="input-wrapper">
+                                    @Html.PasswordFor(m => m.Login.Password, new { @class = "form-input", placeholder = "Digite a sua password" })
+                                    @Html.ValidationMessageFor(m => m.Login.Password, "", new { @class = "validation-message" })
+                                </div>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <div class="custom-checkbox">
+                                    @Html.CheckBoxFor(m => m.Login.RememberMe, new { @class = "checkbox-input" })
+                                    <div class="checkbox-mark"></div>
+                                </div>
+                                @Html.LabelFor(m => m.Login.RememberMe, new { @class = "checkbox-label" })
+                            </div>
+
+                            <div class="submit-row">
+                                <input type="submit" value="Entrar na F1" class="login-button" />
+                            </div>
+
+                            <div class="divider">
+                                <div class="divider-line"></div>
+                                <span class="divider-text">ou</span>
+                            </div>
+
+                            <div class="register-link">
+                                @Html.ActionLink("Registar como novo piloto", "Register")
+                            </div>
+                        }
+                    </section>
+                </div>
+
+                <div class="external-section">
+                    <section id="socialLoginForm">
+                        <h4 class="section-title">Login Externo</h4>
+                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('.form-input').on('focus', function () {
+                $(this).closest('.input-wrapper').addClass('focused');
+            }).on('blur', function () {
+                $(this).closest('.input-wrapper').removeClass('focused');
+            });
+            $('.login-container').css({
+                'opacity': '0',
+                'transform': 'translateY(50px)'
+            }).animate({
+                'opacity': '1'
+            }, 800, function () {
+                $(this).css('transform', 'translateY(0)');
+            });
+            $('.login-button').hover(
+                function () {
+                    $(this).css('box-shadow', '0 15px 35px rgba(255, 24, 1, 0.5), 0 0 40px rgba(255, 24, 1, 0.4)');
+                },
+                function () {
+                    $(this).css('box-shadow', '0 10px 25px rgba(255, 24, 1, 0.4), 0 0 30px rgba(255, 24, 1, 0.3)');
+                }
+            );
+
+            // Add pulse animation to speed indicator
+            $('.speed-indicator').addClass('pulse-animation');
+        });
+    </script>
+}

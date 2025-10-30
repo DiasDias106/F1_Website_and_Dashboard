@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "dashboard_loading";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@section loading_style
+{
+    <link rel="stylesheet" href="~/estilos/loading_principal.css" />
+}
+<section class="loading_pagina">
+    <div class="row">
+        <div class="centralizar">
+            <img class="iconloading" src="~/imagens/Dashboard/imagem_loading_dashboard.png"/>
+        </div>
+    </div>
+    <div class="endireitar2">
+        <h2 id="infotxt" style="color: #ffffff; text-align: center; font-size: 30px; text-shadow: 2px 2px 6px #FF3800;"></h2>
+    </div>
+    <div class="carregar">
+        <div class="line-box1">
+            <div class="line1">
+
+            </div>
+        </div>
+    </div>
+</section>
+@section loading{
+    <script>
+            setTimeout(function () {
+                window.location.href = '@Url.Action("dashboard_main", "Home")';
+            }, 10000);
+        </script>
+    <script>
+        texto = document.getElementById("infotxt")
+        textos = ["A Carregar a dashboard", "A trocar os pneus", "A ir aos Pits", "A cruzar a linha da meta", "A melhorar o carro", "A receber o premio"]
+        indice = Math.floor(Math.random() * 6);
+        texto.textContent = textos[indice];
+    </script>
+}
+

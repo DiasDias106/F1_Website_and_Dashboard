@@ -1,0 +1,568 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+@{
+    ViewBag.Title = "ListaPilotos";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/estilos/equipas_dashboard_styles.css" />
+}
+
+<div class="f1-table-container">
+    <h2 class="f1-page-title">ListaPilotos</h2>
+
+    <div class="f1-export-section">
+        <button type="button" class="f1-btn f1-btn-add" onclick="openAddPilotoModal()">
+            <i class="fa fa-plus"></i> Adicionar Novo Piloto
+        </button>
+
+        <div class="f1-export-group">
+            <a href="@Url.Action("ExportarPilotosExcel", "dashboard")" class="f1-btn f1-btn-export f1-btn-export-excel">
+                <i class="fas fa-file-excel"></i> Exportar Excel
+            </a>
+            <a href="@Url.Action("ExportarPilotosPDF", "dashboard")" class="f1-btn f1-btn-export f1-btn-export-pdf">
+                <i class="fas fa-file-pdf"></i> Exportar PDF
+            </a>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(ViewBag.Msg as string))
+    {
+        <div class="f1-alert f1-alert-success">
+            @ViewBag.Msg
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    @if (Model?.PilotoEF != null && Model.PilotoEF.Any())
+    {
+        <table class="f1-table" id="pilotosTable">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Nacionalidade</th>
+                    <th>Data Nascimento</th>
+                    <th>Equipa</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var piloto in Model.PilotoEF)
+                {
+                    var nomeEscaped = piloto.nome?.Replace("'", "\\'");
+                    var nacionalidadeEscaped = piloto.nacionalidade?.Replace("'", "\\'");
+                    <tr id="piloto-row-@piloto.Id_piloto">
+                        <td>@piloto.nome</td>
+                        <td>@piloto.nacionalidade</td>
+                        <td>@(piloto.data_nascimento?.ToShortDateString() ?? "-")</td>
+                        <td>@(piloto.Equipa?.nome ?? "-")</td>
+                        <td>
+                            <button class="f1-btn f1-btn-edit" onclick="openEditPilotoModal(@piloto.Id_piloto, '@nomeEscaped', '@nacionalidadeEscaped', '@(piloto.data_nascimento?.ToString("yyyy-MM-dd") ?? "")')">
+                                <i class="fa fa-edit"></i> Editar
+                            </button>
+                            @Html.ActionLink("Details", "DetailPiloto", new { id = piloto.Id_piloto }, new { @class = "f1-btn f1-btn-info" })
+                            <button class="f1-btn f1-btn-danger" onclick="openDeletePilotoModal(@piloto.Id_piloto, '@nomeEscaped')">
+                                <i class="fa fa-trash"></i> Apagar
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="f1-no-data">
+            <p>Nenhum piloto encontrado.</p>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(ViewBag.Erro as string))
+    {
+        <div class="f1-alert f1-alert-danger">
+            <p>Erro: @ViewBag.Erro</p>
+        </div>
+    }
+</div>
+
+<!-- Modal para Adicionar Piloto -->
+<div class="modal fade" id="addPilotoModal" tabindex="-1" role="dialog" aria-labelledby="addPilotoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPilotoModalLabel">Adicionar Novo Piloto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("AddPiloto", "dashboard", FormMethod.Post, new { enctype = "multipart/form-data", @id = "addPilotoForm" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nome *</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="Piloto.nome" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nacionalidade</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="Piloto.nacionalidade" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Data de Nascimento</label>
+                            <div class="col-md-9">
+                                <input type="date" class="form-control" name="Piloto.data_nascimento" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Equipa</label>
+                            <div class="col-md-9">
+                                <select name="Piloto.equipa_id" class="form-control">
+                                    <option value="">-- Selecionar Equipa --</option>
+                                    @foreach (var equipa in Model.EquipasEF)
+                                    {
+                                        <option value="@equipa.id_equipa">@equipa.nome</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-save"></i> Guardar Piloto
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Editar Piloto -->
+<div class="modal fade" id="editPilotoModal" tabindex="-1" role="dialog" aria-labelledby="editPilotoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPilotoModalLabel">Editar Piloto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("EditarPiloto", "dashboard", FormMethod.Post, new { enctype = "multipart/form-data", @id = "editPilotoForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="Id_piloto" />
+
+                <div class="modal-body">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nome *</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="nome" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nacionalidade</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="nacionalidade" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Data de Nascimento</label>
+                            <div class="col-md-9">
+                                <input type="date" class="form-control" name="data_nascimento" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-save"></i> Atualizar Piloto
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Apagar Piloto -->
+<div class="modal fade" id="deletePilotoModal" tabindex="-1" role="dialog" aria-labelledby="deletePilotoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletePilotoModalLabel">Confirmar Apagar Piloto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p>Tem a certeza que quer apagar o piloto <strong id="deletePilotoNome"></strong>?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                    <i class="fa fa-trash"></i> Apagar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">A processar...</span>
+                </div>
+                <p class="mt-2">A processar...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let currentPilotoId = null;
+
+        function openAddPilotoModal() {
+            $('#addPilotoModal').modal('show');
+        }
+
+        function openEditPilotoModal(id, nome, nacionalidade, data_nascimento) {
+            $('#editPilotoForm input[name="Id_piloto"]').val(id);
+            $('#editPilotoForm input[name="nome"]').val(nome);
+            $('#editPilotoForm input[name="nacionalidade"]').val(nacionalidade);
+            $('#editPilotoForm input[name="data_nascimento"]').val(data_nascimento);
+            $('#editPilotoModal').modal('show');
+        }
+
+        function openDeletePilotoModal(id, nome) {
+            currentPilotoId = id;
+            $('#deletePilotoNome').text(nome);
+            $('#deletePilotoModal').modal('show');
+        }
+
+        function showAlert(message, type = 'success') {
+            const alertClass = type === 'success' ? 'f1-alert-success' : 'f1-alert-danger';
+            const alertHtml = `
+                <div class="f1-alert ${alertClass}">
+                    ${message}
+                    <button type="button" class="close" onclick="$(this).parent().remove()">
+                        <span>&times;</span>
+                    </button>
+                </div>
+            `;
+            $('.f1-export-section').after(alertHtml);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                $('.f1-alert').fadeOut(500, function() {
+                    $(this).remove();
+                });
+            }, 5000);
+        }
+
+        // Delete Piloto via AJAX
+        // Função corrigida para apagar piloto
+// Função corrigida para apagar piloto
+function deletePiloto(pilotoId) {
+    console.log('Tentando apagar piloto ID:', pilotoId);
+    $('#loadingModal').modal('show');
+
+    const token = $('input[name="__RequestVerificationToken"]').val();
+
+    if (!token) {
+        console.error('Token CSRF não encontrado');
+        $('#loadingModal').modal('hide');
+        $('#deletePilotoModal').modal('hide');
+        showAlert('Erro: Token de segurança não encontrado.', 'error');
+        return;
+    }
+
+    $.ajax({
+        url: '@Url.Action("DeletePiloto", "dashboard")',
+        type: 'POST',
+        dataType: 'json', // Especificar que esperamos JSON
+        data: {
+            Id_piloto: pilotoId,
+            __RequestVerificationToken: token
+        },
+        timeout: 15000, // 15 segundos timeout
+        success: function(response) {
+            console.log('Resposta recebida:', response);
+            $('#loadingModal').modal('hide');
+            $('#deletePilotoModal').modal('hide');
+
+            // Verificar diferentes formatos de resposta
+            let isSuccess = false;
+            let message = '';
+
+            if (typeof response === 'object' && response !== null) {
+                // Resposta JSON
+                isSuccess = response.success === true || response.Success === true;
+                message = response.message || response.Message || '';
+            } else if (typeof response === 'string') {
+                // Resposta como string, tentar fazer parse
+                try {
+                    const parsed = JSON.parse(response);
+                    isSuccess = parsed.success === true || parsed.Success === true;
+                    message = parsed.message || parsed.Message || '';
+                } catch (e) {
+                    // Se não conseguir fazer parse, assumir sucesso se não houver erro explícito
+                    isSuccess = !response.toLowerCase().includes('erro');
+                    message = response;
+                }
+            }
+
+            if (isSuccess) {
+                // Sucesso - remover da interface
+                $(`#piloto-row-${pilotoId}`).fadeOut(500, function() {
+                    $(this).remove();
+
+                    // Verificar se tabela ficou vazia
+                    if ($('#pilotosTable tbody tr:visible').length === 0) {
+                        $('#pilotosTable').replaceWith(`
+                            <div class="f1-no-data">
+                                <p>Nenhum piloto encontrado.</p>
+                            </div>
+                        `);
+                    }
+                });
+
+                showAlert(message || 'Piloto apagado com sucesso!', 'success');
+            } else {
+                showAlert(message || 'Erro ao apagar piloto.', 'error');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Erro AJAX:', {
+                status: xhr.status,
+                statusText: xhr.statusText,
+                responseText: xhr.responseText,
+                ajaxStatus: status,
+                error: error
+            });
+
+            $('#loadingModal').modal('hide');
+            $('#deletePilotoModal').modal('hide');
+
+            // Se o status for 200, pode ser que foi apagado mas houve problema na resposta
+            if (xhr.status === 200 || xhr.status === 0) {
+                console.log('Status 200/0 - verificando se foi apagado...');
+
+                // Tentar verificar se a resposta contém indicação de sucesso
+                let responseText = xhr.responseText || '';
+                if (responseText.includes('success') || responseText.includes('Success') ||
+                    responseText.toLowerCase().includes('apagado') ||
+                    responseText.toLowerCase().includes('deleted')) {
+
+                    // Assumir que foi apagado com sucesso
+                    $(`#piloto-row-${pilotoId}`).fadeOut(500, function() {
+                        $(this).remove();
+
+                        if ($('#pilotosTable tbody tr:visible').length === 0) {
+                            $('#pilotosTable').replaceWith(`
+                                <div class="f1-no-data">
+                                    <p>Nenhum piloto encontrado.</p>
+                                </div>
+                            `);
+                        }
+                    });
+
+                    showAlert('Piloto apagado com sucesso!', 'success');
+                    return;
+                }
+            }
+
+            // Erro real
+            let errorMessage = 'Erro ao apagar piloto.';
+
+            if (status === 'timeout') {
+                errorMessage = 'A operação demorou muito tempo. Verifique se foi apagado.';
+            } else if (xhr.status === 404) {
+                errorMessage = 'Piloto não encontrado.';
+            } else if (xhr.status === 500) {
+                errorMessage = 'Erro interno do servidor.';
+            } else if (xhr.status === 403) {
+                errorMessage = 'Não tem permissão para apagar este piloto.';
+            } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                errorMessage = xhr.responseJSON.message;
+            } else if (xhr.responseText) {
+                // Tentar extrair mensagem de erro do HTML
+                const tempDiv = $('<div>').html(xhr.responseText);
+                const errorDiv = tempDiv.find('.alert-danger, .error, .validation-summary-errors');
+                if (errorDiv.length > 0) {
+                    errorMessage = errorDiv.text().trim();
+                }
+            }
+
+            showAlert(errorMessage, 'error');
+        },
+        complete: function(xhr, status) {
+            console.log('Requisição completada com status:', status);
+            // Garantir que loading modal é sempre fechado
+            setTimeout(function() {
+                $('#loadingModal').modal('hide');
+            }, 100);
+        }
+    });
+}
+
+// Função alternativa usando fetch (mais moderna)
+async function deletePilotoFetch(pilotoId) {
+    console.log('Usando fetch para apagar piloto ID:', pilotoId);
+    $('#loadingModal').modal('show');
+
+    const token = $('input[name="__RequestVerificationToken"]').val();
+
+    if (!token) {
+        $('#loadingModal').modal('hide');
+        $('#deletePilotoModal').modal('hide');
+        showAlert('Erro: Token de segurança não encontrado.', 'error');
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('Id_piloto', pilotoId);
+        formData.append('__RequestVerificationToken', token);
+
+        const response = await fetch('@Url.Action("DeletePiloto", "dashboard")', {
+            method: 'POST',
+            body: formData
+        });
+
+        console.log('Response status:', response.status);
+        console.log('Response ok:', response.ok);
+
+        $('#loadingModal').modal('hide');
+        $('#deletePilotoModal').modal('hide');
+
+        if (response.ok) {
+            // Sucesso
+            $(`#piloto-row-${pilotoId}`).fadeOut(500, function() {
+                $(this).remove();
+
+                if ($('#pilotosTable tbody tr:visible').length === 0) {
+                    $('#pilotosTable').replaceWith(`
+                        <div class="f1-no-data">
+                            <p>Nenhum piloto encontrado.</p>
+                        </div>
+                    `);
+                }
+            });
+
+            showAlert('Piloto apagado com sucesso!', 'success');
+        } else {
+            const errorText = await response.text();
+            console.error('Erro na resposta:', errorText);
+            showAlert('Erro ao apagar piloto.', 'error');
+        }
+
+    } catch (error) {
+        console.error('Erro fetch:', error);
+        $('#loadingModal').modal('hide');
+        $('#deletePilotoModal').modal('hide');
+        showAlert('Erro de conexão ao apagar piloto.', 'error');
+    }
+}
+
+// Função melhorada para mostrar alertas
+function showAlert(message, type = 'success') {
+    // Remover alertas existentes
+    $('.f1-alert').remove();
+
+    const alertClass = type === 'success' ? 'f1-alert-success' : 'f1-alert-danger';
+    const alertHtml = `
+        <div class="f1-alert ${alertClass}" style="margin-top: 15px;">
+            ${message}
+            <button type="button" class="close" onclick="$(this).parent().fadeOut(300, function(){ $(this).remove(); })">
+                <span>&times;</span>
+            </button>
+        </div>
+    `;
+
+    $('.f1-export-section').after(alertHtml);
+
+    // Auto remove após 6 segundos
+    setTimeout(() => {
+        $('.f1-alert').fadeOut(500, function() {
+            $(this).remove();
+        });
+    }, 6000);
+}
+
+// Event listeners
+$(document).ready(function () {
+    let deleteInProgress = false;
+
+    // Botão de confirmar delete
+    $('#confirmDeleteBtn').off('click').on('click', function() {
+        if (deleteInProgress) {
+            console.log('Delete já em progresso, ignorando...');
+            return;
+        }
+
+        console.log('Botão delete clicado, piloto ID:', currentPilotoId);
+
+        if (currentPilotoId) {
+            deleteInProgress = true;
+
+            // Usar fetch em vez de AJAX (mais confiável)
+            deletePilotoFetch(currentPilotoId).finally(() => {
+                deleteInProgress = false;
+            });
+
+            // Alternativa: usar AJAX melhorado
+            // deletePiloto(currentPilotoId);
+        } else {
+            console.error('currentPilotoId é null');
+            $('#deletePilotoModal').modal('hide');
+            showAlert('Erro: ID do piloto não encontrado.', 'error');
+        }
+    });
+
+    // Reset quando modal é fechado
+    $('#deletePilotoModal').on('hidden.bs.modal', function () {
+        currentPilotoId = null;
+        deleteInProgress = false;
+        console.log('Modal delete fechado');
+    });
+
+    // Limpar loading modal se ficar preso
+    setInterval(function() {
+        if ($('#loadingModal').hasClass('show') && !deleteInProgress) {
+            console.warn('Forçando fechamento do loading modal');
+            $('#loadingModal').modal('hide');
+        }
+    }, 10000);
+});    
+    </script>
+}

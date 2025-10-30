@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "adivinha_num";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Adnum_style{
+    <link rel="stylesheet" href="~/estilos/jogos/Adnum.css" />
+}
+<div class="corpo_adnum">
+    <section class="adnum_fundo">
+        <section class="adnum_bg">
+            <section class="ad_numero_b">
+                <div class="contentor_jogo1">
+                    <form method="post" action="@Url.Action("Adivinha_num", "Home")">
+                        <fieldset class="form_adnum">
+                            <div class="container-form1">
+                                <legend class="legendas" style="padding-top: 5px">Introduza o Seu nome</legend>
+                                <input class="text-imput" placeholder="Insira o seu nome" type="text" name="nome1" id="nome1" required />
+                                <legend class="legendas">Introduza um número entre 1 e 50</legend>
+                                <input class="number-imput" placeholder="Insira um número" type="number" name="txtadnum" id="txtadnum" required min="1" max="50" />
+                                <div id="visualizador">
+                                    @ViewBag.adnum
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="grupo_botoes">
+                            <button type="submit" class="carbutton">
+                                <div class="caption">C#</div>
+                            </button>
+                            <button id="adnumjs" class="carbutton">
+                                <div class="caption">Javascript</div>
+                            </button>
+                            <button class="carbutton">
+                                <div class="caption">Assincrono</div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </section>
+    </section>
+</div>
+@section Adnum_jogo{
+    <script src="~/javascript/Addnum.js"></script>
+}
+

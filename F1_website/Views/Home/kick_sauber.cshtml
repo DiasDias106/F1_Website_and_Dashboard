@@ -1,0 +1,187 @@
+﻿
+@{
+    ViewBag.Title = "kick_sauber";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section teams_style{
+    <link rel="stylesheet" href="~/estilos/teams.css" />
+    <link rel="stylesheet" href="~/estilos/videos.css" />
+}
+<section class="espacamento">
+    <div class="header-wrapper">
+        <div class="stripe"></div>
+        <div class="stripe"></div>
+        <h1 class="title">Kick Sauber</h1>
+    </div>
+</section>
+
+<div class="team_container">
+    <div class="team_header">
+        <div class="logo">
+            <svg width="300" height="100" viewBox="0 0 300 100">
+                <text x="50%" y="30" fill="#00ff00" font-size="24" font-weight="bold" text-anchor="middle">STAKE</text>
+                <text x="50%" y="60" fill="#000" font-size="24" font-weight="bold" text-anchor="middle">KICK SAUBER</text>
+                <text x="50%" y="90" fill="#00ff00" font-size="24" font-weight="bold" text-anchor="middle">F1 TEAM</text>
+            </svg>
+
+        </div>
+        <div class="carro_mini">
+            <img src="~/imagens/carros/kick-sauber_car-background.png" />
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="#">Year-by-year profile</a></li>
+                <li><a href="#">Official Merchandise</a></li>
+                <li><a href="#">Results Archive</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="team_content">
+        <div class="info">
+            <h2>Informações da Equipa</h2>
+            <div class="info-item">
+                <h3>Full Team Name</h3>
+                <p>Stake F1 Team Kick Sauber</p>
+            </div>
+            <div class="info-item">
+                <h3>Base</h3>
+                <p>Hinwil, Switzerland</p>
+            </div>
+            <div class="info-item">
+                <h3>Team Chief</h3>
+                <p>Jonathan Wheatley</p>
+            </div>
+            <div class="info-item">
+                <h3>Technical Chief</h3>
+                <p>James Key</p>
+            </div>
+            <div class="info-item">
+                <h3>Chassi</h3>
+                <p>C45</p>
+            </div>
+            <div class="info-item">
+                <h3>Power Unit</h3>
+                <p>Ferrari</p>
+            </div>
+        </div>
+
+        <div class="drivers">
+            <div class="driver-card">
+                <div class="driver-img">
+                    <img style="width:250px;height:250px;" src="~/imagens/racers/hulkenberg.jpg" alt="nico">
+                </div>
+                <div class="driver-info">
+                    <h3>Nico Hulkenberg</h3>
+                    <p>Número: 27</p>
+                    <p>Nacionalidade: Alemão</p>
+                </div>
+            </div>
+            <div class="driver-card">
+                <div class="driver-img">
+                    <img style="width:250px;height:250px;" src="~/imagens/racers/bortoleto.jpg" alt="Bortoleto">
+                </div>
+                <div class="driver-info">
+                    <h3>Gabriele Bortoleto</h3>
+                    <p>Número: 5</p>
+                    <p>Nacionalidade: Brasileiro</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="alinha">
+    <section class="riscas">
+    </section>
+</div>
+
+<section class="historia">
+    <div style="padding-top:20px" class="pequeno_titulo">
+        Historia:
+        <div class="barra-titulo">
+            <div class="barra top"></div>
+            <div class="barra bottom"></div>
+        </div>
+    </div>
+    <section class="historia-equipas">
+        <article>
+            <h3> Fundação da Sauber e Primeiros Anos (1993–2005)</h3>
+            <p>
+                A Sauber foi fundada por Peter Sauber, um engenheiro suíço com vasta experiência em corridas de endurance. Estreou-se na Fórmula 1 em 1993 com motores Ilmor, e rapidamente se estabeleceu como uma equipa sólida no meio do pelotão. Com sede em Hinwil, na Suíça, a equipa destacou-se pela consistência e capacidade técnica, sendo uma das poucas equipas independentes a sobreviver por tanto tempo.
+            </p>
+        </article>
+
+        <article>
+            <h3> Era BMW Sauber (2006–2009)</h3>
+            <p>
+                Em 2006, a BMW comprou a equipa, formando a BMW Sauber. Com grandes investimentos e uma infraestrutura de ponta, a equipa teve seu auge em 2008, com Robert Kubica a vencer o Grande Prémio do Canadá e a lutar pelo título em parte da temporada. No entanto, a BMW retirou-se da F1 em 2009 devido à crise económica global.
+            </p>
+        </article>
+
+        <article>
+            <h3> Retorno como Sauber Independente (2010–2017)</h3>
+            <p>
+                Peter Sauber reassumiu o controlo da equipa em 2010, mantendo a estrutura com orçamento reduzido. Apesar das dificuldades financeiras, a equipa conseguiu resultados decentes, destacando-se a temporada de 2012, onde Sergio Pérez e Kamui Kobayashi conseguiram vários pódios. A Sauber tornou-se sinónimo de resistência e competência técnica no meio do pelotão.
+            </p>
+        </article>
+
+        <article>
+            <h3> Parceria com a Alfa Romeo (2018–2023)</h3>
+            <p>
+                Em 2018, a Sauber iniciou uma parceria estratégica com a Alfa Romeo, que evoluiu para um rebranding completo da equipa. Com motores Ferrari e forte apoio técnico, a Alfa Romeo Racing alinhou com pilotos como Kimi Räikkönen e Valtteri Bottas. A colaboração visava revitalizar a marca italiana na F1, mantendo a estrutura e o know-how suíço da Sauber.
+            </p>
+        </article>
+
+        <article>
+            <h3> Transição para Audi e Stake F1 Team (2024–2025)</h3>
+            <p>
+                Em 2023 foi anunciado que o Grupo Audi compraria a Sauber para a sua entrada oficial na Fórmula 1 em 2026. Enquanto isso, a equipa foi renomeada como "Stake F1 Team Kick Sauber" para 2024 e 2025, refletindo novos patrocinadores como Stake e Kick. A equipa continua a usar motores Ferrari até à transição completa para o projeto Audi.
+            </p>
+        </article>
+
+        <article>
+            <h3> Olhando para o Futuro: Audi F1 (2026)</h3>
+            <p>
+                A Kick Sauber está a preparar-se para se transformar na equipa oficial da Audi em 2026, com o novo regulamento de motores. A fábrica em Hinwil está a ser atualizada e a equipa técnica reforçada. O objetivo é tornar-se uma equipa de fábrica de topo, marcando o regresso da Audi à F1 e o início de uma nova era para a herança da Sauber.
+            </p>
+        </article>
+    </section>
+</section>
+<div class="cont_cartao">
+    <div class="cartao_vid">
+        <div class="video-contentor">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/bXFAYyMTjvo?si=NloBDJQmIOxlGsJz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Unleashed</h3>
+            
+        </div>
+    </div>
+
+    <div class="cartao_vid">
+        <div class="video-contentor">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/D8vOLYPg1OE?si=B7kvbbh3Rt8RfzaI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Vettari bottas Speaks</h3>
+          
+        </div>
+    </div>
+    <div class="cartao_vid">
+        <div class="video-contentor">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/yx-yh8b6AT8?si=upkJA-d47PxaM0mS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">C 44 Lauch day</h3>
+            
+        </div>
+    </div>
+</div>
+@section teams_scripts{
+
+}
+
+

@@ -1,0 +1,104 @@
+﻿.api_bg {
+    background: linear-gradient(to right, black, red);
+    color: #f5f5f5;
+    font-family: 'Orbitron', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.apibackground {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, black, red);
+    padding: 40px;
+}
+
+.alinha {
+    width: 100%;
+    max-width: 650px;
+    background-color: #181818;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(225, 6, 0, 0.4);
+}
+
+.conter h1 {
+    font-size: 1.8rem;
+    color: #e10600;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.conter p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #ccc;
+    text-align: center;
+}
+
+label {
+    font-weight: bold;
+    color: #f7df1e;
+    margin-top: 10px;
+    display: block;
+}
+
+select, input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    background-color: #2a2a2a;
+    border: 2px solid #e10600;
+    border-radius: 6px;
+    color: white;
+    transition: border 0.3s ease;
+}
+
+    select:focus, input:focus {
+        border-color: #f7df1e;
+        outline: none;
+    }
+
+button.afi {
+    background-color: #e10600;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 12px 20px;
+    width: 100%;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+    button.afi:hover {
+        background-color: #f7df1e;
+        color: black;
+        transform: scale(1.05);
+    }
+
+#result {
+    margin-top: 20px;
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 5px solid #e10600;
+    line-height: 1.5;
+}
+
+    #result h2 {
+        color: #f7df1e;
+        margin-bottom: 10px;
+    }
+
+#loading {
+    text-align: center;
+    color: #f7df1e;
+    font-weight: bold;
+    margin-top: 10px;
+}

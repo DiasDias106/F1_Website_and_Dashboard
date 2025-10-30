@@ -1,0 +1,145 @@
+﻿.container_func {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cabeçalho_fuc {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+    .cabeçalho_fuc h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #dc143c;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+    }
+
+    .cabeçalho_fuc p {
+        color: #ccc;
+        font-size: 1.1rem;
+    }
+
+.grelha_cartoes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.cartao_func {
+    background: linear-gradient(145deg, #fdfdfd, #f2f2f2);
+    border-radius: 15px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+    .cartao_func:hover {
+        transform: translateY(-8px);
+        border-color: #e10600;
+        box-shadow: 0 15px 35px rgba(225, 6, 0, 0.2);
+    }
+
+    .cartao_func::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #e10600, #ff8700);
+    }
+
+.cartao_func-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #e10600, #ff8700);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: white;
+}
+
+.cartao_func-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cartao_func-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.cartao_func-status {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #f8d7da;
+    color: #e10600;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+    .cartao_func-status.active {
+        background: #d4edda;
+        color: #155724;
+    }
+
+.racing-line {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #e10600);
+}
+
+@media (max-width: 768px) {
+    .grelha_cartoes {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .cabeçalho_fuc h1 {
+        font-size: 2rem;
+    }
+
+    .cartao_func {
+        padding: 20px;
+    }
+}
+
+.f1-accent {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(45deg, #e10600, #ff8700);
+    border-radius: 50%;
+    opacity: 0.2;
+}
+
+.dashboard-titulo {
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    font-size: 24px;
+    font-weight: bold;
+}

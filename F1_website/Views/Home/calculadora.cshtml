@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "calculadora";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section calc_style{
+    <link rel="stylesheet" href="~/estilos/jogos/calculadora.css"/>
+}
+
+<section class="calc_page">
+    <section class="calculadorabg">
+        <h1 class="tamanho1" style="text-align: center; color: #168191">Calculadora</h1>
+        <div id="calculadora">
+            <div class="calcgrupo">
+                <input id="display" style="width: 400px" readonly>
+            </div>
+            <div id="chaves">
+                <div class="calcgrupo">
+                    <button class="buttoncalc" onclick="adicionaraodisplay('7')">7</button>
+                    <button class="buttoncalc" onclick="adicionaraodisplay('8')">8</button>
+                    <button class="buttoncalc" onclick="adicionaraodisplay('9')">9</button>
+                    <button class="buttoncalc" onclick="adicionaraodisplay('+')">+</button>
+                </div>
+                <div class="calcgrupo">
+                    <button class="buttoncalc" onclick="adicionaraodisplay('4')">4</button>
+                    <button class="buttoncalc" onclick="adicionaraodisplay('5')">5</button>
+                    <button class="buttoncalc" onclick="adicionaraodisplay('6')">6</button>
+                    <button class="buttoncalc" onclick="adicionaraodisplay('-')">-</button>
+                </div>
+                <div class="calcgrupo">
+                    <button class="buttoncalc" onclick="adicionaraodisplay('1')">1</button>
+                    <button class="buttoncalc" onclick="adicionaraodisplay('2')">2</button>
+                    <button class="buttoncalc" onclick="adicionaraodisplay('3')">3</button>
+                    <button class="buttoncalc" onclick="adicionaraodisplay('*')">*</button>
+                </div>
+                <div class="calcgrupo">
+                    <button class="buttoncalc" onclick="adicionaraodisplay('/')">/</button>
+                    <button class="buttoncalc" onclick="adicionaraodisplay('0')">0</button>
+                    <button class="buttoncalc" onclick="adicionaraodisplay('.')">.</button>
+                    <button class="buttoncalc" onclick="calcular()">=</button>
+                </div>
+                <div class="calcgrupo">
+                    <button class="buttoncalc" style="width: 400px" onclick="limpardisplay()">Limpar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+@section calculadora_jogo
+{
+    <script src="~/javascript/calculadora.js"></script>
+}
+

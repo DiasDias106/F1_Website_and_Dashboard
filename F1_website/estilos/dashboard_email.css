@@ -1,0 +1,195 @@
+﻿.email-container {
+    background: rgba(30, 30, 30, 0.95);
+    border-radius: 12px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(229, 9, 20, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+    .form-header::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, #e50914, #ff4757);
+        border-radius: 2px;
+    }
+
+.form-title {
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-subtitle {
+    color: #888;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    color: #e50914;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.form-input, .form-textarea {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(20, 20, 20, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+    .form-input:focus, .form-textarea:focus {
+        border-color: #e50914;
+        background: rgba(20, 20, 20, 0.95);
+        box-shadow: 0 0 20px rgba(229, 9, 20, 0.1);
+        transform: translateY(-1px);
+    }
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+}
+
+    .form-input::placeholder, .form-textarea::placeholder {
+        color: #666;
+        font-style: italic;
+    }
+
+.send-button {
+    width: 100%;
+    padding: 1.2rem;
+    background: linear-gradient(135deg, #e50914 0%, #ff4757 100%);
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+    .send-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .send-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(229, 9, 20, 0.4);
+    }
+
+        .send-button:hover::before {
+            left: 100%;
+        }
+
+    .send-button:active {
+        transform: translateY(0);
+    }
+
+.success-message {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    color: #00ff00;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 600;
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.racing-stripes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #e50914 0%, #ff4757 25%, #e50914 50%, #ff4757 75%, #e50914 100% );
+    animation: raceStripes 2s linear infinite;
+}
+
+@keyframes raceStripes {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 100% 0%;
+    }
+}
+
+@media (max-width: 768px) {
+    .email-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+}
+.d_corpo_email {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}

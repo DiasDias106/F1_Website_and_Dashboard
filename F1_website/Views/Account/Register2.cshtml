@@ -1,0 +1,178 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+@{
+    ViewBag.Title = "Register2";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/estilos/register2.css" />
+}
+
+<section class="register_height">
+    <div class="register-container">
+        <div class="f1-accent"></div>
+
+        <div class="register-header">
+            <div class="f1-logo">
+                <div class="f1-logo-text">F1</div>
+            </div>
+            <h1 class="register-title">Formula 1 Registration Portal</h1>
+            <p class="register-subtitle">Crie uma nova conta para se juntar à corrida</p>
+        </div>
+
+        <section id="registerForm">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "validation-summary" })
+
+                <div class="form-grid">
+                    <!-- Username -->
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Register.UserName, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Register.UserName, new { @class = "form-input", placeholder = "Introduza o seu username" })
+                        @Html.ValidationMessageFor(m => m.Register.UserName, "", new { @class = "validation-message" })
+                    </div>
+
+                    <!-- Nome -->
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Register.Nome, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Register.Nome, new { @class = "form-input", placeholder = "Introduza o seu nome completo" })
+                        @Html.ValidationMessageFor(m => m.Register.Nome, "", new { @class = "validation-message" })
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group form-group-full">
+                        @Html.LabelFor(m => m.Register.Email, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Register.Email, new { @class = "form-input", placeholder = "Íntroduza o seu email" })
+                        @Html.ValidationMessageFor(m => m.Register.Email, "", new { @class = "validation-message" })
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Register.Password, new { @class = "form-label" })
+                        @Html.PasswordFor(m => m.Register.Password, new { @class = "form-input", placeholder = "Crie uma password" })
+                        @Html.ValidationMessageFor(m => m.Register.Password, "", new { @class = "validation-message" })
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Register.ConfirmPassword, new { @class = "form-label" })
+                        @Html.PasswordFor(m => m.Register.ConfirmPassword, new { @class = "form-input", placeholder = "Confirme a sua password" })
+                        @Html.ValidationMessageFor(m => m.Register.ConfirmPassword, "", new { @class = "validation-message" })
+                    </div>
+
+                    <!-- Morada -->
+                    <div class="form-group form-group-full">
+                        @Html.LabelFor(m => m.Register.Morada, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Register.Morada, new { @class = "form-input", placeholder = "Introduza a sua morada" })
+                        @Html.ValidationMessageFor(m => m.Register.Morada, "", new { @class = "validation-message" })
+                    </div>
+
+                    <!-- Data de Nascimento -->
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Register.DataNascimento, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Register.DataNascimento, new
+                        {
+                            @class = "form-input",
+                            type = "date",
+                            value = Model.Register.DataNascimento.ToString("yyyy-MM-dd"),
+                            max = DateTime.Today.ToString("yyyy-MM-dd")
+                        })
+                        @Html.ValidationMessageFor(m => m.Register.DataNascimento, "", new { @class = "validation-message" })
+                    </div>
+
+                    <!-- Foto -->
+                    <div class="form-group">
+                        @Html.Label("Foto", new { @class = "form-label" })
+                        <input type="file" name="FotoFile" class="form-input file-input" accept="image/*" />
+                        <div class="file-input-label">Escolher fotografia</div>
+                    </div>
+                </div>
+
+                <input type="submit" value="Registar na F1" class="register-button" />
+
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <span class="divider-text">ou</span>
+                    <div class="divider-line"></div>
+                </div>
+
+                <div class="login-link">
+                    @Html.ActionLink("Já tem uma conta? Entrar aqui", "Login2", "Account", null, new { @class = "login-link-text" })
+                </div>
+            }
+        </section>
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            // Configurar data máxima
+            $('input[type="date"]').attr('max', new Date().toISOString().split('T')[0]);
+
+            // Efeitos de foco nos inputs
+            $('.form-input').on('focus', function () {
+                $(this).css('transform', 'scale(1.01)');
+            }).on('blur', function () {
+                $(this).css('transform', 'scale(1)');
+            });
+
+            // Efeito hover no botão
+            $('.register-button').hover(
+                function () {
+                    $(this).css({
+                        'transform': 'translateY(-1px)',
+                        'box-shadow': '0 6px 20px rgba(255, 24, 1, 0.4)'
+                    });
+                },
+                function () {
+                    $(this).css({
+                        'transform': 'translateY(0)',
+                        'box-shadow': 'none'
+                    });
+                }
+            );
+
+            // Estilo para arquivo selecionado
+            $('input[type="file"]').on('change', function () {
+                var fileName = $(this).val().split('\\').pop();
+                var $label = $(this).siblings('.file-input-label');
+                if (fileName) {
+                    $label.text(fileName).css({
+                        'color': '#ff1801',
+                        'font-weight': '600'
+                    });
+                } else {
+                    $label.text('Escolher fotografia').css({
+                        'color': '#9ca3af',
+                        'font-weight': '400'
+                    });
+                }
+            });
+
+            // Destacar campos com erro de validação
+            $('.validation-summary, .validation-message').each(function () {
+                if ($(this).text().trim()) {
+                    $(this).closest('.form-group').find('.form-input').css({
+                        'border-color': '#dc2626',
+                        'box-shadow': '0 0 0 3px rgba(220, 38, 38, 0.1)'
+                    });
+                }
+            });
+
+            // Animações de entrada
+            $('.form-group').each(function (index) {
+                $(this).css({
+                    'animation-delay': (index * 0.05) + 's',
+                    'opacity': '0',
+                    'transform': 'translateY(10px)'
+                }).animate({
+                    'opacity': '1'
+                }, 300).css('transform', 'translateY(0)');
+            });
+        });
+    </script>
+}

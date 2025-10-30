@@ -1,0 +1,484 @@
+﻿:root {
+    --f1-red: #ff1e00;
+    --f1-dark-red: #dc1800;
+    --f1-black: #15151e;
+    --f1-dark-gray: #2a2a2a;
+    --f1-light-gray: #f0f0f0;
+    --f1-white: #ffffff;
+    --f1-gold: #ffd700;
+    --f1-silver: #c0c0c0;
+    --f1-green: #00d12c;
+    --f1-blue: #0070f3;
+}
+
+/* Page Header Styling */
+.f1-page-header {
+    background: linear-gradient(135deg, var(--f1-black) 0%, var(--f1-dark-gray) 100%);
+    color: var(--f1-white);
+    padding: 40px 0;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    padding-top: 120px;
+}
+
+    .f1-page-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,30,0,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .f1-page-header h2 {
+        position: relative;
+        z-index: 2;
+        font-family: 'Arial Black', Arial, sans-serif;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+        .f1-page-header h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--f1-red), var(--f1-gold));
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+/* Action Buttons */
+.f1-action-buttons {
+    margin-bottom: 30px;
+}
+
+.f1-btn {
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+    .f1-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .f1-btn:hover::before {
+        left: 100%;
+    }
+
+.f1-btn-create {
+    background: linear-gradient(135deg, var(--f1-green), #00a823);
+    color: var(--f1-white);
+}
+
+    .f1-btn-create:hover {
+        background: linear-gradient(135deg, #00a823, var(--f1-green));
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,209,44,0.4);
+    }
+
+.f1-btn-export {
+    background: linear-gradient(135deg, var(--f1-red), var(--f1-dark-red));
+    color: var(--f1-white);
+    margin-left: 10px;
+}
+
+    .f1-btn-export:hover {
+        background: linear-gradient(135deg, var(--f1-dark-red), var(--f1-red));
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255,30,0,0.4);
+    }
+
+    .f1-btn-export.excel {
+        background: linear-gradient(135deg, var(--f1-green), #00a823);
+    }
+
+        .f1-btn-export.excel:hover {
+            box-shadow: 0 6px 20px rgba(0,209,44,0.4);
+        }
+
+/* F1 Table Styling */
+.f1-table-container {
+    background: var(--f1-white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 3px solid var(--f1-red);
+    position: relative;
+}
+
+    .f1-table-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, var(--f1-red), var(--f1-gold), var(--f1-red));
+    }
+
+.f1-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
+}
+
+.f1-table-header {
+    background: linear-gradient(135deg, var(--f1-black), var(--f1-dark-gray));
+    color: var(--f1-white);
+    position: relative;
+}
+
+    .f1-table-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--f1-red), var(--f1-gold), var(--f1-red));
+    }
+
+    .f1-table-header th {
+        padding: 18px 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 14px;
+        border: none;
+        text-align: center;
+        position: relative;
+    }
+
+        .f1-table-header th:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 25%;
+            height: 50%;
+            width: 1px;
+            background: rgba(255,255,255,0.2);
+        }
+
+.f1-table tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+    .f1-table tbody tr:nth-child(even) {
+        background: linear-gradient(90deg, #f8f9fa, #ffffff);
+    }
+
+    .f1-table tbody tr:nth-child(odd) {
+        background: var(--f1-white);
+    }
+
+    .f1-table tbody tr:hover {
+        background: linear-gradient(90deg, rgba(255,30,0,0.05), rgba(255,215,0,0.05));
+        transform: scale(1.01);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+.f1-table td {
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    border: none;
+    position: relative;
+}
+
+    .f1-table td:first-child {
+        font-weight: 700;
+        color: var(--f1-black);
+        font-size: 15px;
+    }
+
+    /* Action Buttons in Table */
+    .f1-table td:last-child {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+
+.f1-table-btn {
+    padding: 8px 16px;
+    margin: 0;
+    border: none;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    max-width: 150px;
+    text-align: center;
+}
+
+    .f1-table-btn:hover {
+        transform: translateY(-2px);
+        text-decoration: none;
+    }
+
+    .f1-table-btn.details {
+        background: linear-gradient(135deg, var(--f1-blue), #0056b3);
+        color: var(--f1-white);
+    }
+
+        .f1-table-btn.details:hover {
+            background: linear-gradient(135deg, #0056b3, var(--f1-blue));
+            box-shadow: 0 4px 15px rgba(0,112,243,0.4);
+            color: var(--f1-white);
+        }
+
+    .f1-table-btn.edit {
+        background: linear-gradient(135deg, var(--f1-gold), #e6c200);
+        color: var(--f1-black);
+    }
+
+        .f1-table-btn.edit:hover {
+            background: linear-gradient(135deg, #e6c200, var(--f1-gold));
+            box-shadow: 0 4px 15px rgba(255,215,0,0.4);
+            color: var(--f1-black);
+        }
+
+    .f1-table-btn.delete {
+        background: linear-gradient(135deg, var(--f1-red), var(--f1-dark-red));
+        color: var(--f1-white);
+    }
+
+        .f1-table-btn.delete:hover {
+            background: linear-gradient(135deg, var(--f1-dark-red), var(--f1-red));
+            box-shadow: 0 4px 15px rgba(255,30,0,0.4);
+            color: var(--f1-white);
+        }
+
+/* Modal Styling */
+.f1-modal .modal-header {
+    background: linear-gradient(135deg, var(--f1-black), var(--f1-dark-gray));
+    color: var(--f1-white);
+    border-bottom: 3px solid var(--f1-red);
+    border-radius: 0;
+}
+
+.f1-modal .modal-title {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.f1-modal .modal-body {
+    background: var(--f1-light-gray);
+    padding: 30px;
+}
+
+.f1-modal .form-control {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+    .f1-modal .form-control:focus {
+        border-color: var(--f1-red);
+        box-shadow: 0 0 0 0.2rem rgba(255,30,0,0.25);
+    }
+
+.f1-modal label {
+    font-weight: 600;
+    color: var(--f1-black);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+/* Error Message */
+.f1-error-msg {
+    color: var(--f1-red);
+    font-weight: 700;
+    text-align: center;
+    background: rgba(255,30,0,0.1);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--f1-red);
+    margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .f1-table-container {
+        overflow-x: auto;
+        border-radius: 8px;
+    }
+
+    .f1-table {
+        min-width: 800px;
+    }
+
+    .f1-table-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .f1-page-header h2 {
+        font-size: 24px;
+    }
+
+    .f1-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+/* Racing stripes animation */
+@keyframes racing-stripes {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 20px 0;
+    }
+}
+
+.f1-racing-stripes {
+    background-image: repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(255,30,0,0.1) 10px, rgba(255,30,0,0.1) 20px );
+    animation: racing-stripes 1s linear infinite;
+}
+
+.f1-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+}
+
+    .f1-pagination .pagination {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+        .f1-pagination .pagination li {
+            margin: 0;
+        }
+
+            .f1-pagination .pagination li a,
+            .f1-pagination .pagination li span {
+                display: block;
+                padding: 12px 16px;
+                text-decoration: none;
+                background: #fff;
+                color: #dc2626;
+                border: 1px solid #e5e7eb;
+                border-right: none;
+                transition: all 0.3s ease;
+                font-weight: 500;
+            }
+
+            .f1-pagination .pagination li:last-child a,
+            .f1-pagination .pagination li:last-child span {
+                border-right: 1px solid #e5e7eb;
+            }
+
+            .f1-pagination .pagination li a:hover {
+                background: #dc2626;
+                color: white;
+                transform: translateY(-2px);
+            }
+
+            .f1-pagination .pagination li.active span {
+                background: #dc2626;
+                color: white;
+                font-weight: bold;
+            }
+
+            .f1-pagination .pagination li.disabled span {
+                color: #9ca3af;
+                cursor: not-allowed;
+            }
+
+
+.f1-pagination-info {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.f1-filters {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border: 1px solid #e2e8f0;
+}
+
+    .f1-filters h5 {
+        color: #dc2626;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+/* Estatísticas */
+.f1-stats {
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+    .f1-stats h5 {
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .f1-stats .row > div {
+        text-align: center;
+    }
+
+    .f1-stats .stat-number {
+        font-size: 24px;
+        font-weight: bold;
+        display: block;
+    }
+
+    .f1-stats .stat-label {
+        font-size: 12px;
+        opacity: 0.9;
+    }

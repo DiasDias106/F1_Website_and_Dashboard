@@ -1,0 +1,66 @@
+﻿@model F1_website.Models.Componente
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Componente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.preco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.preco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.quantidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.foto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.foto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipa.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipa.nome)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

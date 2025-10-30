@@ -1,0 +1,109 @@
+﻿@using F1_website.Models
+@model F1_website.Models.paginacomunicaçãoviewmodel
+
+@{
+    ViewBag.Title = "Login2";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+
+@section login_style{
+    <link rel="stylesheet" href="~/estilos/login2.css"/>
+}
+
+<section class="login_height">
+    <div class="login-container">
+        <div class="f1-accent"></div>
+        
+        <div class="login-header">
+            <div class="f1-logo">
+                <div class="f1-logo-text">F1</div>
+            </div>
+            <h1 class="login-title">Formula 1 Access Portal</h1>
+            <p class="login-subtitle">Entre na sua conta para continuar</p>
+        </div>
+
+        <section id="loginForm">
+            @using (Html.BeginForm("Login2", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @class = "validation-summary" })
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Login.UserName, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.Login.UserName, new { @class = "form-input", placeholder = "Digite o seu username" })
+                    @Html.ValidationMessageFor(m => m.Login.UserName, "", new { @class = "validation-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Login.Password, new { @class = "form-label" })
+                    @Html.PasswordFor(m => m.Login.Password, new { @class = "form-input", placeholder = "Digite a sua password" })
+                    @Html.ValidationMessageFor(m => m.Login.Password, "", new { @class = "validation-message" })
+                </div>
+
+                <div class="checkbox-container">
+                    @Html.CheckBoxFor(m => m.Login.RememberMe, new { @class = "checkbox-input" })
+                    @Html.LabelFor(m => m.Login.RememberMe, new { @class = "checkbox-label" })
+                </div>
+
+                <input type="submit" value="Entrar na F1" class="login-button" />
+
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <span class="divider-text">ou</span>
+                    <div class="divider-line"></div>
+                </div>
+
+                <div class="register-link">
+                    @Html.ActionLink("Registar como novo piloto", "Register2")
+                </div>
+            }
+        </section>
+
+        <div class="external-login">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            // Efeitos simples de foco nos inputs
+            $('.form-input').on('focus', function () {
+                $(this).css('transform', 'scale(1.01)');
+            }).on('blur', function () {
+                $(this).css('transform', 'scale(1)');
+            });
+
+            // Efeito hover no botão
+            $('.login-button').hover(
+                function () {
+                    $(this).css({
+                        'transform': 'translateY(-1px)',
+                        'box-shadow': '0 6px 20px rgba(255, 24, 1, 0.4)'
+                    });
+                },
+                function () {
+                    $(this).css({
+                        'transform': 'translateY(0)',
+                        'box-shadow': 'none'
+                    });
+                }
+            );
+
+            // Destacar campos com erro de validação
+            $('.validation-summary, .validation-message').each(function () {
+                if ($(this).text().trim()) {
+                    $(this).closest('.form-group').find('.form-input').css({
+                        'border-color': '#dc2626',
+                        'box-shadow': '0 0 0 3px rgba(220, 38, 38, 0.1)'
+                    });
+                }
+            });
+        });
+    </script>
+}

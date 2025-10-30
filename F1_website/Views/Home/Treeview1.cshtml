@@ -1,0 +1,240 @@
+﻿@{
+    ViewBag.Title = "F1 Racing Tree View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section treeview_style{
+    <link rel="stylesheet" href="~/estilos/treeview.css" />
+}
+
+<div style="padding-top:100px" class="f1-racing-header"></div>
+<div class="f1-title">🏁 F1 RACING TREE VIEW 🏁</div>
+
+<div class="corpo_tree">
+    <section class="descarrega tree-view">
+
+        <!-- FORUM -->
+        <div class="tree-view-item folder" onclick="toggleFolder(this)">
+            <span>🏎️ EQUIPAS DE F1</span>
+            <div class="content" style="display: none;">
+
+                <!-- RedBull -->
+                <div class="tree-view-item folder" onclick="toggleFolder(this)">
+                    <span>⚡ REDBULL</span>
+                    <div class="content" style="display: none;">
+                        <a class="tree-view-item file" href="imagens/redbull_rb19_img1.jpg" download="redbull_rb19_img1.jpg">🏎️ Red Bull RB19 Imagem 1</a>
+                        <a class="tree-view-item file" href="imagens/redbull_rb19_img2.png" download="redbull_rb19_img2.png">🏎️ Red Bull RB19 Imagem 2</a>
+                        <a class="tree-view-item file" href="imagens/redbull_verstappen.png" download="redbull_verstappen.png">🏁 Max Verstappen</a>
+                        <a class="tree-view-item file" href="imagens/redbull_perez.webp" download="redbull_perez.webp">🏁 Sergio Pérez</a>
+                        <a class="tree-view-item file" href="imagens/redbull_logo.jpg" download="redbull_logo.jpg">🎯 Red Bull Logo</a>
+                        <a class="tree-view-item file" href="imagens/redbull_garage.webp" download="redbull_garage.webp">🔧 Red Bull Garage</a>
+                        <a class="tree-view-item file" href="imagens/redbull_podium.webp" download="redbull_podium.webp">🏆 Red Bull No Pódio</a>
+                        <a class="tree-view-item file" href="imagens/redbull_pit_stop.webp" download="redbull_pit_stop.webp">⚡ Red Bull Pit Stop</a>
+                    </div>
+                </div>
+
+                <!-- Ferrari -->
+                <div class="tree-view-item folder" onclick="toggleFolder(this)">
+                    <span>🐎 FERRARI</span>
+                    <div class="content" style="display: none;">
+                        <a class="tree-view-item file" href="imagens/ferrari_sf23_card1.webp" download="ferrari_sf23_card1.webp">🏎️ Ferrari SF-23 Card 1</a>
+                        <a class="tree-view-item file" href="imagens/ferrari_leclerc.avif" download="ferrari_leclerc.avif">🏁 Charles Leclerc</a>
+                        <a class="tree-view-item file" href="imagens/ferrari_sainz.avif" download="ferrari_sainz.avif">🏁 Carlos Sainz Jr.</a>
+                        <a class="tree-view-item file" href="imagens/ferrari_maranello.webp" download="ferrari_maranello.webp">🏭 Ferrari Maranello</a>
+                        <a class="tree-view-item file" href="imagens/ferrari_estrategia.webp" download="ferrari_estrategia.webp">📊 Ferrari Estratégia</a>
+                        <a class="tree-view-item file" href="imagens/ferrari_historia.webp" download="ferrari_historia.webp">📚 Ferrari História</a>
+                        <a class="tree-view-item file" href="imagens/ferrari_logo_cavallino.png" download="ferrari_logo_cavallino.png">🐎 Ferrari Cavallino</a>
+                        <a class="tree-view-item file" href="imagens/ferrari_tifosi.webp" download="ferrari_tifosi.webp">❤️ Ferrari Tifosi</a>
+                    </div>
+                </div>
+
+                <!-- Aston Martin -->
+                <div class="tree-view-item folder" onclick="toggleFolder(this)">
+                    <span>💚 ASTON MARTIN</span>
+                    <div class="content" style="display: none;">
+                        <a class="tree-view-item file" href="imagens/aston_martin_amr23.webp" download="aston_martin_amr23.webp">🏎️ Aston Martin AMR23</a>
+                        <a class="tree-view-item file" href="imagens/aston_alonso.jpg" download="aston_alonso.jpg">🏁 Fernando Alonso</a>
+                        <a class="tree-view-item file" href="imagens/aston_stroll.jpg" download="aston_stroll.jpg">🏁 Lance Stroll</a>
+                        <a class="tree-view-item file" href="imagens/aston_silverstone.png" download="aston_silverstone.png">🏁 Aston Martin Silverstone</a>
+                        <a class="tree-view-item file" href="imagens/aston_verde_britanico.webp" download="aston_verde_britanico.webp">💚 Verde Britânico</a>
+                        <a class="tree-view-item file" href="imagens/aston_newey_design.avif" download="aston_newey_design.avif">🎨 Design Aston Martin</a>
+                        <a class="tree-view-item file" href="imagens/aston_007.jpg" download="aston_007.jpg">🕴️ Aston Martin 007</a>
+                        <a class="tree-view-item file" href="imagens/aston_factory.jpg" download="aston_factory.jpg">🏭 Fábrica Aston Martin</a>
+                    </div>
+                </div>
+
+                <!-- McLaren -->
+                <div class="tree-view-item folder" onclick="toggleFolder(this)">
+                    <span>🧡 MCLAREN</span>
+                    <div class="content" style="display: none;">
+                        <a class="tree-view-item file" href="imagens/mclaren_mcl60.avif" download="mclaren_mcl60.avif">🏎️ McLaren MCL60</a>
+                        <a class="tree-view-item file" href="imagens/mclaren_norris.avif" download="mclaren_norris.avif">🏁 Lando Norris</a>
+                        <a class="tree-view-item file" href="imagens/mclaren_piastri.jpg" download="mclaren_piastri.jpg">🏁 Oscar Piastri</a>
+                        <a class="tree-view-item file" href="imagens/mclaren_laranja_papaia.jpg" download="mclaren_laranja_papaia.jpg">🧡 Laranja Papaia</a>
+                        <a class="tree-view-item file" href="imagens/mclaren_woking.jpg" download="mclaren_woking.jpg">🏭 McLaren Woking</a>
+                        <a class="tree-view-item file" href="imagens/mclaren_senna_legacy.jpeg" download="mclaren_senna_legacy.jpeg">🏆 Legado Senna</a>
+                        <a class="tree-view-item file" href="imagens/mclaren_technology.jpg" download="mclaren_technology.jpg">💻 McLaren Technology</a>
+                    </div>
+                </div>
+
+                <!-- Mercedes -->
+                <div class="tree-view-item folder" onclick="toggleFolder(this)">
+                    <span>⭐ MERCEDES</span>
+                    <div class="content" style="display: none;">
+                        <a class="tree-view-item file" href="imagens/mercedes_w14.jpg" download="mercedes_w14.jpg">🏎️ Mercedes W14</a>
+                        <a class="tree-view-item file" href="imagens/mercedes_hamilton.jpg" download="mercedes_hamilton.jpg">🏁 Lewis Hamilton</a>
+                        <a class="tree-view-item file" href="imagens/mercedes_russell.gif" download="mercedes_russell.gif">🏁 George Russell</a>
+                        <a class="tree-view-item file" href="imagens/mercedes_brackley.jpg" download="mercedes_brackley.jpg">🏭 Brackley Factory</a>
+                        <a class="tree-view-item file" href="imagens/mercedes_8_titulos.jpg" download="mercedes_8_titulos.jpg">🏆 8 Títulos Consecutivos</a>
+                        <a class="tree-view-item file" href="imagens/mercedes_estrela.jpg" download="mercedes_estrela.jpg">⭐ Estrela Mercedes</a>
+                        <a class="tree-view-item file" href="imagens/mercedes_petronas.jpg" download="mercedes_petronas.jpg">💎 Petronas Partnership</a>
+                    </div>
+                </div>
+
+                <!-- Alpha Tauri -->
+                <div class="tree-view-item folder" onclick="toggleFolder(this)">
+                    <span>🌟 ALPHA TAURI</span>
+                    <div class="content" style="display: none;">
+                        <a class="tree-view-item file" href="imagens/alphatauri_at04.webp" download="alphatauri_at04.webp">🏎️ AlphaTauri AT04</a>
+                        <a class="tree-view-item file" href="imagens/alphatauri_tsunoda.jpg" download="alphatauri_tsunoda.jpg">🏁 Yuki Tsunoda</a>
+                        <a class="tree-view-item file" href="imagens/alphatauri_de_vries.png" download="alphatauri_de_vries.png">🏁 Nyck de Vries</a>
+                        <a class="tree-view-item file" href="imagens/alphatauri_fashion.jpg" download="alphatauri_fashion.jpg">👔 AlphaTauri Fashion</a>
+                        <a class="tree-view-item file" href="imagens/alphatauri_faenza.jpg" download="alphatauri_faenza.jpg">🏭 Faenza Factory</a>
+                        <a class="tree-view-item file" href="imagens/alphatauri_sister_team.jpg" download="alphatauri_sister_team.jpg">🤝 Sister Team Red Bull</a>
+                    </div>
+                </div>
+
+                <!-- Haas -->
+                <div class="tree-view-item folder" onclick="toggleFolder(this)">
+                    <span>🇺🇸 HAAS</span>
+                    <div class="content" style="display: none;">
+                        <a class="tree-view-item file" href="imagens/haas_vf23.jpg" download="haas_vf23.jpg">🏎️ Haas VF-23</a>
+                        <a class="tree-view-item file" href="imagens/haas_magnussen.jpg" download="haas_magnussen.jpg">🏁 Kevin Magnussen</a>
+                        <a class="tree-view-item file" href="imagens/haas_hulkenberg.png" download="haas_hulkenberg.png">🏁 Nico Hülkenberg</a>
+                        <a class="tree-view-item file" href="imagens/haas_america.png" download="haas_america.png">🇺🇸 Team Americano</a>
+                        <a class="tree-view-item file" href="imagens/haas_ferrari_partnership.jpg" download="haas_ferrari_partnership.jpg">🤝 Parceria Ferrari</a>
+                        <a class="tree-view-item file" href="imagens/haas_gene_haas.jpg" download="haas_gene_haas.jpg">👤 Gene Haas</a>
+                    </div>
+                </div>
+
+                <!-- Kick Sauber -->
+                <div class="tree-view-item folder" onclick="toggleFolder(this)">
+                    <span>💚 KICK SAUBER</span>
+                    <div class="content" style="display: none;">
+                        <a class="tree-view-item file" href="imagens/sauber_c43.webp" download="sauber_c43.webp">🏎️ Sauber C43</a>
+                        <a class="tree-view-item file" href="imagens/sauber_bottas.avif" download="sauber_bottas.avif">🏁 Valtteri Bottas</a>
+                        <a class="tree-view-item file" href="imagens/sauber_zhou.webp" download="sauber_zhou.webp">🏁 Zhou Guanyu</a>
+                        <a class="tree-view-item file" href="imagens/sauber_hinwil.webp" download="sauber_hinwil.webp">🏭 Hinwil HQ</a>
+                        <a class="tree-view-item file" href="imagens/sauber_kick_sponsor.jpg" download="sauber_kick_sponsor.jpg">💚 Kick Sponsorship</a>
+                        <a class="tree-view-item file" href="imagens/sauber_audi_future.jpg" download="sauber_audi_future.jpg">🔮 Futuro Audi</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Musicas -->
+        <div class="tree-view-item folder" onclick="toggleFolder(this)">
+            <span>🎵 MÚSICAS</span>
+            <div class="content" style="display: none;">
+                <div class="tree-view-item folder" onclick="toggleFolder(this)">
+                    <span>🎼 HINOS DE F1</span>
+                    <div class="content" style="display: none;">
+                        <a class="tree-view-item file" href="imagens/f1_theme_song.webp" download="f1_theme_song.webp">🎵 Tema Oficial F1</a>
+                        <a class="tree-view-item file" href="imagens/f1_victory_anthem.jpg" download="f1_victory_anthem.jpg">🏆 Hino da Vitória</a>
+                        <a class="tree-view-item file" href="imagens/f1_grid_walk_music.jpg" download="f1_grid_walk_music.jpg">🚶 Música Grid Walk</a>
+                        <a class="tree-view-item file" href="imagens/f1_podium_ceremony.jpg" download="f1_podium_ceremony.jpg">🥇 Cerimónia do Pódio</a>
+                        <a class="tree-view-item file" href="imagens/f1_national_anthems.jpg" download="f1_national_anthems.jpg">🎼 Hinos Nacionais</a>
+                        <a class="tree-view-item file" href="imagens/f1_race_start_sound.jpg" download="f1_race_start_sound.jpg">🏁 Som de Largada</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aplicações -->
+        <div class="tree-view-item folder" onclick="toggleFolder(this)">
+            <span>📱 APLICAÇÕES</span>
+            <div class="content" style="display: none;">
+                <a class="tree-view-item file" href="imagens/f1_timing_app.jpg" download="f1_timing_app.jpg">📱 F1 Timing App</a>
+                <a class="tree-view-item file" href="imagens/f1_fantasy_app.jpg" download="f1_fantasy_app.jpg">🎮 F1 Fantasy</a>
+                <a class="tree-view-item file" href="imagens/f1_mobile_racing.jpg" download="f1_mobile_racing.jpg">🏎️ F1 Mobile Racing</a>
+                <a class="tree-view-item file" href="imagens/f1_tv_app.jpg" download="f1_tv_app.jpg">📺 F1 TV App</a>
+                <a class="tree-view-item file" href="imagens/f1_manager_game.jpg" download="f1_manager_game.jpg">🎯 F1 Manager</a>
+                <a class="tree-view-item file" href="imagens/f1_predictor.jpg" download="f1_predictor.jpg">🔮 F1 Predictor</a>
+                <a class="tree-view-item file" href="imagens/f1_stats_tracker.jpg" download="f1_stats_tracker.jpg">📊 F1 Stats Tracker</a>
+                <a class="tree-view-item file" href="imagens/f1_race_calendar.jpg" download="f1_race_calendar.jpg">📅 Calendário F1</a>
+                <a class="tree-view-item file" href="imagens/f1_driver_comparison.jpg" download="f1_driver_comparison.jpg">🏁 Comparador de Pilotos</a>
+            </div>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div class="tree-view-item folder" onclick="toggleFolder(this)">
+            <span>📊 DASHBOARD</span>
+            <div class="content" style="display: none;">
+                <div class="tree-view-item folder" onclick="toggleFolder(this)">
+                    <span>📱 APPS</span>
+                    <div class="content" style="display: none;">
+                        <a class="tree-view-item file" href="imagens/f1_live_dashboard.jpg" download="f1_live_dashboard.jpg">📊 Dashboard Ao Vivo</a>
+                        <a class="tree-view-item file" href="imagens/f1_telemetry_viewer.jpg" download="f1_telemetry_viewer.jpg">📈 Telemetria F1</a>
+                        <a class="tree-view-item file" href="imagens/f1_strategy_analyzer.jpg" download="f1_strategy_analyzer.jpg">🧠 Analisador de Estratégia</a>
+                        <a class="tree-view-item file" href="imagens/f1_weather_tracker.jpg" download="f1_weather_tracker.jpg">🌦️ Meteorologia F1</a>
+                        <a class="tree-view-item file" href="imagens/f1_pit_stop_timer.jpg" download="f1_pit_stop_timer.jpg">⏱️ Cronómetro Pit Stop</a>
+                        <a class="tree-view-item file" href="imagens/f1_championship_tracker.jpg" download="f1_championship_tracker.jpg">🏆 Tracker Campeonato</a>
+                        <a class="tree-view-item file" href="imagens/f1_sector_times.jpg" download="f1_sector_times.jpg">🕐 Tempos por Sector</a>
+                        <a class="tree-view-item file" href="imagens/f1_qualifying_results.jpg" download="f1_qualifying_results.jpg">🏁 Resultados Qualificação</a>
+                        <a class="tree-view-item file" href="imagens/f1_race_results.jpg" download="f1_race_results.jpg">🏁 Resultados da Corrida</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OUTRO -->
+        <div class="tree-view-item folder" onclick="toggleFolder(this)">
+            <span>📁 OUTRO</span>
+            <div class="content" style="display: none;">
+                <!-- Imagens de fundo -->
+                <div class="tree-view-item folder" onclick="toggleFolder(this)">
+                    <span>🖼️ IMAGENS DE FUNDO</span>
+                    <div class="content" style="display: none;">
+                        <a class="tree-view-item file" href="imagens/f1_monaco_circuit.jpg" download="f1_monaco_circuit.jpg">🏁 Circuito de Mónaco</a>
+                        <a class="tree-view-item file" href="imagens/f1_silverstone_background.jpg" download="f1_silverstone_background.jpg">🇬🇧 Silverstone Background</a>
+                        <a class="tree-view-item file" href="imagens/f1_spa_francorchamps.jpg" download="f1_spa_francorchamps.jpg">🇧🇪 Spa-Francorchamps</a>
+                        <a class="tree-view-item file" href="imagens/f1_monza_temple_speed.jpg" download="f1_monza_temple_speed.jpg">🇮🇹 Monza - Templo da Velocidade</a>
+                        <a class="tree-view-item file" href="imagens/f1_suzuka_japan.jpg" download="f1_suzuka_japan.jpg">🇯🇵 Suzuka Background</a>
+                        <a class="tree-view-item file" href="imagens/f1_interlagos_brazil.jpg" download="f1_interlagos_brazil.jpg">🇧🇷 Interlagos Background</a>
+                        <a class="tree-view-item file" href="imagens/f1_abu_dhabi_yas.jpg" download="f1_abu_dhabi_yas.jpg">🇦🇪 Yas Marina Background</a>
+                        <a class="tree-view-item file" href="imagens/f1_hungary_hungaroring.jpg" download="f1_hungary_hungaroring.jpg">🇭🇺 Hungaroring Background</a>
+                        <a class="tree-view-item file" href="imagens/f1_austria_red_bull_ring.jpg" download="f1_austria_red_bull_ring.jpg">🇦🇹 Red Bull Ring Background</a>
+                    </div>
+                </div>
+
+                <!-- Icons -->
+                <div class="tree-view-item folder" onclick="toggleFolder(this)">
+                    <span>🎯 ICONS</span>
+                    <div class="content" style="display: none;">
+                        <a class="tree-view-item file" href="imagens/f1_logo_icon.jpg" download="f1_logo_icon.jpg">🏎️ F1 Logo Icon</a>
+                        <a class="tree-view-item file" href="imagens/f1_helmet_icon.jpg" download="f1_helmet_icon.jpg">🪖 Capacete F1 Icon</a>
+                        <a class="tree-view-item file" href="imagens/f1_trophy_icon.jpg" download="f1_trophy_icon.jpg">🏆 Troféu F1 Icon</a>
+                        <a class="tree-view-item file" href="imagens/f1_checkered_flag_icon.jpg" download="f1_checkered_flag_icon.jpg">🏁 Bandeira Quadriculada</a>
+                        <a class="tree-view-item file" href="imagens/f1_steering_wheel_icon.jpg" download="f1_steering_wheel_icon.jpg">🎮 Volante F1 Icon</a>
+                        <a class="tree-view-item file" href="imagens/f1_pit_stop_icon.jpg" download="f1_pit_stop_icon.jpg">🔧 Pit Stop Icon</a>
+                        <a class="tree-view-item file" href="imagens/f1_speed_icon.jpg" download="f1_speed_icon.jpg">⚡ Velocidade Icon</a>
+                        <a class="tree-view-item file" href="imagens/f1_racing_line_icon.jpg" download="f1_racing_line_icon.jpg">🛣️ Linha de Corrida Icon</a>
+                        <a class="tree-view-item file" href="imagens/f1_drs_icon.jpg" download="f1_drs_icon.jpg">🚀 DRS Icon</a>
+                    </div>
+                </div>
+
+                <!-- ISO -->
+                <div class="tree-view-item folder" onclick="toggleFolder(this)">
+                    <span>💾 ISO</span>
+                    <div class="content" style="display: none;">
+                        <a class="tree-view-item file" href="imagens/FoS_bottle_cap.ico" download="FoS_bottle_cap.ico">🖼️ Imagem Ico Wasteland News</a>
+                        <a class="tree-view-item file" href="imagens_loja/loja_ico.ico" download="loja_ico.ico">🖼️ Imagem Ico Atomic Shop</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+</div>
+
+@section treeview_scripts{
+    <script src="~/javascript/treeview.js"></script>
+}

@@ -1,0 +1,449 @@
+﻿/* F1 Racing Tree View - Estilo Redesenhado com Paleta F1 Oficial */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #cc0000 0%, #ff0000 25%, #cc0000 50%, #ff0000 75%, #cc0000 100%);
+    min-height: 100vh;
+    width: 100%;
+}
+
+
+.corpo_tree {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
+}
+
+.f1-title {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    padding: 20px 0;
+    border: 3px solid #dc143c;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 700;
+    font-size: 24px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(220, 20, 60, 0.3);
+    border-radius: 12px;
+}
+
+    .f1-title::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(220, 20, 60, 0.4), transparent);
+        animation: f1-scan 4s infinite;
+    }
+
+@keyframes f1-scan {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+/* Container do tree view redesenhado com cores F1 */
+.descarrega.tree-view {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 25%, #1a1a1a 50%, #2a2a2a 75%, #1a1a1a 100%);
+    border: 3px solid #dc143c;
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), inset 0 0 100px rgba(220, 20, 60, 0.1), 0 20px 60px rgba(0, 0, 0, 0.9);
+    font-family: 'Rajdhani', sans-serif;
+}
+
+    .descarrega.tree-view::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 20% 20%, rgba(220, 20, 60, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+        z-index: 1;
+    }
+
+    .descarrega.tree-view::after {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        border: 1px solid rgba(220, 20, 60, 0.3);
+        border-radius: 15px;
+        z-index: 1;
+    }
+
+    /* Estilo principal dos itens - cores F1 */
+    .descarrega.tree-view .tree-view-item {
+        z-index: 2;
+        position: relative;
+        display: block;
+        color: #ffffff;
+        padding: 20px 30px 20px 70px;
+        margin: 15px 0;
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        border-left: 4px solid transparent;
+        border-radius: 12px;
+        background: linear-gradient(90deg, rgba(42, 42, 42, 0.8) 0%, rgba(26, 26, 26, 0.9) 50%, rgba(42, 42, 42, 0.8) 100%);
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        text-decoration: none;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(220, 20, 60, 0.2);
+        overflow: hidden;
+    }
+
+        /* Ícone de seta com cores F1 */
+        .descarrega.tree-view .tree-view-item.folder::before {
+            content: '▶';
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #dc143c;
+            font-size: 18px;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-shadow: 0 0 15px #dc143c;
+            filter: drop-shadow(0 0 8px #dc143c);
+        }
+
+        /* Rotação do ícone quando aberto */
+        .descarrega.tree-view .tree-view-item.folder.open::before {
+            transform: translateY(-50%) rotate(90deg);
+            color: #ff1744;
+            text-shadow: 0 0 20px #ff1744, 0 0 30px #dc143c;
+        }
+
+        /* Efeito hover com cores F1 */
+        .descarrega.tree-view .tree-view-item:hover {
+            background: linear-gradient(90deg, rgba(220, 20, 60, 0.2) 0%, rgba(42, 42, 42, 0.9) 25%, rgba(26, 26, 26, 0.95) 50%, rgba(42, 42, 42, 0.9) 75%, rgba(220, 20, 60, 0.2) 100%);
+            border-left-color: #dc143c;
+            border-color: rgba(220, 20, 60, 0.5);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), inset 0 2px 0 rgba(220, 20, 60, 0.3), 0 0 20px rgba(220, 20, 60, 0.2);
+            transform: translateX(12px) translateY(-2px);
+        }
+
+            .descarrega.tree-view .tree-view-item:hover::after {
+                content: '';
+                position: absolute;
+                right: -3px;
+                top: 0;
+                bottom: 0;
+                width: 6px;
+                background: linear-gradient(to bottom, #dc143c, #ff1744, #dc143c);
+                border-radius: 0 8px 8px 0;
+                box-shadow: 0 0 20px #dc143c;
+            }
+
+        /* Conteúdo dos itens com cores F1 - MELHORADO */
+        .descarrega.tree-view .tree-view-item .content {
+            display: none;
+            padding: 0;
+            margin: 20px 0 0 0;
+            color: #f5f5f5;
+            font-size: 18px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.98) 0%, rgba(42, 42, 42, 0.95) 25%, rgba(26, 26, 26, 0.98) 50%, rgba(42, 42, 42, 0.95) 75%, rgba(26, 26, 26, 0.98) 100%);
+            border-radius: 15px;
+            border-left: 4px solid #dc143c;
+            border: 2px solid rgba(220, 20, 60, 0.4);
+            line-height: 1.8;
+            text-transform: none;
+            letter-spacing: 1px;
+            backdrop-filter: blur(15px);
+            box-shadow: inset 0 4px 20px rgba(220, 20, 60, 0.1), inset 0 -4px 20px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(220, 20, 60, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+            /* Efeito de linha de velocidade F1 no conteúdo */
+            .descarrega.tree-view .tree-view-item .content::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: linear-gradient(90deg, transparent, #dc143c, #ff1744, #dc143c, transparent);
+                animation: f1-speedLine 2s infinite;
+            }
+
+            /* Gradiente interno para profundidade */
+            .descarrega.tree-view .tree-view-item .content::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: radial-gradient(circle at 50% 0%, rgba(220, 20, 60, 0.05) 0%, transparent 50%);
+                pointer-events: none;
+            }
+
+            /* Padding interno para o conteúdo */
+            .descarrega.tree-view .tree-view-item .content > * {
+                padding: 25px 40px 25px 60px;
+                position: relative;
+                z-index: 2;
+            }
+
+        /* Animação melhorada de abertura */
+        .descarrega.tree-view .tree-view-item.open .content {
+            display: block;
+            animation: f1-slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+/* Animação da linha de velocidade F1 */
+@keyframes f1-speedLine {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Animação melhorada de slide down */
+@keyframes f1-slideDown {
+    0% {
+        opacity: 0;
+        max-height: 0;
+        transform: translateY(-30px) scaleY(0.3);
+        filter: blur(10px);
+    }
+
+    30% {
+        opacity: 0.3;
+        filter: blur(5px);
+    }
+
+    60% {
+        opacity: 0.7;
+        filter: blur(2px);
+    }
+
+    100% {
+        opacity: 1;
+        max-height: 1000px;
+        transform: translateY(0) scaleY(1);
+        filter: blur(0);
+    }
+}
+
+/* Sub-itens com cores F1 - MELHORADO */
+.descarrega.tree-view .tree-view-item .tree-view-item {
+    padding: 18px 30px 18px 60px;
+    margin: 12px 0;
+    font-size: 18px;
+    background: linear-gradient(90deg, rgba(42, 42, 42, 0.7) 0%, rgba(26, 26, 26, 0.85) 50%, rgba(42, 42, 42, 0.7) 100%);
+    border-radius: 10px;
+    border: 1px solid rgba(220, 20, 60, 0.25);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+    .descarrega.tree-view .tree-view-item .tree-view-item::before {
+        left: 30px;
+        font-size: 16px;
+        color: #dc143c;
+        transition: all 0.4s ease;
+    }
+
+    /* Hover melhorado para sub-itens */
+    .descarrega.tree-view .tree-view-item .tree-view-item:hover {
+        background: linear-gradient(90deg, rgba(220, 20, 60, 0.15) 0%, rgba(42, 42, 42, 0.85) 30%, rgba(26, 26, 26, 0.9) 50%, rgba(42, 42, 42, 0.85) 70%, rgba(220, 20, 60, 0.15) 100%);
+        border-color: rgba(220, 20, 60, 0.4);
+        transform: translateX(8px) scale(1.02);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(220, 20, 60, 0.2);
+    }
+
+/* Links de download com cores F1 - MELHORADO */
+.descarrega.tree-view .tree-view-item a {
+    color: #f5f5f5;
+    text-decoration: none;
+    display: block;
+    padding: 15px 25px 15px 50px;
+    margin: 10px 0;
+    background: linear-gradient(90deg, rgba(42, 42, 42, 0.7) 0%, rgba(26, 26, 26, 0.85) 50%, rgba(42, 42, 42, 0.7) 100%);
+    border-radius: 10px;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-size: 16px;
+    position: relative;
+    border-left: 3px solid transparent;
+    border: 1px solid rgba(220, 20, 60, 0.15);
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    overflow: hidden;
+}
+
+    .descarrega.tree-view .tree-view-item a::before {
+        content: '📥';
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 16px;
+        transition: all 0.4s ease;
+        filter: grayscale(0.5);
+    }
+
+    /* Hover melhorado para links */
+    .descarrega.tree-view .tree-view-item a:hover {
+        background: linear-gradient(90deg, rgba(220, 20, 60, 0.2) 0%, rgba(42, 42, 42, 0.9) 20%, rgba(26, 26, 26, 0.95) 50%, rgba(42, 42, 42, 0.9) 80%, rgba(220, 20, 60, 0.2) 100%);
+        transform: translateX(10px) translateY(-2px);
+        color: #ffffff;
+        border-left-color: #dc143c;
+        border-color: rgba(220, 20, 60, 0.5);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(220, 20, 60, 0.3);
+        font-weight: 600;
+    }
+
+        .descarrega.tree-view .tree-view-item a:hover::before {
+            filter: grayscale(0);
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        /* Efeito de linha lateral no hover dos links */
+        .descarrega.tree-view .tree-view-item a:hover::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #dc143c, #ff1744, #dc143c);
+            animation: f1-pulse-line 1s infinite;
+        }
+
+@keyframes f1-pulse-line {
+    0%, 100% {
+        opacity: 0.7;
+        box-shadow: 0 0 10px #dc143c;
+    }
+
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 20px #dc143c, 0 0 30px #ff1744;
+    }
+}
+
+/* Efeitos especiais com cores F1 */
+.descarrega.tree-view .tree-view-item:nth-child(odd):hover {
+    background: linear-gradient(90deg, rgba(220, 20, 60, 0.25) 0%, rgba(42, 42, 42, 0.9) 20%, rgba(26, 26, 26, 0.95) 40%, rgba(42, 42, 42, 0.9) 60%, rgba(26, 26, 26, 0.95) 80%, rgba(220, 20, 60, 0.25) 100%);
+}
+
+/* Efeito de pulsação no hover com cores F1 */
+.descarrega.tree-view .tree-view-item:hover::before {
+    animation: f1-pulse 1.5s infinite;
+}
+
+@keyframes f1-pulse {
+    0%, 100% {
+        text-shadow: 0 0 15px #dc143c;
+        transform: translateY(-50%) scale(1);
+    }
+
+    50% {
+        text-shadow: 0 0 25px #dc143c, 0 0 35px #ff1744;
+        transform: translateY(-50%) scale(1.1);
+    }
+}
+
+/* Animação de fundo dinâmica com cores F1 */
+.descarrega.tree-view:hover::before {
+    animation: f1-backgroundShift 3s infinite;
+}
+
+@keyframes f1-backgroundShift {
+    0%, 100% {
+        background: radial-gradient(circle at 20% 20%, rgba(220, 20, 60, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+    }
+
+    50% {
+        background: radial-gradient(circle at 80% 20%, rgba(220, 20, 60, 0.2) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.12) 0%, transparent 50%);
+    }
+}
+
+/* Responsivo para mobile */
+@media screen and (max-width: 768px) {
+    .corpo_tree {
+        padding: 15px;
+    }
+
+    .f1-title {
+        font-size: 18px;
+        letter-spacing: 2px;
+        padding: 15px 0;
+    }
+
+    .descarrega.tree-view {
+        padding: 25px;
+        margin-top: 20px;
+    }
+
+        .descarrega.tree-view .tree-view-item {
+            padding: 15px 25px 15px 55px;
+            font-size: 18px;
+        }
+
+            .descarrega.tree-view .tree-view-item .content > * {
+                padding: 20px 25px 20px 40px;
+                font-size: 16px;
+            }
+
+            .descarrega.tree-view .tree-view-item::before {
+                left: 25px;
+            }
+}
+
+@media screen and (max-width: 480px) {
+    .f1-title {
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+
+    .descarrega.tree-view .tree-view-item {
+        padding: 12px 20px 12px 45px;
+        font-size: 16px;
+    }
+
+        .descarrega.tree-view .tree-view-item::before {
+            left: 20px;
+        }
+}

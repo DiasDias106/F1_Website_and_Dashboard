@@ -1,0 +1,118 @@
+﻿.teamcard{
+    width: 90%;
+    height: 300px;
+    border: 10px solid black;
+}
+.cardalign{
+    display: flex;
+    justify-content: space-around;
+}
+.corredor{
+    width:50px;
+    height:50px;
+}
+.teamc-container {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.teamc {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    overflow: hidden;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .teamc img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+    }
+
+.teamc-content {
+    padding: 1rem;
+    text-align: center;
+}
+
+    .teamc-content small {
+        display: block;
+        color: #888;
+        margin-bottom: 0.5rem;
+    }
+
+    .teamc-content h3 {
+        margin: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .teamc-content p {
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+.teamc-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.teamc.one .teamc-footer {
+    background: #ff007f;
+}
+
+.teamc.two .teamc-footer {
+    background: #ff6f00;
+}
+
+.teamc.three .teamc-footer {
+    background: #00b36b;
+}
+.teamc.four .teamc-footer {
+    background: #ff007f;
+}
+
+.teamc.five .teamc-footer {
+    background: #ff6f00;
+}
+
+.teamc.six .teamc-footer {
+    background: #00b36b;
+}
+.teamc.seven .teamc-footer {
+    background: #ff007f;
+}
+
+.teamc.eight .teamc-footer {
+    background: #ff6f00;
+}
+
+.teamc.nine .teamc-footer {
+    background: #00b36b;
+}
+.teamc.twelve .teamc-footer {
+    background: #ff007f;
+}
+alinha_team {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+    .teamc-container{
+        display:flex;
+        flex-direction: column;
+        justify-content: center
+    }
+}
+
+
+
+

@@ -1,0 +1,31 @@
+﻿.noticias_contentor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.nav_footer {
+    margin-top:20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom:20px;
+    justify-content: space-between;
+}
+
+.item_nav:nth-child(1),
+.item_nav:nth-child(3) {
+    width: 200px;
+    height:150px;
+    border: 10px solid red;
+    border-radius: 40px;
+}
+
+.item_nav:nth-child(2) {
+    flex-grow: 1;
+    border: 10px solid red;
+    border-radius: 20px;
+    height: 150px;
+}

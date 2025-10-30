@@ -1,0 +1,421 @@
+﻿/* Reset e configurações base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+    color: #333;
+}
+
+.f1-calendar-details {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+    color: #333;
+    position: relative;
+}
+
+/* Header com estilo F1 consistente */
+.f1-header {
+    background: linear-gradient(135deg, #dc143c 0%, #b91c3c 100%);
+    position: relative;
+    overflow: hidden;
+    border-bottom: 4px solid #ffffff;
+}
+
+    .f1-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: repeating-linear-gradient( 90deg, #ffffff 0px, #ffffff 20px, transparent 20px, transparent 40px );
+    }
+
+    .f1-header::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: shine 3s infinite;
+    }
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.f1-header h2 {
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-align: center;
+    padding: 2rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+/* Container principal */
+.f1-container {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Card do evento com estilo limpo e consistente */
+.f1-event-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 3rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 3px solid #dc143c;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+    .f1-event-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #dc143c 0%, #ff6347 50%, #dc143c 100%);
+    }
+
+    .f1-event-card h4 {
+        color: #333;
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-align: center;
+        position: relative;
+        padding-bottom: 1rem;
+    }
+
+        .f1-event-card h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, #ffd700 50%, transparent 100%);
+        }
+
+/* Grid de detalhes com estilo consistente */
+.f1-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.f1-detail-item {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 2rem;
+    border-left: 5px solid #dc143c;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e0e0e0;
+}
+
+    .f1-detail-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(220, 20, 60, 0.15);
+        border-left-color: #ff6347;
+    }
+
+    .f1-detail-item dt {
+        font-weight: 700;
+        color: #dc143c;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .f1-detail-item dt::before {
+            content: '▶';
+            font-size: 0.8rem;
+            color: #dc143c;
+        }
+
+    .f1-detail-item dd {
+        font-size: 1.1rem;
+        color: #333;
+        line-height: 1.6;
+        margin: 0;
+        font-weight: 500;
+    }
+
+/* Item de descrição especial */
+.f1-description-item {
+    grid-column: 1 / -1;
+    background: #fff8e1;
+    border-left: 5px solid #ffd700;
+    border: 1px solid #ffecb3;
+}
+
+    .f1-description-item:hover {
+        border-left-color: #ffb300;
+        box-shadow: 0 8px 25px rgba(255, 215, 0, 0.15);
+    }
+
+    .f1-description-item dt::before {
+        content: '📝';
+        font-size: 1rem;
+    }
+
+    .f1-description-item dt {
+        color: #ff8f00;
+    }
+
+    .f1-description-item dd {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #424242;
+    }
+
+/* Botão de voltar estilo F1 consistente */
+.f1-back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: linear-gradient(135deg, #dc143c 0%, #b91c3c 100%);
+    color: #ffffff !important;
+    text-decoration: none;
+    padding: 1.2rem 2.5rem;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    margin-top: 2rem;
+    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+    .f1-back-button::before {
+        content: '←';
+        font-size: 1.2rem;
+        font-weight: 900;
+        transition: transform 0.3s ease;
+    }
+
+    .f1-back-button:hover {
+        background: linear-gradient(135deg, #ff6347 0%, #dc143c 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4);
+        color: #ffffff !important;
+        text-decoration: none;
+    }
+
+        .f1-back-button:hover::before {
+            transform: translateX(-3px);
+        }
+
+/* Animações de entrada suaves */
+.f1-loading-animation {
+    animation: slideInUp 0.6s ease-out;
+}
+
+    .f1-loading-animation:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .f1-loading-animation:nth-child(3) {
+        animation-delay: 0.2s;
+    }
+
+    .f1-loading-animation:nth-child(4) {
+        animation-delay: 0.3s;
+    }
+
+    .f1-loading-animation:nth-child(5) {
+        animation-delay: 0.4s;
+    }
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estatísticas no topo (similar à segunda imagem) */
+.f1-stats-section {
+    background: linear-gradient(135deg, #dc143c 0%, #b91c3c 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    color: #ffffff;
+    box-shadow: 0 8px 25px rgba(220, 20, 60, 0.2);
+}
+
+    .f1-stats-section h3 {
+        color: #ffffff;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .f1-stats-section h3::before {
+            content: '📊';
+            font-size: 1.2rem;
+        }
+
+    .f1-stats-section .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .f1-stats-section .stat-item {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+        .f1-stats-section .stat-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .f1-stats-section .stat-item .number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #ffffff;
+            display: block;
+        }
+
+        .f1-stats-section .stat-item .label {
+            font-size: 0.9rem;
+            color: #ffcccc;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .f1-header h2 {
+        font-size: 1.8rem;
+        padding: 1.5rem 1rem;
+        letter-spacing: 1px;
+    }
+
+    .f1-container {
+        padding: 2rem 1rem;
+    }
+
+    .f1-event-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .f1-details-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .f1-detail-item {
+        padding: 1.5rem;
+    }
+
+    .f1-back-button {
+        padding: 1rem 2rem;
+        font-size: 0.8rem;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .f1-stats-section .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .f1-header h2 {
+        font-size: 1.5rem;
+        padding: 1rem;
+    }
+
+    .f1-event-card {
+        padding: 1.5rem 1rem;
+        border-radius: 10px;
+    }
+
+    .f1-detail-item {
+        padding: 1.2rem;
+    }
+
+        .f1-detail-item dt {
+            font-size: 0.8rem;
+        }
+
+        .f1-detail-item dd {
+            font-size: 1rem;
+        }
+
+    .f1-stats-section .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.f1-description-item {
+    grid-column: 1 / -1;
+    background: #fff8e1;
+    border-left: 5px solid #ffd700;
+    border: 1px solid #ffecb3;
+}
+
+/* Imagem da pista */
+.f1-track-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    object-fit: contain;
+}

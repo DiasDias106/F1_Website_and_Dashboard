@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewBag.Title = "dashboard_main";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+@section dashboard_style
+{
+    <link rel="stylesheet" href="~/estilos/dashboard_main.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
+}
+<section class="d_body">
+    <div class="contentor_d_main">
+        <div class="cabecalho_main">
+            <div class="hero-section">
+                <div class="hero-image">
+                    <img class="logo_main" src="~/imagens/Dashboard/dashboard_logo.png"/>
+                </div>
+                <div class="hero-content">
+                    <h1>F1 Control Center</h1>
+                    <p>Bem-vindo ao centro de controle da Fórmula 1. Monitorize a performance, analise dados e fassa a gestão da sua equipa em tempo real.</p>
+                    <a href="@Url.Action("Index", "Home")">
+                        <button class="cta-button">Obter Informação</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🏁</div>
+                <div class="stat-number">24</div>
+                <div class="stat-label">Corridas da Temporada</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-number">320</div>
+                <div class="stat-label">Velocidade Máxima (km/h)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-number">8</div>
+                <div class="stat-label">Vitórias</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Eficiência do Sistema</div>
+            </div>
+        </div>
+
+        <div class="charts-section">
+            <div class="chart-container">
+                <div class="chart-title">Performance da Temporada</div>
+                <div id="performanceChart" style="height: 350px;"></div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">Distribuição de Pontos</div>
+                <div id="pointsChart" style="height: 350px;"></div>
+            </div>
+        </div>
+
+        <div class="activities-section">
+            <h3 class="chart-title">Atividades Recentes</h3>
+            <div class="activity-item">
+                <div class="activity-icon">🏎️</div>
+                <div class="activity-content">
+                    <h4>Treino Livre 1 Completado</h4>
+                    <div class="activity-time">Há 2 horas</div>
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon">⚙️</div>
+                <div class="activity-content">
+                    <h4>Ajuste de Setup Realizado</h4>
+                    <div class="activity-time">Há 4 horas</div>
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon">📈</div>
+                <div class="activity-content">
+                    <h4>Análise de Telemetria Atualizada</h4>
+                    <div class="activity-time">Há 6 horas</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section dashboard_funcoes_js
+    {
+    <script>
+        window.addEventListener('load', function () {
+            
+            if (typeof ApexCharts !== 'undefined') {
+                
+                const performanceOptions = {
+                    series: [{
+                        name: 'Pontos',
+                        data: [25, 18, 15, 12, 10, 8, 6, 4, 2, 1, 8, 12]
+                    }, {
+                        name: 'Posição',
+                        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 7, 4]
+                    }],
+                    chart: {
+                        height: 350,
+                        type: 'line',
+                        toolbar: {
+                            show: false
+                        }
+                    },
+                    colors: ['#dc2626', '#7c3aed'],
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'smooth',
+                        width: 3
+                    },
+                    xaxis: {
+                        categories: ['GP1', 'GP2', 'GP3', 'GP4', 'GP5', 'GP6', 'GP7', 'GP8', 'GP9', 'GP10', 'GP11', 'GP12']
+                    },
+                    yaxis: [{
+                        title: {
+                            text: 'Pontos'
+                        }
+                    }, {
+                        opposite: true,
+                        title: {
+                            text: 'Posição'
+                        }
+                    }],
+                    grid: {
+                        borderColor: '#f1f1f1',
+                    },
+                    legend: {
+                        position: 'top'
+                    }
+                };
+
+                const performanceChart = new ApexCharts(document.querySelector("#performanceChart"), performanceOptions);
+                performanceChart.render();
+
+                
+                const pointsOptions = {
+                    series: [44, 25, 18, 15, 12],
+                    chart: {
+                        height: 350,
+                        type: 'donut',
+                    },
+                    labels: ['Vitórias', 'Pódios', 'Top 5', 'Top 10', 'Outros'],
+                    colors: ['#dc2626', '#ea580c', '#ca8a04', '#65a30d', '#059669'],
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }],
+                    legend: {
+                        position: 'bottom'
+                    }
+                };
+
+                const pointsChart = new ApexCharts(document.querySelector("#pointsChart"), pointsOptions);
+                pointsChart.render();
+            } else {
+                console.error('ApexCharts não foi carregado');
+            }
+
+            
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const finalValue = parseInt(stat.textContent.replace('%', ''));
+                const hasPercent = stat.textContent.includes('%');
+                let currentValue = 0;
+                const increment = finalValue / 50;
+
+                const timer = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= finalValue) {
+                        stat.textContent = finalValue + (hasPercent ? '%' : '');
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(currentValue) + (hasPercent ? '%' : '');
+                    }
+                }, 30);
+            });
+        });
+
+    </script>
+
+}
+
+

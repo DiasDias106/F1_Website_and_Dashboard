@@ -1,0 +1,62 @@
+﻿@model F1_website.Models.Pilotos
+
+@using (Html.BeginForm("CreatePiloto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.id_piloto)
+        @Html.TextBoxFor(m => m.id_piloto, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.id_piloto, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.nm_equipa)
+        @Html.TextBoxFor(m => m.nm_equipa, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.nm_equipa, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.nome)
+        @Html.TextBoxFor(m => m.nome, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.nome, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.imagem)
+        <input type="file" name="imagem" class="form-control" />
+        @Html.ValidationMessageFor(m => m.imagem, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.descricao)
+        @Html.TextBoxFor(m => m.descricao, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.descricao, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.titulos)
+        @Html.TextBoxFor(m => m.titulos, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.titulos, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.nacionalidade)
+        @Html.TextBoxFor(m => m.nacionalidade, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.nacionalidade, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.pontos)
+        @Html.TextBoxFor(m => m.pontos, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.pontos, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

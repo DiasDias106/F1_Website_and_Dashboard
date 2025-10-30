@@ -1,0 +1,52 @@
+﻿.imagem-container {
+    margin-top: 80px;
+    padding: 40px;
+    background: linear-gradient(to right, black, red);
+    color: white;
+    font-family: 'Formula1-Regular', sans-serif;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.imagem-titulo {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+.imagem-preview {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+    .imagem-preview div {
+        flex: 1 1 45%;
+    }
+
+.imagem-botoes {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+    .imagem-botoes button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 25px;
+        font-size: 1rem;
+        background-color: #ff0000;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .imagem-botoes button:hover {
+            background-color: #cc0000;
+            box-shadow: 0 0 10px red;
+        }

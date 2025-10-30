@@ -1,0 +1,67 @@
+﻿.conversor-container {
+    margin-top: 80px;
+    padding: 40px 20px;
+    background: linear-gradient(to right, black, red);
+    color: white;
+    text-align: center;
+    font-family: 'Formula1-Regular', sans-serif;
+    min-height: 100vh;
+}
+
+.conversor-titulo {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.conversor-box {
+    display: inline-block;
+    background: #111;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+    .conversor-box label {
+        display: block;
+        font-size: 1.2rem;
+        margin-top: 15px;
+        text-align: left;
+    }
+
+    .conversor-box input,
+    .conversor-box select {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: none;
+        font-size: 1rem;
+        background-color: #222;
+        color: white;
+    }
+
+    .conversor-box button {
+        margin-top: 20px;
+        padding: 12px 25px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 30px;
+        background-color: #ff0000;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+        .conversor-box button:hover {
+            background-color: #cc0000;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+    .conversor-box h2 {
+        margin-top: 25px;
+        font-size: 1.5rem;
+        color: #0f0;
+    }
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d42f6325136f446cafb420cfdd3a079f" Name="Diagram1">
+        <EntityTypeShape EntityType="F1DBSiteModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="F1DBSiteModel.AspNetRoles" Width="1.5" PointX="7.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="F1DBSiteModel.AspNetUserClaims" Width="1.5" PointX="12.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="F1DBSiteModel.AspNetUserLogins" Width="1.5" PointX="12.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="F1DBSiteModel.AspNetUsers" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="F1DBSiteModel.Calendario" Width="1.5" PointX="10" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="F1DBSiteModel.Componente" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="F1DBSiteModel.Equipa" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="F1DBSiteModel.Mecanico" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="F1DBSiteModel.Membro" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="F1DBSiteModel.paginas" Width="1.5" PointX="7.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="F1DBSiteModel.Piloto" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="F1DBSiteModel.Pista" Width="1.5" PointX="7.75" PointY="7" IsExpanded="true" />
+        <AssociationConnector Association="F1DBSiteModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="F1DBSiteModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="F1DBSiteModel.FK_Calendario_Pista" ManuallyRouted="false" />
+        <AssociationConnector Association="F1DBSiteModel.FK_Componente_Equipa" ManuallyRouted="false" />
+        <AssociationConnector Association="F1DBSiteModel.FK_Mecanico_Equipa" ManuallyRouted="false" />
+        <AssociationConnector Association="F1DBSiteModel.FK_Membro_Equipa" ManuallyRouted="false" />
+        <AssociationConnector Association="F1DBSiteModel.FK_Piloto_Equipa" ManuallyRouted="false" />
+        <AssociationConnector Association="F1DBSiteModel.FK_Membro_Mecanico" ManuallyRouted="false" />
+        <AssociationConnector Association="F1DBSiteModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

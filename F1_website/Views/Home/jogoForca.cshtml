@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "jogoForca";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section forcajogo_style{
+    <link rel="stylesheet" href="~/estilos/jogos/jogo_forca.css" />
+}
+
+<section style="background-color:black" class="bcforca">
+    <div class="alinhar">
+        <h1>Jogo da Forca</h1>
+        <div class="word"></div>
+        <div class="letters"></div>
+        <div class="wrong-letters"></div>
+        <h2 class="message"></h2>
+        <button class="forcab" onclick="iniciarjogo()">Reiniciar</button>
+    </div>
+</section>
+@section forcajogo{
+    <script src="~/javascript/jogo_forca.js"></script>
+}
+

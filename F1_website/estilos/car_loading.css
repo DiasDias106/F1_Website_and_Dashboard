@@ -1,0 +1,308 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.corpo {
+    background: linear-gradient(135deg, #0d1421 0%, #1a252f 50%, #2c3e50 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Orbitron', monospace;
+    overflow: hidden;
+}
+
+.loader-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.track {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #2c3e50;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+    .track::before {
+        content: '';
+        position: absolute;
+        inset: 15px;
+        border-radius: 50%;
+        background: #34495e;
+        border: 3px solid #ecf0f1;
+        border-style: dashed;
+        animation: trackRotate 8s linear infinite reverse;
+    }
+
+    .track::after {
+        content: '';
+        position: absolute;
+        inset: 35px;
+        border-radius: 50%;
+        background: #2c3e50;
+        border: 2px solid #7f8c8d;
+        border-style: dashed;
+    }
+
+.car {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 20px;
+    margin: -10px 0 0 -20px;
+    transform-origin: 125px 0;
+    animation: carMove 3s linear infinite;
+}
+
+.car-red {
+    animation-delay: 0s;
+}
+
+.car-blue {
+    animation-delay: 0.6s;
+}
+
+.car-green {
+    animation-delay: 1.2s;
+}
+
+.car-yellow {
+    animation-delay: 1.8s;
+}
+
+.car-purple {
+    animation-delay: 2.4s;
+}
+
+.speed-lines {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    margin: -100px 0 0 -100px;
+}
+
+.speed-line {
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background: linear-gradient(to bottom, transparent, #3498db, transparent);
+    border-radius: 1px;
+    animation: speedLine 1s ease-in-out infinite;
+}
+
+    .speed-line:nth-child(1) {
+        top: 10px;
+        left: 50%;
+        animation-delay: 0s;
+    }
+
+    .speed-line:nth-child(2) {
+        top: 30px;
+        right: 30px;
+        animation-delay: 0.1s;
+    }
+
+    .speed-line:nth-child(3) {
+        top: 50%;
+        right: 10px;
+        animation-delay: 0.2s;
+    }
+
+    .speed-line:nth-child(4) {
+        bottom: 30px;
+        right: 30px;
+        animation-delay: 0.3s;
+    }
+
+    .speed-line:nth-child(5) {
+        bottom: 10px;
+        left: 50%;
+        animation-delay: 0.4s;
+    }
+
+    .speed-line:nth-child(6) {
+        bottom: 30px;
+        left: 30px;
+        animation-delay: 0.5s;
+    }
+
+    .speed-line:nth-child(7) {
+        top: 50%;
+        left: 10px;
+        animation-delay: 0.6s;
+    }
+
+    .speed-line:nth-child(8) {
+        top: 30px;
+        left: 30px;
+        animation-delay: 0.7s;
+    }
+
+.loading-text {
+    position: absolute;
+    bottom: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ecf0f1;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-align: center;
+}
+
+    .loading-text::after {
+        content: '';
+        animation: dots 1.5s steps(4, end) infinite;
+    }
+
+.rpm-indicator {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #e74c3c;
+    font-size: 14px;
+    font-weight: 700;
+    animation: rpmFlash 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes trackRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes carMove {
+    0% {
+        transform: rotate(0deg) translateX(125px) rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg) translateX(125px) rotate(-360deg);
+    }
+}
+
+@keyframes speedLine {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}
+
+@keyframes dots {
+    0%, 20% {
+        content: '';
+    }
+
+    40% {
+        content: '.';
+    }
+
+    60% {
+        content: '..';
+    }
+
+    80%, 100% {
+        content: '...';
+    }
+}
+
+@keyframes wheelSpin {
+    0% {
+        transform: translateY(-50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+@keyframes rpmFlash {
+    0% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Spark effects */
+.spark {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #f39c12;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #f39c12;
+    animation: spark 2s linear infinite;
+}
+
+    .spark:nth-child(1) {
+        top: 20%;
+        left: 80%;
+        animation-delay: 0s;
+    }
+
+    .spark:nth-child(2) {
+        top: 70%;
+        left: 20%;
+        animation-delay: 0.5s;
+    }
+
+    .spark:nth-child(3) {
+        top: 30%;
+        left: 30%;
+        animation-delay: 1s;
+    }
+
+    .spark:nth-child(4) {
+        top: 80%;
+        left: 70%;
+        animation-delay: 1.5s;
+    }
+
+@keyframes spark {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    10% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    90% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}

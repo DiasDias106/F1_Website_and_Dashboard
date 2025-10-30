@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "jogos_hub";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section jogos_style{
+    <link rel="stylesheet" href="~/estilos/origens.css" />
+    <link rel="stylesheet" href="~/estilos/teams.css" />
+    <link rel="stylesheet" href="~/estilos/videos.css" />
+}
+<div style="margin-top:100px" class="alinha">
+    <section class="riscas">
+    </section>
+</div>
+<div class="header-wrapper">
+    <div class="stripe"></div>
+    <div class="stripe"></div>
+    <h1 class="title">Hub de Jogos</h1>
+</div>
+<div class="cont_cartao1">
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("Imcpage", "Home")">
+                <img src="~/imagens/jogos_cards/imc_card2.png" />
+            </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">IMC</h3>
+            <p class="cartao-description">Aqui podera calcular o seu indice de massa corporal de 3 maneiras distintas</p>
+        </div>
+    </div>
+
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("Adivinha_num", "Home")">
+                <img src="~/imagens/jogos_cards/adnum_card.png" />
+                </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Adivinhe o numero</h3>
+            <p class="cartao-description">Um jogo divertido que consites em tentar adivinhar um numero entre 1 e 50</p>
+        </div>
+    </div>
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("calculadora", "Home")">
+                <img src="~/imagens/jogos_cards/calculadora_card.png" />
+            </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Calculadora</h3>
+            <p class="cartao-description">Um sitio onde podera realizar diferentes tipos de contas </p>
+        </div>
+    </div>
+</div>
+<div class="cont_cartao1">
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("conversor_moedas", "Home")">
+                <img src="~/imagens/jogos_cards/conversor_moedas_card.png" />
+                </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Conversor de Câmbio</h3>
+            <p class="cartao-description">Aqui podera fazer conversoes para diferentes tipos de Câmbios atraves de uma API </p>
+        </div>
+    </div>
+
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("converter_imagem", "Home")">
+                <img src="~/imagens/jogos_cards/conversor_imagens_card.png" />
+            </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Conversor de imagens</h3>
+            <p class="cartao-description">Permite converter imagens para outros formatos</p>
+        </div>
+    </div>
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("falador", "Home")">
+                <img src="~/imagens/jogos_cards/falador_cards.png" />
+            </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Conversor de texto em Som</h3>
+            <p class="cartao-description">Permite auxiliar pessoas com defeciencia na fala a comunicar mais facilmente , tambem pode ser usado apenas para divertimento</p>
+        </div>
+    </div>
+</div>
+<div class="cont_cartao1">
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("Encriptador", "Home")">
+            <img src="~/imagens/jogos_cards/encriptador_passwords_card.png" />
+            </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Encriptador de Passwords</h3>
+            <p class="cartao-description">Permite encriptar qualquer tipo de palavra para diferentes formas de encriptação</p>
+        </div>
+    </div>
+
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("jogoForca", "Home")">
+            <img src="~/imagens/jogos_cards/jogoforca_card.png" />
+            </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Jogo da Forca</h3>
+            <p class="cartao-description">Um jogo onde o objetivo e adivinhar uma palavra do universo de F1</p>
+        </div>
+    </div>
+    <div class="cartao_vid1">
+        <div class="video-contentor">
+            <a href="@Url.Action("central_infos", "Home")">
+                <img src="~/imagens/jogos_cards/api_card.png" />
+            </a>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Central de Informação</h3>
+            <p class="cartao-description">Um local onde pode obter mais informação sobre os seus contudos favoritos de F1</p>
+        </div>
+    </div>
+</div>
+

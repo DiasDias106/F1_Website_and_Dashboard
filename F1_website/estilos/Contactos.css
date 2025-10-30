@@ -1,0 +1,100 @@
+﻿.contactos_bac {
+    background-image: url(../imagens/Contactos/f1_map.png);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+.contactos {
+    height: 100vh;
+    min-height: 100vh;
+    padding-top: 120px;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+.sec_contactos {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 550px;
+    background-color: transparent;
+}
+
+.sec_alinha {
+    justify-content: center;
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .contactos {
+        padding-top: 80px;
+    }
+}
+
+.info_contacto {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    width: 80%;
+    margin: 40px auto;
+    border-radius: 10px;
+}
+
+    .info_contacto h2 {
+        margin-bottom: 15px;
+    }
+
+    .info_contacto ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .info_contacto li {
+        margin-bottom: 10px;
+    }
+
+.form_contacto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 40px;
+    width: 100%;
+    margin: 40px auto;
+    border-radius: 10px;
+    margin-bottom: 0px;
+    padding-bottom: 50px;
+}
+
+.form_logo img {
+    max-width: 500px;
+}
+
+.form_email {
+    flex: 1;
+    margin-left: 40px;
+}
+
+    .form_email h2 {
+        margin-bottom: 20px;
+    }
+
+    .form_email form input,
+    .form_email form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .form_email form button {
+        padding: 10px 20px;
+        background: red;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+

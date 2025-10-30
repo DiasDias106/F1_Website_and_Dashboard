@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "converter_imagem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section conversorimagens_styles{
+    <link rel="stylesheet" href="~/estilos/jogos/conversor_img.css" />
+}
+
+<section class="imagem-container">
+    <h1 class="imagem-titulo">Conversor de Imagens</h1>
+
+    <input type="file" id="inputImagem" accept="image/*">
+
+    <div class="imagem-preview">
+        <div>
+            <h3>Imagem Original</h3>
+            <img id="imagemOriginal" style="max-width: 100%; border: 1px solid #555; border-radius: 10px;" />
+        </div>
+
+        <div>
+            <h3>Imagem Convertida</h3>
+            <img id="imagemConvertida" style="max-width: 100%; border: 1px solid #555; border-radius: 10px;" />
+        </div>
+    </div>
+
+    <div class="imagem-botoes">
+        <button onclick="converterImagem('image/png')">Converter para PNG</button>
+        <button onclick="converterImagem('image/jpeg')">Converter para JPEG</button>
+        <button onclick="converterImagem('image/webp')">Converter para WEBP</button>
+        <button onclick="converterImagem('image/bmp')">Converter para BMP</button>
+        <button onclick="converterImagem('image/tiff')">Converter para TIFF</button>
+    </div>
+</section>
+
+@section conversorimagens_jogo {
+    <script src="~/javascript/conversor_imagens.js"></script>
+}

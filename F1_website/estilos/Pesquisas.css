@@ -1,0 +1,78 @@
+﻿#ss.sugestoes {
+    position: absolute;
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    width: 100%;
+    z-index: 1000;
+    display: none;
+}
+
+#ss.show {
+    display: block;
+}
+
+.sug {
+    padding: 10px;
+    cursor: pointer;
+}
+
+    .sug:hover {
+        background-color: #eee;
+    }
+.search-container {
+    position: relative;
+    max-width: 400px;
+    margin: 40px auto;
+}
+
+#pesquisa {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    background-color: #111;
+    color: white;
+    box-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+    #pesquisa:focus {
+        box-shadow: 0 0 15px rgba(244, 63, 94, 0.8);
+    }
+
+.sugestoes {
+    position: absolute;
+    top: 105%;
+    width: 100%;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #f43f5e;
+    display: none;
+    z-index: 10;
+}
+
+    .sugestoes.show {
+        display: block;
+    }
+
+.sug {
+    padding: 12px 20px;
+    cursor: pointer;
+    color: black;
+    border-bottom: 1px solid #333;
+    transition: background 0.2s ease;
+}
+
+    .sug:last-child {
+        border-bottom: none;
+    }
+
+    .sug:hover {
+        background-color: #f43f5e;
+        color: black;
+    }
+

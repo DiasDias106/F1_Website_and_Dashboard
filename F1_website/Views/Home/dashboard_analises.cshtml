@@ -1,0 +1,228 @@
+﻿
+@{
+    ViewBag.Title = "dashboard_analises";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+@section analises_style{
+    <link rel="stylesheet" href="~/estilos/Analises.css" />
+}
+
+<div class="dashboard-titulo">Dashboard Análises</div>
+
+<div class="conteudo-principal">
+    <div class="cartoes-superiores">
+        <div class="cartao-individual">
+            <h3>Orçamento</h3>
+            <h2>$5,000,000</h2>
+            <div id="mini1"></div>
+        </div>
+        <div class="cartao-individual">
+            <h3>Membros</h3>
+            <h2>12,000,000</h2>
+            <div id="mini2"></div>
+        </div>
+        <div class="cartao-individual">
+            <h3>Colaboradores</h3>
+            <h2>122,000</h2>
+            <div id="mini3"></div>
+        </div>
+    </div>
+    <div class="grade-graficos">
+        <div class="caixa-grafico">
+            <h3>Visão Geral</h3>
+            <div id="mainChart" class="chart-container"></div>
+        </div>
+        <div class="caixa-grafico">
+            <h3>Estatisticas de Posições</h3>
+            <div id="barChart" class="chart-container"></div>
+        </div>
+        <div class="caixa-grafico">
+            <h3>Vitorias em Corridas</h3>
+            <div id="lineChart" class="chart-container"></div>
+        </div>
+        <div class="caixa-grafico">
+            <h3>Gastos Mensais</h3>
+            <div id="chartSmall1" class="chart-container"></div>
+        </div>
+    </div>
+    <div class="analises-controls">
+        <div class="caixa-entrada">
+            <h3>Alterar Dados em Visão Geral</h3>
+            <input class="entrada1" type="number" id="inputMain" placeholder="Valor">
+            <button class="analise_botao" onclick="addToMain()">Adicionar</button>
+        </div>
+    </div>
+</div>
+
+@section analises_scripts{
+    <script src="~/javascript/graficos_analises.js"></script>
+    <script src="~/javascript/Api_tempo.js"></script>
+    <script>
+        var mainChart;
+        var mainOptions = {
+            series: [
+                { name: 'Vitórias', type: 'column', data: [8, 12, 7, 5, 3, 2] },
+                { name: 'Pódios', type: 'area', data: [15, 18, 12, 8, 6, 4] },
+                { name: 'Pontos (x10)', type: 'line', data: [59, 62, 45, 32, 18, 12] }
+            ],
+            chart: {
+                height: '100%',
+                type: 'line',
+                stacked: false,
+                id: 'mainChart'
+            },
+            stroke: { width: [0, 2, 4], curve: 'smooth' },
+            fill: { opacity: [0.85, 0.25, 1] },
+            xaxis: { categories: ['Red Bull', 'Ferrari', 'Mercedes', 'McLaren', 'Alpine', 'Aston Martin'] },
+            title: {
+                text: 'Performance das Equipas F1 2024',
+                align: 'left'
+            },
+            colors: ['#1E40AF', '#DC2626', '#059669']
+        };
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            mainChart = new ApexCharts(document.querySelector("#mainChart"), mainOptions);
+            mainChart.render();
+
+          
+            new ApexCharts(document.querySelector("#chartSmall1"), {
+                series: [{ name: 'Tempo (segundos)', data: [62.5, 65.2, 67.8, 70.1, 72.4] }],
+                chart: {
+                    type: 'line',
+                    height: '100%',
+                    toolbar: {
+                        show: false
+                    }
+                },
+                xaxis: { categories: ['Monza', 'Silverstone', 'Spa', 'Barcelona', 'Hungaroring'] },
+                stroke: { curve: 'smooth', width: 3 },
+                colors: ['#FF4560'],
+                title: {
+                    text: 'Tempos de Volta Médios',
+                    style: { fontSize: '14px' }
+                }
+            }).render();
+
+            
+            new ApexCharts(document.querySelector("#barChart"), {
+                series: [{ name: 'Pontos', data: [575, 356, 234, 189, 147] }],
+                chart: {
+                    type: 'bar',
+                    height: '100%',
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 4,
+                        dataLabels: {
+                            position: 'top'
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    offsetY: -20,
+                    style: {
+                        fontSize: '12px',
+                        colors: ["#304758"]
+                    }
+                },
+                xaxis: { categories: ['Verstappen', 'Norris', 'Leclerc', 'Piastri', 'Sainz'] },
+                colors: ['#775DD0'],
+                title: {
+                    text: 'Top 5 Pilotos 2024',
+                    style: { fontSize: '14px' }
+                }
+            }).render();
+
+            
+            new ApexCharts(document.querySelector("#lineChart"), {
+                series: [
+                    { name: 'Verstappen', data: [25, 50, 75, 100, 125, 150] },
+                    { name: 'Norris', data: [18, 30, 45, 65, 90, 120] }
+                ],
+                chart: {
+                    type: 'line',
+                    height: '100%',
+                    toolbar: {
+                        show: false
+                    }
+                },
+                xaxis: { categories: ['Corrida 1', 'Corrida 2', 'Corrida 3', 'Corrida 4', 'Corrida 5', 'Corrida 6'] },
+                stroke: { curve: 'smooth', width: 2 },
+                markers: {
+                    size: 5
+                },
+                colors: ['#1E40AF', '#FF8C00'],
+                title: {
+                    text: 'Evolução Campeonato',
+                    style: { fontSize: '14px' }
+                }
+            }).render();
+
+            
+            new ApexCharts(document.querySelector("#mini1"), {
+                series: [{ data: [8, 12, 15, 18, 22, 25] }], 
+                chart: {
+                    type: 'line',
+                    height: 50,
+                    sparkline: { enabled: true }
+                },
+                stroke: { curve: 'smooth', width: 2 },
+                colors: ['#4CAF50']
+            }).render();
+
+            new ApexCharts(document.querySelector("#mini2"), {
+                series: [{ data: [2, 4, 6, 8, 12, 15] }], 
+                chart: {
+                    type: 'line',
+                    height: 50,
+                    sparkline: { enabled: true }
+                },
+                stroke: { curve: 'smooth', width: 2 },
+                colors: ['#FFC107']
+            }).render();
+
+            new ApexCharts(document.querySelector("#mini3"), {
+                series: [{ data: [3, 5, 7, 8, 9, 12] }], 
+                chart: {
+                    type: 'line',
+                    height: 50,
+                    sparkline: { enabled: true }
+                },
+                stroke: { curve: 'smooth', width: 2 },
+                colors: ['#FF5722']
+            }).render();
+        });
+
+        function addToMain() {
+            const val = parseInt(document.getElementById("inputMain").value);
+            if (!isNaN(val)) {
+               
+                var newData = mainOptions.series[0].data.slice();
+                newData.push(val);
+
+                
+                if (newData.length > 10) {
+                    newData.shift();
+                }
+
+                
+                mainChart.updateSeries([
+                    { name: 'Vitórias', type: 'column', data: newData },
+                    mainOptions.series[1],
+                    mainOptions.series[2]
+                ]);
+
+                
+                document.getElementById("inputMain").value = '';
+            }
+        }
+    </script>
+}
+

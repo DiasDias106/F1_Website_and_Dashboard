@@ -1,0 +1,241 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.login_height {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Container Principal */
+.login-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+    /* Linha F1 decorativa no topo */
+    .login-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff1801, #e60000, #ff1801);
+    }
+
+/* Header do Login */
+.login-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.f1-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff1801, #e60000);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 16px rgba(255, 24, 1, 0.3);
+}
+
+.f1-logo-text {
+    color: white;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.login-title {
+    color: #1f2937;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.login-subtitle {
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Formulário */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #1f2937;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+    .form-input:focus {
+        outline: none;
+        border-color: #ff1801;
+        box-shadow: 0 0 0 3px rgba(255, 24, 1, 0.1);
+    }
+
+    .form-input::placeholder {
+        color: #9ca3af;
+    }
+
+/* Checkbox */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0;
+}
+
+.checkbox-input {
+    width: 18px;
+    height: 18px;
+    accent-color: #ff1801;
+    cursor: pointer;
+}
+
+.checkbox-label {
+    color: #6b7280;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Botão de Login */
+.login-button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #ff1801, #e60000);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 20px;
+}
+
+    .login-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(255, 24, 1, 0.4);
+    }
+
+    .login-button:active {
+        transform: translateY(0);
+    }
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background: #e5e7eb;
+}
+
+.divider-text {
+    padding: 0 16px;
+    color: #9ca3af;
+    font-size: 14px;
+    background: white;
+}
+
+/* Links */
+.register-link,
+.external-login {
+    text-align: center;
+}
+
+    .register-link a {
+        color: #ff1801;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.2s ease;
+    }
+
+        .register-link a:hover {
+            color: #e60000;
+            text-decoration: underline;
+        }
+
+.external-login-text {
+    color: #6b7280;
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* Validação */
+.validation-message {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.validation-summary {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Elemento decorativo F1 */
+.f1-accent {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 20px;
+    background: linear-gradient(45deg, transparent 30%, #ff1801 30%, #ff1801 70%, transparent 70%);
+    opacity: 0.1;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 32px 24px;
+        margin: 16px;
+    }
+
+    .login-title {
+        font-size: 22px;
+    }
+}

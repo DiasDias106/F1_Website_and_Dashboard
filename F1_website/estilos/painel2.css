@@ -1,0 +1,340 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.dashboard_height {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #ffffff;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Container Principal do Dashboard */
+.dashboard-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+    /* Linha F1 decorativa no topo */
+    .dashboard-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff1801, #e60000, #ff1801);
+    }
+
+/* Header do Dashboard */
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.f1-logo-panel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff1801, #e60000);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 16px rgba(255, 24, 1, 0.3);
+}
+
+.f1-logo-text-panel {
+    color: white;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.dashboard-title {
+    color: #1f2937;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.dashboard-subtitle {
+    color: #6b7280;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Conteúdo do Dashboard */
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* Seções */
+.user-info-section,
+.admin-section,
+.account-controls {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid #f3f4f6;
+}
+
+.section-title {
+    color: #1f2937;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #ff1801;
+    display: inline-block;
+}
+
+/* Grupos de Informação */
+.info-group {
+    margin-bottom: 16px;
+}
+
+.info-label {
+    display: block;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.info-display {
+    background: #ffffff;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 16px;
+    color: #1f2937;
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+    .info-display:hover {
+        border-color: #ff1801;
+        box-shadow: 0 0 0 3px rgba(255, 24, 1, 0.1);
+    }
+
+/* Grupos de Ação */
+.action-group {
+    margin-top: 20px;
+}
+
+/* Botões do Dashboard */
+.dashboard-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .dashboard-button:hover {
+        transform: translateY(-2px);
+        text-decoration: none;
+    }
+
+    /* Variações dos Botões */
+    .dashboard-button.primary {
+        background: linear-gradient(135deg, #ff1801, #e60000);
+        color: white;
+    }
+
+        .dashboard-button.primary:hover {
+            box-shadow: 0 6px 20px rgba(255, 24, 1, 0.4);
+            color: white;
+        }
+
+    .dashboard-button.admin {
+        background: linear-gradient(135deg, #ff6b35, #f7931e);
+        color: white;
+        box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    }
+
+        .dashboard-button.admin:hover {
+            color: white;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+        }
+
+    .dashboard-button.secondary {
+        background: linear-gradient(135deg, #6c757d, #5a6268);
+        color: white;
+    }
+
+        .dashboard-button.secondary:hover {
+            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+            color: white;
+        }
+
+    .dashboard-button.danger {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+    }
+
+        .dashboard-button.danger:hover {
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+            color: white;
+        }
+
+/* Ícones dos Botões */
+.button-icon {
+    margin-right: 8px;
+}
+
+/* Formulários */
+.dashboard-form {
+    width: 100%;
+}
+
+/* Divisores */
+.section-divider {
+    display: flex;
+    align-items: center;
+    margin: 24px 0 20px 0;
+}
+
+.divider-line-panel {
+    flex: 1;
+    height: 1px;
+    background: #e5e7eb;
+}
+
+    .divider-line-panel.danger {
+        background: #fecaca;
+    }
+
+.divider-text-panel {
+    padding: 0 16px;
+    color: #9ca3af;
+    font-size: 14px;
+    font-weight: 500;
+    background: #f9fafb;
+}
+
+    .divider-text-panel.danger {
+        color: #dc2626;
+    }
+
+/* Seção de Perigo */
+.danger-section {
+    margin-top: 24px;
+    padding-top: 20px;
+}
+
+/* Seção Admin */
+.admin-section {
+    background: linear-gradient(135deg, #fff8f0, #fff4e6);
+    border: 1px solid #fed7aa;
+}
+
+/* Informações de Status */
+.status-info {
+    text-align: center;
+    margin-top: 20px;
+    padding: 16px;
+    background: #f3f4f6;
+    border-radius: 8px;
+}
+
+.status-label {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.status-active {
+    color: #dc2626;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.status-separator {
+    color: #9ca3af;
+    margin: 0 8px;
+}
+
+.status-admin {
+    color: #ff6b35;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Elemento decorativo F1 */
+.f1-accent-panel {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 20px;
+    background: linear-gradient(45deg, transparent 30%, #ff1801 30%, #ff1801 70%, transparent 70%);
+    opacity: 0.1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 32px 24px;
+        margin: 16px;
+        max-width: none;
+    }
+
+    .dashboard-title {
+        font-size: 24px;
+    }
+
+    .dashboard-content {
+        gap: 24px;
+    }
+
+    .user-info-section,
+    .admin-section,
+    .account-controls {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard_height {
+        padding: 16px;
+    }
+
+    .dashboard-container {
+        padding: 24px 20px;
+    }
+
+    .dashboard-title {
+        font-size: 22px;
+    }
+
+    .section-title {
+        font-size: 16px;
+    }
+
+    .dashboard-button {
+        padding: 12px 16px;
+        font-size: 15px;
+    }
+}

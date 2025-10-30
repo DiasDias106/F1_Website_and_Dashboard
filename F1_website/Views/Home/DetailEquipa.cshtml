@@ -1,0 +1,70 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+@{
+    ViewBag.Title = "Detalhes da Equipa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var equipa = Model.Equipas.FirstOrDefault();
+}
+@section estilos_detail_equipa {
+    <link rel="stylesheet" href="~/estilos/detail_pilotos.css" />
+}
+
+<div style="padding-top:120px" class="container mt-4">
+    <h2 class="f1-header mb-4">Detalhes da Equipa</h2>
+
+    @if (equipa != null)
+    {
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="row g-0">
+                    <div class="col-md-5 bg-primary">
+                        @if (!string.IsNullOrEmpty(equipa.imagem))
+                        {
+                            <img src="@Url.Content(equipa.imagem.Replace("~/", "/"))" alt="Imagem da Equipa" class="img-fluid" />
+                        }
+                        else
+                        {
+                            <div class="bg-secondary text-white text-center p-5 h-100 d-flex align-items-center justify-content-center">
+                                <span>Sem imagem disponível</span>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-7 bg-primary text-white p-4">
+                        <h1 class="display-4 fw-bold mb-0">@equipa.id</h1>
+                        <h2 class="display-5 fw-bold text-uppercase">@equipa.nome</h2>
+                    </div>
+                </div>
+
+                <div class="p-4">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th style="width: 40%">Fundador</th>
+                                <td class="fw-bold">@equipa.fundador</td>
+                            </tr>
+                            <tr>
+                                <th>Títulos</th>
+                                <td class="fw-bold">@equipa.titulos</td>
+                            </tr>
+                            <tr>
+                                <th>Descrição</th>
+                                <td>@equipa.descricao</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    @{
+                        Html.RenderAction("Pilotos", new { id = equipa.id });
+                    }
+
+                    <div class="mt-4">
+                        @Html.ActionLink("Editar", "EditEquipa", new { id = equipa.id }, new { @class = "btn btn-danger me-2" })
+                        @Html.ActionLink("Voltar à Lista", "Equipas", null, new { @class = "btn btn-secondary" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">Equipa não encontrada.</div>
+    }
+</div>

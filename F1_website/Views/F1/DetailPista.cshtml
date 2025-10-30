@@ -1,0 +1,99 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+@{
+    ViewBag.Title = "Detalhes da Pista";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/estilos/estilos_f1_detail.css" />
+}
+
+<div class="f1-calendar-details">
+    <!-- Header F1 -->
+    <div class="f1-header">
+        <h2>Detalhes da Pista F1</h2>
+    </div>
+
+    <!-- Container principal -->
+    <div class="f1-container">
+        <!-- Seção de estatísticas -->
+        <div class="f1-stats-section f1-loading-animation">
+            <h3>Informações da Pista</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="number">@Model.Pista.comprimento_km</span>
+                    <span class="label">@Model.Pista.unidade_comprimento</span>
+                </div>
+                <div class="stat-item">
+                    <span class="number">🏁</span>
+                    <span class="label">Circuito F1</span>
+                </div>
+                <div class="stat-item">
+                    <span class="number">🌍</span>
+                    <span class="label">@Model.Pista.pais</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card principal da pista -->
+        <div class="f1-event-card f1-loading-animation">
+            <h4>@Model.Pista.nome</h4>
+
+            <!-- Grid de detalhes -->
+            <dl class="f1-details-grid">
+                <!-- Nome da Pista -->
+                <div class="f1-detail-item f1-loading-animation">
+                    <dt>@Html.DisplayNameFor(model => model.Pista.nome)</dt>
+                    <dd>@Html.DisplayFor(model => model.Pista.nome)</dd>
+                </div>
+
+                <!-- Localização -->
+                <div class="f1-detail-item f1-loading-animation">
+                    <dt>@Html.DisplayNameFor(model => model.Pista.localização)</dt>
+                    <dd>@Html.DisplayFor(model => model.Pista.localização)</dd>
+                </div>
+
+                <!-- País -->
+                <div class="f1-detail-item f1-loading-animation">
+                    <dt>@Html.DisplayNameFor(model => model.Pista.pais)</dt>
+                    <dd>@Html.DisplayFor(model => model.Pista.pais)</dd>
+                </div>
+
+                <!-- Comprimento -->
+                <div class="f1-detail-item f1-loading-animation">
+                    <dt>@Html.DisplayNameFor(model => model.Pista.comprimento_km)</dt>
+                    <dd>@Html.DisplayFor(model => model.Pista.comprimento_km) @Html.DisplayFor(model => model.Pista.unidade_comprimento)</dd>
+                </div>
+
+                <!-- Imagem da Pista -->
+                <div class="f1-detail-item f1-image-item f1-loading-animation">
+                    <dt>Imagem da Pista</dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(Model.Pista.imagem))
+                        {
+                            <div class="f1-pista-image">
+                                <img src="@Url.Content("~/imagens/ImagensPistas/" + Model.Pista.imagem)"
+                                     alt="Imagem da pista @Model.Pista.nome"
+                                     class="f1-track-image" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="f1-no-image">
+                                <span>🏁 Sem imagem disponível</span>
+                            </div>
+                        }
+                    </dd>
+                </div>
+
+                <!-- Descrição -->
+                <div class="f1-detail-item f1-description-item f1-loading-animation">
+                    <dt>@Html.DisplayNameFor(model => model.Pista.descricao)</dt>
+                    <dd>@Html.DisplayFor(model => model.Pista.descricao)</dd>
+                </div>
+            </dl>
+
+            <!-- Botão de voltar -->
+            @Html.ActionLink("Voltar à Lista", "ListaPistas", null, new { @class = "f1-back-button" })
+        </div>
+    </div>
+</div>

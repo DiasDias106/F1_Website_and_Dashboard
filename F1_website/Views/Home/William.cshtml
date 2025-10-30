@@ -1,0 +1,192 @@
+﻿
+@{
+    ViewBag.Title = "William";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section teams_style{
+    <link rel="stylesheet" href="~/estilos/teams.css" />
+    <link rel="stylesheet" href="~/estilos/videos.css" />
+}
+<section class="espacamento">
+    <div class="header-wrapper">
+        <div class="stripe"></div>
+        <div class="stripe"></div>
+        <h1 class="title">Williams</h1>
+    </div>
+</section>
+
+<div class="team_container">
+    <div class="team_header">
+        <div class="logo">
+            <svg width="300" height="100" viewBox="0 0 300 100">
+                <text x="50%" y="30" fill="#005aff" font-size="24" font-weight="bold" text-anchor="middle">WILLIAMS</text>
+                <text x="50%" y="60" fill="#000" font-size="24" font-weight="bold" text-anchor="middle">RACING</text>
+                <text x="50%" y="90" fill="#005aff" font-size="24" font-weight="bold" text-anchor="middle">F1</text>
+            </svg>
+
+        </div>
+        <div class="carro_mini">
+            <img src="~/imagens/carros/williams_car-background.png" />
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="#">Year-by-year profile</a></li>
+                <li><a href="#">Official Merchandise</a></li>
+                <li><a href="#">Results Archive</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="team_content">
+        <div class="info">
+            <h2>Informações da Equipa</h2>
+            <div class="info-item">
+                <h3>Full Team Name</h3>
+                <p>Atlassian Williams Racing</p>
+            </div>
+            <div class="info-item">
+                <h3>Base</h3>
+                <p>Grove, United Kingdom</p>
+            </div>
+            <div class="info-item">
+                <h3>Team Chief</h3>
+                <p>James Vowles</p>
+            </div>
+            <div class="info-item">
+                <h3>Technical Chief</h3>
+                <p>Pat Fry</p>
+            </div>
+            <div class="info-item">
+                <h3>Chassi</h3>
+                <p>FW47</p>
+            </div>
+            <div class="info-item">
+                <h3>Power Unit</h3>
+                <p>Mercedes</p>
+            </div>
+        </div>
+
+        <div class="drivers">
+            <div class="driver-card">
+                <div class="driver-img">
+                    <img style="width:250px;height:250px;" src="~/imagens/racers/albon.jpg" alt="Piastri">
+                </div>
+                <div class="driver-info">
+                    <h3>Alexander Albon</h3>
+                    <p>Número: 23</p>
+                    <p>Nacionalidade: Tailandes</p>
+                </div>
+            </div>
+            <div class="driver-card">
+                <div class="driver-img">
+                    <img style="width:250px;height:250px;" src="~/imagens/racers/sainz.jpg" alt="Norris">
+                </div>
+                <div class="driver-info">
+                    <h3>Carlos Sains</h3>
+                    <p>Número: 55</p>
+                    <p>Nacionalidade: Espanhol</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alinha">
+    <section class="riscas">
+    </section>
+</div>
+
+<section class="historia">
+    <div style="padding-top:20px" class="pequeno_titulo">
+        Historia:
+        <div class="barra-titulo">
+            <div class="barra top"></div>
+            <div class="barra bottom"></div>
+        </div>
+    </div>
+    <section class="historia-equipas">
+        <article>
+            <h3> Fundação e Primeiros Passos (1977–1979)</h3>
+            <p>
+                A Williams Grand Prix Engineering foi fundada por Frank Williams e Patrick Head em 1977. Após algumas tentativas falhadas noutras equipas, Frank encontrou finalmente estabilidade com a criação da sua própria estrutura. A primeira vitória da equipa surgiu em 1979, no Grande Prémio da Grã-Bretanha com Clay Regazzoni.
+            </p>
+        </article>
+
+        <article>
+            <h3> Era de Ouro e Domínio (1980–1997)</h3>
+            <p>
+                A Williams tornou-se uma força dominante nas décadas de 80 e 90. Conquistou nove títulos de construtores e sete títulos de pilotos com nomes como Alan Jones, Nelson Piquet, Nigel Mansell, Alain Prost, Damon Hill e Jacques Villeneuve. Parcerias técnicas de sucesso, como com a Honda e a Renault, ajudaram a equipa a tornar-se uma potência na F1.
+            </p>
+        </article>
+
+        <article>
+            <h3> Acidente de Frank Williams e Adaptação</h3>
+            <p>
+                Em 1986, Frank Williams sofreu um grave acidente de carro que o deixou tetraplégico. Apesar disso, continuou a liderar a equipa com determinação. Este período exigiu grande adaptação, mas a Williams manteve-se competitiva no topo da Fórmula 1.
+            </p>
+        </article>
+
+        <article>
+            <h3> Fim da Era de Ouro e Começo das Dificuldades (1998–2009)</h3>
+            <p>
+                Com o fim da parceria com a Renault e a saída de figuras-chave, a Williams começou a perder competitividade. As colaborações com BMW e outros fabricantes trouxeram resultados mistos, com alguns pódios mas sem lutas consistentes pelo campeonato.
+            </p>
+        </article>
+
+        <article>
+            <h3> Crise e Luta pela Sobrevivência (2010–2019)</h3>
+            <p>
+                Na década de 2010, a Williams enfrentou grandes dificuldades financeiras e desportivas. Apesar de momentos pontuais de brilho, como a vitória de Pastor Maldonado em 2012, a equipa caiu para o fundo da grelha. A falta de investimento e competitividade tornaram a sobrevivência da equipa um desafio constante.
+            </p>
+        </article>
+
+        <article>
+            <h3> Transição e Nova Direção (2020–Presente)</h3>
+            <p>
+                Em 2020, a família Williams vendeu a equipa ao grupo Dorilton Capital. A nova gestão trouxe um plano de reestruturação e modernização. Sob a liderança de Jost Capito e depois James Vowles, a equipa começou a mostrar sinais de recuperação, apostando em talentos como Alexander Albon e Logan Sargeant.
+            </p>
+        </article>
+
+        <article>
+            <h3> Legado de Inovação e Espírito Independente</h3>
+            <p>
+                A Williams é uma das equipas mais históricas da Fórmula 1. Apesar dos desafios recentes, mantém um legado marcado pela inovação, coragem e independência. A equipa continua a ser respeitada por fãs e rivais, com esperanças renovadas de regressar à glória num futuro próximo.
+            </p>
+        </article>
+    </section>
+</section>
+<div class="cont_cartao">
+    <div class="cartao_vid">
+        <div class="video-contentor">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/hd-X7AiMz9w?si=KCTIu5gRq4XZsRiV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Carlos Sainz 2025</h3>
+           
+        </div>
+    </div>
+
+    <div class="cartao_vid">
+        <div class="video-contentor">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/S7zQiVakfuw?si=AdHdXI15VmSiCZN9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">Alex Albon Driving</h3>
+            
+        </div>
+    </div>
+    <div class="cartao_vid">
+        <div class="video-contentor">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/n3lbZCUMQmQ?si=s9S4BcJFyNAfqYcG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="cartao-content">
+            <h3 class="cartao-title">FW47</h3>
+            
+        </div>
+    </div>
+</div>
+@section teams_scripts{
+
+}
+

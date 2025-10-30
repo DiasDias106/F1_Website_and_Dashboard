@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Imcpage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section estilos_imc{
+    <link rel="stylesheet" href="~/estilos/jogos/Imc.css"/>
+}
+<section class="bg_pag_imc">
+    <section class="bg_imc">
+        <section class="caixa_imc">
+            <h1 class="centrar">Imcpage</h1>
+            <h3 class="centrar">Calcule aqui o seu IMC</h3>
+            @using (Html.BeginForm("Imcpage", "Home", FormMethod.Post, new { id = "frm1" }))
+            {
+                <div class="centrar">
+                    <div class="alinhabox">
+                        <label>Altura: </label>
+                        @Html.TextBox("altura", "", new { @class = "form-control" })
+                    </div>
+                    <div class="alinhabox">
+                        <label>Peso: </label>
+                        @Html.TextBox("peso", "", new { @class = "form-control" })
+                    </div>
+                    <div class="alinhabox">
+                        <label> IMC:</label>
+                        <input type="text" id="txtimc" class="form-control" name="txtimc" value="@ViewBag.imc" />
+                    </div>
+                </div>
+                <hr />
+                <div class="d-flex justify-content-around">
+                    <button type="submit" class="btn btn-dark" id="btserverimc" name="btserverimc">Click Server</button>
+                    <button type="button" class="btn btn-danger" id="btjavascriptimc" name="btjavascriptimc">Click Javascript</button>
+                    <button type="button" class="btn btn-success" id="btfetchimc" name="btfetchimc">Click Assincrono</button>
+                </div>
+            }
+        </section>
+    </section>
+</section>
+
+
+@section imc_jogo{
+    <style></style>
+    <script>
+       window.onload = function () {
+    let altura = document.getElementById("altura");
+    let peso = document.getElementById("peso");
+    let txtimc = document.getElementById("txtimc");
+    let btjavascriptimc = document.getElementById("btjavascriptimc");
+    let btfetchimc = document.getElementById("btfetchimc");
+
+
+    btjavascriptimc.addEventListener("click", function (evt) {
+        evt.preventDefault();
+        let imc = parseFloat(peso.value) / Math.pow(parseFloat(altura.value), 2);
+        txtimc.value = imc.toFixed(2);
+    });
+
+
+  btfetchimc.addEventListener("click", function (evt) {
+    evt.preventDefault();
+
+    let urldados = new URLSearchParams();
+    urldados.append("peso", parseInt(peso.value));
+    urldados.append("altura", parseFloat(altura.value));
+
+    fetch('@Url.Action("Imc", "Home")', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: urldados.toString()
+    })
+    .then(response => response.json())
+    .then(dados => {
+        if (dados.error) {
+            txtimc.value = dados.error;
+        } else {
+            txtimc.value = dados.Imc;
+        }
+        console.log("Resposta do servidor:", dados);
+    })
+    .catch(erro => {
+        console.error("Erro na requisição:", erro);
+    });
+});
+};
+    </script>
+
+}
+

@@ -1,0 +1,68 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+
+<h3>Tem a certeza que pretende eliminar esta pista?</h3>
+<div>
+    <h4>Pista</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Pista.nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pista.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pista.localização)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pista.localização)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pista.pais)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pista.pais)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pista.comprimento_km)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pista.comprimento_km)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pista.unidade_comprimento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pista.unidade_comprimento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pista.imagem)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pista.imagem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pista.descricao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pista.descricao)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Pista.Id_pista)
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+            @Html.ActionLink("Voltar à Lista", "Index")
+        </div>
+    }
+</div>

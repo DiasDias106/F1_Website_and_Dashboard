@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="~/Content/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css">
+    <link rel="icon" href="~/imagens/icons/forum_ico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="~/estilos/dashboard.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atomic+Age&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atomic+Age&family=Montserrat+Alternates:wght@400;500&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+    <title>@ViewBag.Title</title>
+</head>
+<body class="light-mode">
+    <div class="sidebar" id="sidebar">
+        <div class="logo-content">
+            <div class="logo">
+                <div class="logo-name">F1 control center</div>
+            </div>
+            <i class="fas fa-bars toggle-btn" id="btn"></i>
+        </div>
+
+        <ul class="nav-list">
+            <li><a href="@Url.Action("dashboard_main","Home")"><i class="fas fa-home"></i><span class="links-name">Dashboard</span></a></li>
+            <li><a href="@Url.Action("dashboard_Performance","Home")"><i class="fas fa-tachometer-alt"></i><span class="links-name">Performance</span></a></li>
+            <li><a href="@Url.Action("dashboard_analises","Home")"><i class="fas fa-chart-line"></i><span class="links-name">Analises</span></a></li>
+            <li><a href="@Url.Action("ListaEquipas","dashboard")"><i class="fas fa-car"></i><span class="links-name">Equipas</span></a></li>
+            <li><a href="@Url.Action("ListaPilotos","dashboard")"><i class="fas fa-user"></i><span class="links-name">Condutores</span></a></li>
+            <li><a href="@Url.Action("dashboard_settings","Home")"><i class="fas fa-cog"></i><span class="links-name">Defeniçoes</span></a></li>
+            <li><a href="@Url.Action("dashboard_funcoes","Home")"><i class="fas fa-envelope"></i><span class="links-name">Outras Funçoes</span></a></li>
+            @if (User.Identity.IsAuthenticated)
+            {
+               
+                <li><a href="@Url.Action("Painel2","Account")"><i class="fa-solid fa-user-check"></i><span class="links-name">Painel</span></a></li>
+            }
+            else
+            {
+                <li><a href="@Url.Action("Login2","Account")"><i class="fa-solid fa-user"></i><span class="links-name">Conta</span></a></li>
+            }
+
+            <li class="toggle-mode">
+                <i class="fas fa-moon mode-icon dark-mode-icon"></i>
+                <span class="links-name">Dark Mode</span>
+                <label class="switch">
+                    <input type="checkbox" id="mode-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </li>
+        </ul>
+    </div>
+
+    <section class="home-content">
+        @RenderBody()
+    </section>
+
+    <script src="~/javascript/barra_dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.40.0/apexcharts.min.js"></script>
+    @RenderSection("analises_style", required: false)
+    @RenderSection("analises_scripts", required: false)
+    @RenderSection("settings_styles", required: false)
+    @RenderSection("settings_scripts", required: false)
+    @RenderSection("performance_styles", required: false)
+    @RenderSection("performance_scripts", required: false)
+    @RenderSection("dashboard_funcoes_js", required: false)
+    @RenderSection("dashboard_funcoes_style", required: false)
+    @RenderSection("dashboard_style", required: false)
+    @RenderSection("dashboard_js", required: false)
+    @RenderSection("Scripts", required: false)
+    @RenderSection("Styles",required:false)
+    @RenderSection("login_style",required: false)
+</body>
+</html>

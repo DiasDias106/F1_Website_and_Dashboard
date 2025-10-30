@@ -1,0 +1,115 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+@{
+    ViewBag.Title = "dashboard_Email";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+@section dashboard_style
+{
+    <link rel="stylesheet" href="~/estilos/dashboard_email.css" />
+}
+<section class="d_corpo_email">
+    <div class="email-container">
+        <div class="racing-stripes"></div>
+
+        <div class="form-header">
+            <h1 class="form-title">F1 Control Center</h1>
+            <p class="form-subtitle">Sistema de Email</p>
+        </div>
+
+        @using (Html.BeginForm("EnviarEmail", "Home", FormMethod.Post, new { @id = "emailForm", @class = "email-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("origem", "dashboard_Email")
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email.Destinatario, "Destinatário", new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Email.Destinatario, new
+                {
+                    @class = "form-input",
+                    placeholder = "exemplo@email.com",
+                    type = "email",
+                    required = "required"
+                })
+                @Html.ValidationMessageFor(m => m.Email.Destinatario)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email.Assunto, "Assunto", new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Email.Assunto, new
+                {
+                    @class = "form-input",
+                    placeholder = "Assunto do email",
+                    required = "required"
+                })
+                @Html.ValidationMessageFor(m => m.Email.Assunto)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email.Corpo, "Mensagem", new { @class = "form-label" })
+                @Html.TextAreaFor(m => m.Email.Corpo, new
+                {
+                    @class = "form-textarea",
+                    placeholder = "Introduza a sua mensagem aqui...",
+                    required = "required"
+                })
+                @Html.ValidationMessageFor(m => m.Email.Corpo)
+            </div>
+
+            <button type="submit" class="send-button" id="btnEnviar">
+                🏁 Enviar Email
+            </button>
+
+            <div id="successMessage" class="success-message">
+                ✅ Email enviado com sucesso!
+            </div>
+        }
+    </div>
+</section>
+@section dashboard_js
+{
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', function (e) {
+            // REMOVER o e.preventDefault() - deixar o formulário enviar normalmente
+
+            // Apenas efeito visual durante o envio
+            const button = document.querySelector('.send-button');
+
+            
+            button.style.opacity = '0.7';
+            button.style.cursor = 'not-allowed';
+            button.innerHTML = '📧 Enviando...';
+
+            
+            button.disabled = true;
+
+            // O formulário será enviado automaticamente para o controller
+        });
+
+        // Efeito de foco nos inputs
+        const inputs = document.querySelectorAll('.form-input, .form-textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function () {
+                this.parentElement.style.transform = 'translateX(5px)';
+            });
+
+            input.addEventListener('blur', function () {
+                this.parentElement.style.transform = 'translateX(0)';
+            });
+        });
+
+        @if (ViewBag.MensagemSucesso != null)
+        {
+            <text>
+            document.addEventListener('DOMContentLoaded', function() {
+                const successMessage = document.getElementById('successMessage');
+                successMessage.style.display = 'block';
+
+                // Esconder mensagem após 5 segundos
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            });
+            </text>
+        }
+    </script>
+}

@@ -1,0 +1,228 @@
+﻿
+@{
+    ViewBag.Title = "dashboard_Performance";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+
+@section performance_styles{
+    <link rel="stylesheet" href="~/estilos/Performance.css" />
+}
+
+<div class="dashboard-titulo">Dashboard Performance</div>
+
+<div class="grade-graficos1">
+    <div class="caixa-grafico">
+        <h3>Desempenho em Radar</h3>
+        <div id="chartRadar" class="chart-container"></div>
+    </div>
+
+    <div class="caixa-grafico">
+        <h3>Distribuição de Recursos</h3>
+        <div id="chartDonut" class="chart-container"></div>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button id="randomize" class="analise_botao">Aleatorizar</button>
+            <button id="add" class="analise_botao">Adicionar</button>
+            <button id="remove" class="analise_botao">Remover</button>
+            <button id="reset" class="analise_botao">Resetar</button>
+        </div>
+    </div>
+
+    <div class="caixa-grafico">
+        <h3>Análise Geral</h3>
+        <div id="chartRadial" class="chart-container"></div>
+    </div>
+
+    <div class="caixa-grafico">
+        <h3>Estatisticas dos Pits</h3>
+        <div id="barChart" class="chart-container"></div>
+    </div>
+</div>
+
+@section performance_scripts {
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.41.0/dist/apexcharts.min.js"></script>
+    <script>
+        window.onload = function () {
+            // Gráfico Radial - Performance das Equipas Top 4 (dados mais espalhados)
+            var optionsRadial = {
+                series: [85, 72, 58, 43], // Percentagem de performance mais espalhada
+                chart: {
+                    height: 350,
+                    type: 'radialBar',
+                },
+                plotOptions: {
+                    radialBar: {
+                        dataLabels: {
+                            name: {
+                                fontSize: '22px',
+                            },
+                            value: {
+                                fontSize: '16px',
+                            },
+                            total: {
+                                show: true,
+                                label: 'Performance Média',
+                                formatter: function () {
+                                    return '65%';
+                                }
+                            }
+                        }
+                    }
+                },
+                labels: ['Red Bull', 'Ferrari', 'Mercedes', 'McLaren'],
+                colors: ['#1E40AF', '#DC2626', '#10B981', '#F59E0B']
+            };
+            new ApexCharts(document.querySelector("#chartRadial"), optionsRadial).render();
+
+            // Gráfico Donut - Distribuição de Vitórias por Equipa
+            var optionsDonut = {
+                series: [15, 8, 5, 4], // Vitórias por equipa
+                chart: {
+                    width: 380,
+                    type: 'donut',
+                },
+                labels: ['Red Bull Racing', 'Scuderia Ferrari', 'Mercedes-AMG', 'McLaren F1'],
+                dataLabels: {
+                    enabled: true
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            show: false
+                        }
+                    }
+                }],
+                legend: {
+                    position: 'right',
+                    offsetY: 0,
+                    height: 230,
+                },
+                colors: ['#1E40AF', '#DC2626', '#10B981', '#F59E0B']
+            };
+            var donutChart = new ApexCharts(document.querySelector("#chartDonut"), optionsDonut);
+            donutChart.render();
+
+            // Botões para manipular o gráfico donut
+            document.querySelector("#randomize").addEventListener("click", function () {
+                donutChart.updateSeries(randomize());
+            });
+
+            document.querySelector("#add").addEventListener("click", function () {
+                donutChart.updateSeries(appendData());
+            });
+
+            document.querySelector("#remove").addEventListener("click", function () {
+                donutChart.updateSeries(removeData());
+            });
+
+            document.querySelector("#reset").addEventListener("click", function () {
+                donutChart.updateSeries(reset());
+            });
+
+            function appendData() {
+                var arr = donutChart.w.globals.series.slice();
+                arr.push(Math.floor(Math.random() * 10) + 1); // Vitórias aleatórias entre 1-10
+                return arr;
+            }
+
+            function removeData() {
+                var arr = donutChart.w.globals.series.slice();
+                arr.pop();
+                return arr;
+            }
+
+            function randomize() {
+                return donutChart.w.globals.series.map(function () {
+                    return Math.floor(Math.random() * 15) + 1; // Vitórias aleatórias entre 1-15
+                });
+            }
+
+            function reset() {
+                return optionsDonut.series;
+            }
+
+            // Gráfico Radar - Comparação de Pilotos Top 3 (dados mais espalhados)
+            var optionsRadar = {
+                series: [{
+                    name: 'Max Verstappen',
+                    data: [95, 88, 70, 92, 75, 90], // Velocidade, Consistência, Ultrapassagens, Qualificação, Chuva, Pressão
+                }, {
+                    name: 'Lando Norris',
+                    data: [78, 95, 85, 72, 88, 65],
+                }, {
+                    name: 'Charles Leclerc',
+                    data: [85, 65, 92, 96, 68, 82],
+                }],
+                chart: {
+                    height: 350,
+                    type: 'radar',
+                    dropShadow: {
+                        enabled: true,
+                        blur: 1,
+                        left: 1,
+                        top: 1
+                    }
+                },
+                title: {
+                    text: 'Comparação de Habilidades - Top 3 Pilotos F1'
+                },
+                stroke: {
+                    width: 2
+                },
+                fill: {
+                    opacity: 0.1
+                },
+                markers: {
+                    size: 0
+                },
+                yaxis: {
+                    stepSize: 20
+                },
+                xaxis: {
+                    categories: ['Velocidade', 'Consistência', 'Ultrapassagens', 'Qualificação', 'Chuva', 'Pressão']
+                },
+                colors: ['#1E40AF', '#F59E0B', '#DC2626']
+            };
+            new ApexCharts(document.querySelector("#chartRadar"), optionsRadar).render();
+
+            // Gráfico de Barras - Pódios por Circuito
+            new ApexCharts(document.querySelector("#barChart"), {
+                series: [{ name: 'Pódios 2024', data: [3, 2, 3, 2, 3] }],
+                chart: {
+                    type: 'bar',
+                    height: '100%',
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 4,
+                        dataLabels: {
+                            position: 'top'
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    offsetY: -20,
+                    style: {
+                        fontSize: '12px',
+                        colors: ["#304758"]
+                    }
+                },
+                xaxis: { categories: ['Mónaco', 'Silverstone', 'Monza', 'Spa', 'Suzuka'] },
+                colors: ['#775DD0'],
+                title: {
+                    text: 'Pódios por Circuito Icónico',
+                    style: { fontSize: '14px' }
+                }
+            }).render();
+        }
+    </script>
+}
+
+

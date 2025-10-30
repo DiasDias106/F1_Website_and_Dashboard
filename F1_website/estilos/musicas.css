@@ -1,0 +1,167 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Titillium Web', Arial, sans-serif;
+    background-color: #141414;
+    color: #ffffff;
+}
+
+.contentor_musica {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.music_header {
+    padding-top: 120px;
+    text-align: center;
+    border-bottom: 3px solid #e10600;
+}
+
+.m_logo {
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.linha_music {
+    font-style: italic;
+    color: #e10600;
+    margin-bottom: 20px;
+}
+
+.music_image {
+    width: 100%;
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #1e1e1e, #2d2d2d);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.music_main_image {
+    width: 80%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    border: 2px solid #e10600;
+}
+
+    .music_main_imagem:hover {
+        transform: scale(1.02);
+    }
+
+.racing-stripe {
+    height: 10px;
+    background: linear-gradient(90deg, #e10600 50%, #ffffff 50%);
+    background-size: 20px 100%;
+    margin: 40px 0;
+}
+
+.music-info {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    border-left: 5px solid #e10600;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+    .music-info h2 {
+        color: #e10600;
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+.music-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.music-item {
+    background-color: #2d2d2d;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .music-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(225, 6, 0, 0.2);
+    }
+
+.play-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #e10600;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+.music-details {
+    flex-grow: 1;
+}
+
+.song-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.song-info {
+    color: #b0b0b0;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+.checkered-flag {
+    height: 5px;
+    background: repeating-linear-gradient( 90deg, #000000, #000000 10px, #ffffff 10px, #ffffff 20px );
+    margin: 10px 0;
+}
+@media screen and (max-width: 768px){
+    .music_header{
+        padding-top: 80px;
+    }
+}
+
+.musicbutton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #111;
+    border: 2px solid #ff0000;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.musicbutton:hover {
+    background-color: #ff0000;
+    color: #fff;
+    transform: scale(1.05);
+}
+.alinha_musicb{
+    padding-top:20px;
+    display:flex;
+    justify-content: space-around;
+    flex-wrap:wrap;
+}

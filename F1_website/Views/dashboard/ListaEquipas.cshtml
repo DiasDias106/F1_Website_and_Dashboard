@@ -1,0 +1,397 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+@{
+    ViewBag.Title = "ListaEquipas";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/estilos/equipas_dashboard_styles.css" />
+}
+
+<div class="f1-table-container">
+    <h2 class="f1-page-title">ListaEquipas</h2>
+
+    <div class="f1-export-section">
+        <button type="button" class="f1-btn f1-btn-add" onclick="openAddEquipaModal()">
+            <i class="fa fa-plus"></i> Adicionar Nova Equipa
+        </button>
+
+        <div class="f1-export-group">
+            <a href="@Url.Action("ExportarEquipasExcel", "dashboard")" class="f1-btn f1-btn-export f1-btn-export-excel">
+                <i class="fas fa-file-excel"></i> Exportar Excel
+            </a>
+            <a href="@Url.Action("ExportarEquipasPDF", "dashboard")" class="f1-btn f1-btn-export f1-btn-export-pdf">
+                <i class="fas fa-file-pdf"></i> Exportar PDF
+            </a>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(ViewBag.Msg as string))
+    {
+        <div class="f1-alert f1-alert-success">
+            @ViewBag.Msg
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    @if (Model?.EquipasEF != null && Model.EquipasEF.Any())
+    {
+        <table class="f1-table" id="equipasTable">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Dono</th>
+                    <th>Imagem</th>
+                    <th>Títulos</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.EquipasEF)
+                {
+                    <tr id="equipa-row-@item.id_equipa">
+                        <td>@item.nome</td>
+                        <td>@item.descricao</td>
+                        <td>@item.dono</td>
+                        <td>@item.imagem</td>
+                        <td>@item.titulos</td>
+                        <td>
+                            <button class="f1-btn f1-btn-edit" onclick="openEditEquipaModal(@item.id_equipa, '@Html.Raw(item.nome?.Replace("'", "\\'"))', '@Html.Raw(item.dono?.Replace("'", "\\'"))', '@Html.Raw(item.descricao?.Replace("'", "\\'").Replace("\n", "\\n").Replace("\r", ""))', @(item.titulos ?? 0))">
+                                <i class="fa fa-edit"></i> Editar
+                            </button>
+                            @Html.ActionLink("Details", "DetailEquipa", new { id = item.id_equipa }, new { @class = "f1-btn f1-btn-info" })
+                            <button class="f1-btn f1-btn-danger" onclick="openDeleteEquipaModal(@item.id_equipa, '@Html.Raw(item.nome?.Replace("'", "\\'"))')">
+                                <i class="fa fa-trash"></i> Apagar
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="f1-no-data">
+            <p>Nenhuma equipa encontrada.</p>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(ViewBag.Erro as string))
+    {
+        <div class="f1-alert f1-alert-danger">
+            <p>Erro: @ViewBag.Erro</p>
+        </div>
+    }
+</div>
+
+<!-- Modal para Adicionar Equipa -->
+<div class="modal fade" id="addEquipaModal" tabindex="-1" role="dialog" aria-labelledby="addEquipaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEquipaModalLabel">Adicionar Nova Equipa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("AddEquipa", "dashboard", FormMethod.Post, new { enctype = "multipart/form-data", @id = "addEquipaForm" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nome *</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="nome" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Dono</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="dono" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Descrição</label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" name="descricao" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Imagem</label>
+                            <div class="col-md-9">
+                                <input type="file" name="fich" class="form-control" accept="image/*" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Títulos</label>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" name="titulos" min="0" value="0" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-save"></i> Guardar Equipa
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Editar Equipa -->
+<div class="modal fade" id="editEquipaModal" tabindex="-1" role="dialog" aria-labelledby="editEquipaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editEquipaModalLabel">Editar Equipa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("EditarEquipa", "dashboard", FormMethod.Post, new { enctype = "multipart/form-data", @id = "editEquipaForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id_equipa" />
+
+                <div class="modal-body">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nome *</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="nome" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Dono</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="dono" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Descrição</label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" name="descricao" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Imagem</label>
+                            <div class="col-md-9">
+                                <input type="file" name="fich" class="form-control" accept="image/*" />
+                                <small class="form-text text-muted">Deixe em branco para manter a imagem atual</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Títulos</label>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" name="titulos" min="0" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-save"></i> Atualizar Equipa
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Apagar Equipa -->
+<div class="modal fade" id="deleteEquipaModal" tabindex="-1" role="dialog" aria-labelledby="deleteEquipaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteEquipaModalLabel">Confirmar Apagar Equipa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p>Tem a certeza que quer apagar a equipa <strong id="deleteEquipaNome"></strong>?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                    <i class="fa fa-trash"></i> Apagar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        var currentDeleteEquipaId = null;
+
+        function openAddEquipaModal() {
+            $('#addEquipaModal').modal('show');
+        }
+
+        function openEditEquipaModal(id, nome, dono, descricao, titulos) {
+            $('#editEquipaForm input[name="id_equipa"]').val(id);
+            $('#editEquipaForm input[name="nome"]').val(nome);
+            $('#editEquipaForm input[name="dono"]').val(dono);
+            $('#editEquipaForm textarea[name="descricao"]').val(descricao);
+            $('#editEquipaForm input[name="titulos"]').val(titulos || 0);
+            $('#editEquipaModal').modal('show');
+        }
+
+        function openDeleteEquipaModal(id, nome) {
+            currentDeleteEquipaId = id;
+            $('#deleteEquipaNome').text(nome);
+            $('#deleteEquipaModal').modal('show');
+        }
+
+        function deleteEquipaAsync(id) {
+            // Desabilitar o botão durante o processo
+            $('#confirmDeleteBtn').prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> A apagar...');
+
+            // Obter o token anti-forgery
+            var token = $('input[name="__RequestVerificationToken"]').val();
+
+            $.ajax({
+                url: '@Url.Action("DeleteEquipa", "dashboard")',
+                type: 'POST',
+                data: {
+                    id_equipa: id,
+                    __RequestVerificationToken: token
+                },
+                success: function(response) {
+                    // Fechar o modal
+                    $('#deleteEquipaModal').modal('hide');
+
+                    // Remover a linha da tabela com animação
+                    $('#equipa-row-' + id).fadeOut(500, function() {
+                        $(this).remove();
+
+                        // Verificar se não há mais equipas na tabela
+                        if ($('#equipasTable tbody tr').length === 0) {
+                            $('#equipasTable').hide();
+                            $('.f1-table-container').append('<div class="f1-no-data"><p>Nenhuma equipa encontrada.</p></div>');
+                        }
+                    });
+
+                    // Mostrar mensagem de sucesso
+                    showSuccessMessage('Equipa apagada com sucesso!');
+                },
+                error: function(xhr, status, error) {
+                    // Fechar o modal
+                    $('#deleteEquipaModal').modal('hide');
+
+                    // Mostrar mensagem de erro
+                    var errorMessage = 'Erro ao apagar a equipa.';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    } else if (xhr.responseText) {
+                        errorMessage = xhr.responseText;
+                    }
+                    showErrorMessage(errorMessage);
+                },
+                complete: function() {
+                    // Reabilitar o botão
+                    $('#confirmDeleteBtn').prop('disabled', false).html('<i class="fa fa-trash"></i> Apagar');
+                    currentDeleteEquipaId = null;
+                }
+            });
+        }
+
+        function showSuccessMessage(message) {
+            // Remove mensagens existentes
+            $('.f1-alert').remove();
+
+            // Adiciona nova mensagem de sucesso
+            var alertHtml = '<div class="f1-alert f1-alert-success">' +
+                            message +
+                            '<button type="button" class="close" onclick="$(this).parent().remove()" aria-label="Close">' +
+                            '<span aria-hidden="true">&times;</span>' +
+                            '</button>' +
+                            '</div>';
+
+            $('.f1-export-section').after(alertHtml);
+
+            // Auto-remover após 5 segundos
+            setTimeout(function() {
+                $('.f1-alert-success').fadeOut();
+            }, 5000);
+        }
+
+        function showErrorMessage(message) {
+            // Remove mensagens existentes
+            $('.f1-alert').remove();
+
+            // Adiciona nova mensagem de erro
+            var alertHtml = '<div class="f1-alert f1-alert-danger">' +
+                            '<p>Erro: ' + message + '</p>' +
+                            '<button type="button" class="close" onclick="$(this).parent().remove()" aria-label="Close">' +
+                            '<span aria-hidden="true">&times;</span>' +
+                            '</button>' +
+                            '</div>';
+
+            $('.f1-export-section').after(alertHtml);
+        }
+
+        $(document).ready(function () {
+            // Event handler para o botão de confirmação de delete
+            $('#confirmDeleteBtn').on('click', function() {
+                if (currentDeleteEquipaId !== null) {
+                    deleteEquipaAsync(currentDeleteEquipaId);
+                }
+            });
+
+            $('#addEquipaModal').on('hidden.bs.modal', function () {
+                $('#addEquipaForm')[0].reset();
+                $('.text-danger').empty();
+            });
+
+            $('#editEquipaModal').on('hidden.bs.modal', function () {
+                $('#editEquipaForm')[0].reset();
+                $('.text-danger').empty();
+            });
+
+            $('#deleteEquipaModal').on('hidden.bs.modal', function () {
+                currentDeleteEquipaId = null;
+                $('#confirmDeleteBtn').prop('disabled', false).html('<i class="fa fa-trash"></i> Apagar');
+            });
+
+            $('#addEquipaForm').on('submit', function (e) {
+                var nome = $('input[name="nome"]').val().trim();
+                if (nome === '') {
+                    e.preventDefault();
+                    alert('Por favor, insira o nome da equipa.');
+                    $('input[name="nome"]').focus();
+                    return false;
+                }
+            });
+        });
+    </script>
+}

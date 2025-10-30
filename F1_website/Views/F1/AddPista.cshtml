@@ -1,0 +1,98 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+
+@{
+    ViewBag.Title = "Adicionar Pista";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="padding-top:120px">Adicionar nova Pista</h2>
+
+@using (Html.BeginForm("AddPista", "F1", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", id = "frm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Pista.nome, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Pista.nome, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Pista.nome, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Pista.localização, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Pista.localização, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Pista.localização, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Pista.pais, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Pista.pais, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Pista.pais, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Pista.comprimento_km, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Pista.comprimento_km, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Pista.comprimento_km, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Pista.unidade_comprimento, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Pista.unidade_comprimento, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Pista.unidade_comprimento, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Imagem da Pista", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="fich" id="fichImagem" class="form-control" onchange="previewImagem();" />
+            <img id="preview" src="@Url.Content("~/Content/imagens/nophoto.png")" style="margin-top:15px; width:200px;" alt="Preview da imagem" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Pista.descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Pista.descricao, new { @class = "form-control", rows = 4 })
+            @Html.ValidationMessageFor(model => model.Pista.descricao, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Criar" class="btn btn-success" />
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar à Lista", "ListaPistas", null, new { @class = "btn btn-secondary" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function previewImagem() {
+            var ficheiro = document.getElementById("fichImagem").files[0];
+            if (ficheiro) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById("preview").src = e.target.result;
+                }
+                reader.readAsDataURL(ficheiro);
+            }
+        }
+    </script>
+}

@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "dashboard_settings";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+
+@section settings_styles{
+    <link rel="stylesheet" href="~/estilos/dashboard_settings.css" />
+}
+<div class="settings-container">
+    <div class="settings-menu">
+        <button class="tab-button active" data-tab="general">Geral</button>
+        <button class="tab-button" data-tab="notifications">Notificações</button>
+        <button class="tab-button" data-tab="account">Conta</button>
+        <button class="tab-button" data-tab="privacy">Privacidade</button>
+    </div>
+
+    <div class="settings-content active" id="general">
+        <div class="control-group">
+            <label for="language">Idioma:</label>
+            <select id="language">
+                <option value="pt">Português</option>
+                <option value="en">Inglês</option>
+                <option value="es">Espanhol</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="theme">Tema:</label>
+            <select id="theme">
+                <option value="light">Claro</option>
+                <option value="dark">Escuro</option>
+                <option value="auto">Automático</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="settings-content" id="notifications">
+        <div class="control-group">
+            <label for="email-notifs">Notificações por Email:</label>
+            <select id="email-notifs">
+                <option value="all">Todas</option>
+                <option value="important">Importantes</option>
+                <option value="none">Nenhuma</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="push-notifs">Push Notifications:</label>
+            <select id="push-notifs">
+                <option value="enabled">Ativadas</option>
+                <option value="disabled">Desativadas</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="settings-content" id="account">
+        <div class="control-group">
+            <label for="username">Nome de Utilizador:</label>
+            <input type="text" id="username" placeholder="Seu nome">
+        </div>
+        <div class="control-group">
+            <label for="password">Nova Palavra-passe:</label>
+            <input type="password" id="password" placeholder="********">
+        </div>
+    </div>
+
+    <div class="settings-content" id="privacy">
+        <div class="control-group">
+            <label for="tracking">Rastreamento de Dados:</label>
+            <select id="tracking">
+                <option value="allow">Permitir</option>
+                <option value="deny">Negar</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="profile-visibility">Visibilidade do Perfil:</label>
+            <select id="profile-visibility">
+                <option value="public">Público</option>
+                <option value="private">Privado</option>
+                <option value="friends">Apenas Amigos</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+@section settings_scripts{
+    <script src="~/javascript/settings.js"></script>
+}
+

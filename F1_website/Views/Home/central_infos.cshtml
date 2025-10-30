@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "central_infos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section infos_style{
+    <link rel="stylesheet" href="~/estilos/jogos/ApiStyles.css" />
+}
+<section class="api_bg">
+    <div class="apibackground">
+        <div class="alinha">
+            <div class="conter">
+                <h1>Central de informações</h1>
+                <p>Escolha uma categoria e insira um número para descobrir detalhes:</p>
+                <label for="category">Escolha a categoria:</label>
+                <select id="category">
+                    <option value="Pilotos">Pilotos</option>
+                    <option value="Pistas">Pistas</option>
+                    <option value="Equipas">Equipas</option>
+                </select>
+                <label for="itemId">Insira um Número:</label>
+                <input type="number" id="itemId" placeholder="Ex: 1">
+                <button class="afi" id="fetchButton">Procurar</button>
+                <div id="loading" style="display: none;">Carregando...</div>
+                <div id="result"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section api_scripts{
+    <script>
+        const apiUrl = '/API/F1API.json'; 
+
+        const categorySelect = document.getElementById('category');
+        const itemIdInput = document.getElementById('itemId');
+        const fetchButton = document.getElementById('fetchButton');
+        const resultDiv = document.getElementById('result');
+        const loadingDiv = document.getElementById('loading');
+
+        async function fetchF1API() {
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                return data.F1API;
+            } catch (error) {
+                console.error("Erro ao procurar os dados:", error);
+                resultDiv.innerHTML = '<p style="color: red;">Erro ao procurar os dados. Tente novamente mais tarde.</p>';
+                return null;
+            }
+        }
+
+        async function fetchByCategoryAndId() {
+            const category = categorySelect.value;  
+            const itemId = parseInt(itemIdInput.value);  
+
+            if (isNaN(itemId) || itemId < 1) {
+                resultDiv.innerHTML = '<p style="color: red;">Por favor, insira um ID válido.</p>';
+                return;
+            }
+
+            loadingDiv.style.display = 'block';
+            resultDiv.innerHTML = '';
+
+            const data = await fetchF1API();
+            loadingDiv.style.display = 'none';
+
+            if (!data) return;
+
+            
+            const categoryData = data[category];
+            if (!categoryData) {
+                resultDiv.innerHTML = `<p style="color: red;">Categoria ${category} não encontrada.</p>`;
+                return;
+            }
+
+           
+            const item = categoryData.find(entry => entry.id === itemId);
+
+            if (item) {
+               
+                let itemDetails = '';
+
+                if (category === "Pilotos") {
+                    itemDetails = `
+                <h2>${item.nome}</h2>
+                <p><strong>Descrição:</strong> ${item.descricao}</p>
+                <p><strong>Idade:</strong> ${item.idade}</p>
+                <p><strong>Equipa Atual:</strong> ${item.equipa_atual}</p>
+                <p><strong>Nacionalidade:</strong> ${item.nacionalidade}</p>
+                <p><strong>Estreia:</strong> ${item.estreia}</p>
+                <p><strong>Vitórias:</strong> ${item.vitorias}</p>
+              `;
+                } else if (category === "Pistas") {
+                    itemDetails = `
+                <h2>${item.nome}</h2>
+                <p><strong>País:</strong> ${item.pais}</p>
+                <p><strong>Comprimento:</strong> ${item.comprimento_km} km</p>
+                <p><strong>Voltas:</strong> ${item.voltas}</p>
+                <p><strong>Estreia:</strong> ${item.estreia}</p>
+                <p><strong>Tipo:</strong> ${item.tipo}</p>
+              `;
+                } else if (category === "Equipas") {
+                    itemDetails = `
+                <h2>${item.nome}</h2>
+                <p><strong>País:</strong> ${item.pais}</p>
+                <p><strong>Fundada:</strong> ${item.fundada}</p>
+                <p><strong>Motor:</strong> ${item.motor}</p>
+                <p><strong>Campeonatos:</strong> ${item.campeonatos}</p>
+                <p><strong>Vitórias:</strong> ${item.vitorias}</p>
+                <p><strong>Principais Concorrentes:</strong> ${item.principais_concorrentes.join(', ')}</p>
+                <p><strong>Pilotos Atuais:</strong> ${item.pilotos_atual.join(', ')}</p>
+              `;
+                }
+
+                resultDiv.innerHTML = itemDetails;
+            } else {
+                resultDiv.innerHTML = `<p style="color: red;">Nenhum item encontrado com o ID ${itemId} na categoria ${category}.</p>`;
+            }
+        }
+
+        fetchButton.addEventListener('click', fetchByCategoryAndId);
+    </script>
+}

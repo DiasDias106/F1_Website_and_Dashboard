@@ -1,0 +1,128 @@
+﻿@model F1_website.Models.paginacomunicaçãoviewmodel
+@{
+    ViewBag.Title = "EditarDados2";
+    Layout = "~/Views/Shared/Dashboard_layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/estilos/editardados2.css" />
+}
+
+<section class="edit_height">
+    <div class="edit-container">
+        <div class="f1-accent"></div>
+
+        <div class="edit-header">
+            <div class="f1-logo">
+                <div class="f1-logo-text">F1</div>
+            </div>
+            <h1 class="edit-title">Editar Perfil do Piloto</h1>
+            <p class="edit-subtitle">Atualize as suas informações pessoais</p>
+        </div>
+
+        <section id="editForm">
+            @using (Html.BeginForm("EditarDados", "Account", FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @class = "validation-summary" })
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Painel.Nome, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.Painel.Nome, new { @class = "form-input", placeholder = "Digite o seu nome completo" })
+                    @Html.ValidationMessageFor(m => m.Painel.Nome, "", new { @class = "validation-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Painel.Email, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.Painel.Email, new { @class = "form-input", placeholder = "Digite o seu email", type = "email" })
+                    @Html.ValidationMessageFor(m => m.Painel.Email, "", new { @class = "validation-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Painel.Morada, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.Painel.Morada, new { @class = "form-input", placeholder = "Digite a sua morada completa" })
+                    @Html.ValidationMessageFor(m => m.Painel.Morada, "", new { @class = "validation-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Painel.DataNascimento, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.Painel.DataNascimento, "{0:yyyy-MM-dd}", new { @class = "form-input", type = "date" })
+                    @Html.ValidationMessageFor(m => m.Painel.DataNascimento, "", new { @class = "validation-message" })
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="edit-button edit-button-primary">
+                        Guardar Alterações
+                    </button>
+                    @Html.ActionLink("Cancelar", "Painel2", "Account", null, new { @class = "edit-button edit-button-secondary" })
+                </div>
+            }
+        </section>
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            // Efeitos de foco nos inputs
+            $('.form-input').on('focus', function () {
+                $(this).css('transform', 'scale(1.01)');
+            }).on('blur', function () {
+                $(this).css('transform', 'scale(1)');
+            });
+
+            // Efeitos hover nos botões
+            $('.edit-button-primary').hover(
+                function () {
+                    $(this).css({
+                        'transform': 'translateY(-1px)',
+                        'box-shadow': '0 6px 20px rgba(255, 24, 1, 0.4)'
+                    });
+                },
+                function () {
+                    $(this).css({
+                        'transform': 'translateY(0)',
+                        'box-shadow': 'none'
+                    });
+                }
+            );
+
+            $('.edit-button-secondary').hover(
+                function () {
+                    $(this).css({
+                        'transform': 'translateY(-1px)',
+                        'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.15)'
+                    });
+                },
+                function () {
+                    $(this).css({
+                        'transform': 'translateY(0)',
+                        'box-shadow': 'none'
+                    });
+                }
+            );
+
+            // Destacar campos com erro de validação
+            $('.validation-summary, .validation-message').each(function () {
+                if ($(this).text().trim()) {
+                    $(this).closest('.form-group').find('.form-input').css({
+                        'border-color': '#dc2626',
+                        'box-shadow': '0 0 0 3px rgba(220, 38, 38, 0.1)'
+                    });
+                }
+            });
+
+            // Animação de entrada
+            $('.edit-container').css({
+                'opacity': '0',
+                'transform': 'translateY(20px)'
+            }).animate({
+                'opacity': '1'
+            }, 600, function () {
+                $(this).css('transform', 'translateY(0)');
+            });
+        });
+    </script>
+}

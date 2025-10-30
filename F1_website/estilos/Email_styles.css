@@ -1,0 +1,241 @@
+﻿
+.email_corpo {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 35%, #16213e 100%);
+    min-height: 120vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/*.racing-stripes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 48%, #ff0040 49%, #ff0040 51%, transparent 52%), linear-gradient(-45deg, transparent 48%, #00d4ff 49%, #00d4ff 51%, transparent 52%);
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: 0;
+}*/
+
+.contentor_email {
+    margin-top:80px;
+    background: rgba(30, 30, 50, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+    .contentor_email::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: shine 3s infinite;
+    }
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.logotipo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+    .logotipo h1 {
+        background: linear-gradient(45deg, #ff0040, #ff6b00, #ffed00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 10px;
+        animation: glow 2s ease-in-out infinite alternate;
+    }
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 20px rgba(255, 0, 64, 0.5);
+    }
+
+    to {
+        text-shadow: 0 0 30px rgba(255, 0, 64, 0.8);
+    }
+}
+
+.pequeno_titulo {
+    color: #00d4ff;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    text-align:center;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+    .form-group label {
+        display: block;
+        color: #ffffff;
+        font-weight: bold;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 15px 20px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        color: #ffffff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff0040;
+            box-shadow: 0 0 20px rgba(255, 0, 64, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+.racing-button {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(45deg, #ff0040, #ff6b00);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(255, 0, 64, 0.3);
+}
+
+    .racing-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: all 0.5s ease;
+    }
+
+    .racing-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(255, 0, 64, 0.5);
+    }
+
+        .racing-button:hover::before {
+            left: 100%;
+        }
+
+    .racing-button:active {
+        transform: translateY(-1px);
+    }
+
+.speed-lines {
+    position: absolute;
+    top: 50%;
+    right: -50px;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+    opacity: 0.6;
+    animation: speedLines 2s linear infinite;
+}
+
+@keyframes speedLines {
+    0% {
+        right: -100px;
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        right: 100%;
+        opacity: 0;
+    }
+}
+
+.checkered-flag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 20px;
+    background: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(-45deg, #000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000 75%), linear-gradient(-45deg, transparent 75%, #000 75%);
+    background-size: 6px 6px;
+    background-position: 0 0, 0 3px, 3px -3px, -3px 0px;
+    opacity: 0.3;
+    animation: wave 1s ease-in-out infinite;
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .email_corpo{
+        padding-top:80px;
+    }
+    .contentor_email {
+        padding: 30px 20px;
+        margin: 10px;
+    }
+
+    .logotipo h1 {
+        font-size: 2rem;
+    }
+}

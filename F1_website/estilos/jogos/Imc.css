@@ -1,0 +1,117 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+.bg_pag_imc{
+    width:100%;
+    height: 120vh;
+    min-height: 100vh;
+    padding-top:120px;
+    background: linear-gradient(to right, black, red);
+}
+.imc_bg {
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    background: linear-gradient(to right, black, red);
+}
+.centrar {
+    text-align: center;
+    color: #ff4c4c;
+}
+.caixa_imc {
+    background-color: #111;
+    border: 2px solid #ff0000;
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    padding-bottom: 50px;
+}
+
+
+.legendas {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #ff4c4c;
+}
+
+.text-imput,
+.number-imput,
+.form-control {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    background-color: #222;
+    color: #0ff;
+    border: 1px solid #ff0000;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+    .form-control:focus {
+        outline: none;
+        border-color: #0ff;
+        box-shadow: 0 0 10px #0ff;
+    }
+
+
+.carbutton,
+button.btn {
+    font-family: 'Orbitron', sans-serif;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 16px;
+    background-color: #111;
+    color: #fff;
+    border: 2px solid #ff0000;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin: 5px;
+}
+
+    .carbutton:hover,
+    button.btn:hover {
+        background-color: #ff0000;
+        color: #fff;
+        transform: scale(1.05);
+        box-shadow: 0 0 10px #ff0000;
+    }
+
+
+.grupo_botoes,
+.d-flex.justify-content-around {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+
+.caption,
+#output {
+    font-weight: bold;
+    font-size: 16px;
+    color: #0ff;
+    margin-top: 20px;
+    word-break: break-word;
+}
+
+
+.alinhabox {
+    margin: 15px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+hr {
+    border: 1px solid #ff0000;
+    margin: 30px 0;
+}
+
+@media screen and (max-width: 768px){
+    .bg_pag_imc{
+        padding-top:100px;
+    }
+}

@@ -1,0 +1,579 @@
+﻿/* =================================
+   F1 REGISTRATION PAGE - MODERN DESIGN
+   ================================= */
+
+/* Reset e configurações base */
+* {
+    box-sizing: border-box;
+}
+
+/* Estilos para o menu fixo */
+.navbar,
+.header,
+.top-menu,
+.main-nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 9999 !important;
+    background: #ff1801 !important;
+    height: auto !important;
+}
+
+body {
+    padding-top: 80px;
+    margin: 0;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    background: linear-gradient(135deg, #0d1117 0%, #1a1a2e 50%, #16213e 100%);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.site-wrapper {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    margin-top: 0;
+}
+
+
+.background-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.08;
+    background-image: linear-gradient(30deg, #ff1801 12%, transparent 12.5%, transparent 87%, #ff1801 87.5%, #ff1801), linear-gradient(150deg, #ff1801 12%, transparent 12.5%, transparent 87%, #ff1801 87.5%, #ff1801), linear-gradient(30deg, #ff1801 12%, transparent 12.5%, transparent 87%, #ff1801 87.5%, #ff1801), linear-gradient(150deg, #ff1801 12%, transparent 12.5%, transparent 87%, #ff1801 87.5%, #ff1801);
+    background-size: 120px 180px;
+    background-position: 0 0, 0 0, 60px 90px, 60px 90px;
+    animation: pattern-shift 20s linear infinite;
+    z-index: -1;
+}
+
+@keyframes pattern-shift {
+    0% {
+        background-position: 0 0, 0 0, 60px 90px, 60px 90px;
+    }
+
+    100% {
+        background-position: 120px 180px, 120px 180px, 180px 270px, 180px 270px;
+    }
+}
+
+/* LINHAS DE FUNDO ANIMADAS - IGUAIS À PÁGINA DE LOGIN */
+.racing-line {
+    position: fixed;
+    top: 15%;
+    left: -100%;
+    width: 200%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #ff1801, #ffffff, #ff1801, transparent);
+    animation: racing-animation 3s infinite linear;
+    transform: rotate(-15deg);
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.racing-line-2 {
+    position: fixed;
+    bottom: 25%;
+    right: -100%;
+    width: 200%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffffff, #ff1801, #ffffff, transparent);
+    animation: racing-animation-reverse 4s infinite linear;
+    transform: rotate(15deg);
+    z-index: -1;
+    opacity: 0.7;
+}
+
+@keyframes racing-animation {
+    0% {
+        transform: translateX(-100%) rotate(-15deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateX(100%) rotate(-15deg);
+        opacity: 0;
+    }
+}
+
+@keyframes racing-animation-reverse {
+    0% {
+        transform: translateX(100%) rotate(15deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.7;
+    }
+
+    90% {
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translateX(-100%) rotate(15deg);
+        opacity: 0;
+    }
+}
+
+/* Indicador de velocidade - ajuste para menu fixo */
+.speed-label {
+    position: fixed;
+    top: 90px;
+    right: 25px;
+    color: #ff1801;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    font-weight: bold;
+    opacity: 0.9;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 24, 1, 0.3);
+    backdrop-filter: blur(10px);
+    animation: pulse-glow 3s infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 24, 1, 0.3);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 15px rgba(255, 24, 1, 0.6);
+        transform: scale(1.02);
+    }
+}
+
+/* Container principal */
+.register-container {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    padding: 45px;
+    width: 100%;
+    max-width: 650px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 100px rgba(255, 24, 1, 0.1);
+    position: relative;
+    z-index: 10;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+    .register-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 120px rgba(255, 24, 1, 0.15);
+    }
+
+/* Header da página */
+.register-header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.brand-logo {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #ff1801;
+    text-shadow: 0 0 30px rgba(255, 24, 1, 0.8), 0 0 60px rgba(255, 24, 1, 0.4);
+    letter-spacing: -3px;
+    position: relative;
+    display: inline-block;
+    animation: logo-pulse 4s infinite;
+}
+
+    .brand-logo::after {
+        content: '1';
+        position: absolute;
+        right: -25px;
+        top: -5px;
+        font-size: 2.2rem;
+        color: #ffffff;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.5);
+    }
+
+@keyframes logo-pulse {
+    0%, 100% {
+        text-shadow: 0 0 30px rgba(255, 24, 1, 0.8), 0 0 60px rgba(255, 24, 1, 0.4);
+    }
+
+    50% {
+        text-shadow: 0 0 40px rgba(255, 24, 1, 1), 0 0 80px rgba(255, 24, 1, 0.6);
+    }
+}
+
+.register-title {
+    color: #ffffff;
+    font-size: 1.6rem;
+    margin: 20px 0 10px 0;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.95;
+}
+
+.register-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    margin-bottom: 0;
+    font-weight: 400;
+}
+
+/* Seção de divisão */
+.section-divider {
+    display: flex;
+    align-items: center;
+    margin: 35px 0 30px 0;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.divider-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0 20px;
+    background: rgba(13, 17, 23, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    position: relative;
+}
+
+    .divider-text::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 2px;
+        background: #ff1801;
+        z-index: -1;
+    }
+
+/* Grid de formulário */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.form-group-full {
+    grid-column: 1 / -1;
+}
+
+/* Grupos de formulário */
+.form-group {
+    position: relative;
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+    .form-group:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .form-group:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .form-group:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .form-group:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .form-group:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+
+    .form-group:nth-child(6) {
+        animation-delay: 0.6s;
+    }
+
+    .form-group:nth-child(7) {
+        animation-delay: 0.7s;
+    }
+
+    .form-group:nth-child(8) {
+        animation-delay: 0.8s;
+    }
+
+/* Labels melhorados */
+.col-form-label {
+    color: #ffffff !important;
+    font-size: 0.9rem !important;
+    margin-bottom: 8px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    opacity: 0.9 !important;
+}
+
+/* Campos de input */
+.form-control {
+    width: 100% !important;
+    padding: 16px 20px !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 2px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 12px !important;
+    color: #ffffff !important;
+    font-size: 1rem !important;
+    transition: all 0.4s ease !important;
+    backdrop-filter: blur(15px) !important;
+    font-weight: 500 !important;
+}
+
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.5) !important;
+        font-style: italic !important;
+    }
+
+    .form-control:focus {
+        outline: none !important;
+        border-color: #ff1801 !important;
+        box-shadow: 0 0 0 4px rgba(255, 24, 1, 0.25), 0 0 30px rgba(255, 24, 1, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+        background: rgba(255, 255, 255, 0.18) !important;
+        transform: translateY(-1px) !important;
+    }
+
+/* Campo de data específico */
+input[type="date"].form-control {
+    color-scheme: dark;
+}
+
+/* Botão de submit */
+.submit-container {
+    margin-top: 35px;
+    text-align: center;
+}
+
+.btn-outline-dark {
+    width: 100% !important;
+    padding: 20px 24px !important;
+    background: linear-gradient(135deg, #ff1801 0%, #e60012 100%) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    color: #ffffff !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: 0 8px 25px rgba(255, 24, 1, 0.4), 0 0 0 1px rgba(255, 24, 1, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+    .btn-outline-dark::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s ease;
+        z-index: 1;
+    }
+
+    .btn-outline-dark:hover {
+        transform: translateY(-3px) !important;
+        background: linear-gradient(135deg, #ff2801 0%, #f60012 100%) !important;
+        box-shadow: 0 15px 35px rgba(255, 24, 1, 0.6), 0 5px 15px rgba(255, 24, 1, 0.4), 0 0 0 1px rgba(255, 24, 1, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+        color: #ffffff !important;
+        border-color: transparent !important;
+    }
+
+        .btn-outline-dark:hover::before {
+            left: 100%;
+        }
+
+    .btn-outline-dark:active {
+        transform: translateY(-1px) !important;
+        transition: transform 0.1s ease !important;
+    }
+
+/* Mensagens de validação */
+.text-danger {
+    color: #ff6b6b !important;
+    font-size: 0.8rem !important;
+    margin-top: 5px !important;
+    display: block !important;
+    font-weight: 500 !important;
+}
+
+/* Link alternativo */
+.alt-link a {
+    color: #ff1801;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    .alt-link a:hover {
+        color: #ffffff !important;
+        text-shadow: 0 0 15px rgba(255, 24, 1, 1) !important;
+    }
+
+/* Animações */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos para states de focus e error */
+.form-group.focused .form-control {
+    border-color: #ff1801 !important;
+    box-shadow: 0 0 0 4px rgba(255, 24, 1, 0.25) !important;
+}
+
+.form-control.error {
+    border-color: #ff6b6b !important;
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.25) !important;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px !important;
+    }
+
+    .site-wrapper {
+        min-height: calc(100vh - 70px);
+        padding: 15px;
+    }
+
+    .register-container {
+        padding: 35px 30px;
+        margin: 0;
+        border-radius: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .brand-logo {
+        font-size: 2.8rem;
+    }
+
+        .brand-logo::after {
+            font-size: 1.9rem;
+            right: -18px;
+        }
+
+    .register-title {
+        font-size: 1.4rem;
+    }
+
+    .speed-label {
+        top: 80px;
+        right: 15px;
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+
+    .racing-line {
+        top: 20%;
+    }
+
+    .racing-line-2 {
+        bottom: 20%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 60px !important;
+    }
+
+    .site-wrapper {
+        min-height: calc(100vh - 60px);
+    }
+
+    .register-container {
+        padding: 30px 25px;
+        border-radius: 16px;
+    }
+
+    .brand-logo {
+        font-size: 2.2rem;
+    }
+
+        .brand-logo::after {
+            font-size: 1.6rem;
+            right: -15px;
+        }
+
+    .register-title {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+    }
+
+    .form-control {
+        padding: 14px 16px !important;
+        font-size: 0.95rem !important;
+    }
+
+    .btn-outline-dark {
+        padding: 18px 20px !important;
+        font-size: 1.1rem !important;
+    }
+
+    .speed-label {
+        top: 70px;
+        right: 10px;
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+
+    .racing-line {
+        top: 25%;
+    }
+
+    .racing-line-2 {
+        bottom: 15%;
+    }
+}

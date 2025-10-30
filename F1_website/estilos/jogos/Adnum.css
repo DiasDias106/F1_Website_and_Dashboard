@@ -1,0 +1,119 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+.adnum_fundo {
+    background: linear-gradient(to right, black, red);
+    color: #f5f5f5;
+    font-family: 'Orbitron', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.adnum_bg {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, black, red);
+    padding: 40px;
+}
+
+.ad_numero_b {
+    width: 100%;
+    max-width: 600px;
+    background-color: #181818;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(225, 6, 0, 0.3);
+}
+
+.contentor_jogo1 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form_adnum {
+    border: none;
+}
+
+.legendas {
+    font-size: 1rem;
+    color: #e10600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.text-imput, .number-imput {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #e10600;
+    border-radius: 6px;
+    background-color: #222;
+    color: white;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+    .text-imput:focus, .number-imput:focus {
+        outline: none;
+        border-color: #f7df1e;
+        background-color: #2a2a2a;
+    }
+
+#visualizador {
+    font-size: 1rem;
+    color: #f7df1e;
+    margin-top: 10px;
+    text-align: center;
+    min-height: 20px;
+}
+
+.grupo_botoes {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.carbutton {
+    background-color: #e10600;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.3s, transform 0.2s;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+    .carbutton:hover {
+        background-color: #f7df1e;
+        color: #000;
+        transform: scale(1.05);
+    }
+
+.caption {
+    flex: 1;
+}
+
+svg.car {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+/*.corpo_adnum {
+    width: 100%;
+    height: 120vh;
+    min-height: 100vh;
+    padding-top: 120px;
+    background: linear-gradient(to right, black, red);
+}*/

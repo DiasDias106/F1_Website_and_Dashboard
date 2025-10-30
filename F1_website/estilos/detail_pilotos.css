@@ -1,0 +1,29 @@
+﻿.f1-header {
+    font-weight: 700;
+    border-left: 5px solid #e10600;
+    padding-left: 15px;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.bg-primary {
+    background-color: #0046AD !important;
+}
+
+.btn-danger {
+    background-color: #e10600;
+    border-color: #e10600;
+}
+
+th {
+    font-weight: 600;
+    color: #555;
+}
+
+.fw-bold {
+    font-weight: 700 !important;
+}
